@@ -1,6 +1,9 @@
-# Renders an episode on GitHub's runners: lint -> Kokoro narration -> Remotion video -> loudness pass -> thumbnails.
-# Triggered by a push that changes an episode's script/data, or by hand from the Actions tab (pick the episode folder).
-# The finished MP4 + thumbnails + chapters are attached to the run as an artifact (too big for git: ~100 MB per video).
+# Renders an episode on GitHub's free runners (public repo), sharded like blocky-stories:
+#   plan     -> which episode, and how many frames once narrated
+#   voice    -> lint + Kokoro narration + timed render spec, made ONCE (every shard draws to the same timing)
+#   draw     -> N parallel shards, each renders a silent frame range with Remotion
+#   assemble -> concat shards, mux narration, two-pass loudnorm to -14 LUFS, thumbnails
+# The film is kept as the run artifact `film-<episode>` (90 days); the upload workflow takes it from there.
 name: render
 on:
   workflow_dispatch:
@@ -10,52 +13,120 @@ on:
     paths: ["episodes/*/script.md", "episodes/*/data.json", "episodes/*/thumbnails/*.json"]
 concurrency: {group: "render-${{ github.ref }}", cancel-in-progress: false}
 permissions: {contents: read}
+env:
+  SHARDS: 12
 jobs:
-  render:
+  voice:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 30
+    outputs:
+      episode: ${{ steps.ep.outputs.episode }}
+      shards: ${{ steps.shards.outputs.list }}
     steps:
       - uses: actions/checkout@v4
         with: {fetch-depth: 2}
-      - name: which episode(s)
-        id: eps
+      - name: which episode
+        id: ep
         run: |
-          if [ -n "${{ inputs.episode }}" ]; then
-            echo "list=${{ inputs.episode }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "list=$(git diff --name-only HEAD~1 HEAD -- episodes | cut -d/ -f2 | sort -u | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
-          fi
+          if [ -n "${{ inputs.episode }}" ]; then ep="${{ inputs.episode }}"
+          else ep=$(git diff --name-only HEAD~1 HEAD -- episodes | cut -d/ -f2 | sort -u | tail -1); fi
+          [ -f "episodes/$ep/script.md" ] || { echo "no episode to render"; ep=""; }
+          echo "episode=$ep" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-python@v5
+        if: steps.ep.outputs.episode != ''
         with: {python-version: "3.12"}
-      - uses: actions/setup-node@v4
-        with: {node-version: "22", cache: npm, cache-dependency-path: video/package-lock.json}
-      - name: voice model cache
-        uses: actions/cache@v4
+      - uses: actions/cache@v4
+        if: steps.ep.outputs.episode != ''
         with: {path: models, key: kokoro-v1.0}
-      - name: install
+      - name: narrate (lint gate inside build_episode.py)
+        if: steps.ep.outputs.episode != ''
         run: |
           pip install -q kokoro-onnx soundfile numpy
           mkdir -p models
           for f in kokoro-v1.0.onnx voices-v1.0.bin; do
             [ -s models/$f ] || curl -sSL -o models/$f https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/$f
           done
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
-          cd video && npm ci --no-audit --no-fund
-      - name: render
-        env: {REMOTION_CONCURRENCY: "4"}
-        run: |
-          for ep in ${{ steps.eps.outputs.list }}; do
-            [ -f "episodes/$ep/script.md" ] || continue
-            # game art referenced by the episode (verified downloads; committed art is reused)
-            ids=$(grep -ohE 'games/[0-9]+_header' "episodes/$ep/data.json" "episodes/$ep/script.md" episodes/$ep/thumbnails/*.json 2>/dev/null | grep -oE '[0-9]+' | sort -u)
-            [ -n "$ids" ] && python pipeline/fetch_art.py $ids
-            python pipeline/build_episode.py "episodes/$ep" --render
-            python pipeline/render_thumbnails.py "episodes/$ep"
-            mkdir -p "dist/$ep"
-            mv "video/out/$ep.final.mp4" "dist/$ep/$ep.mp4"
-            mv video/out/$ep/thumb_*.png "dist/$ep/" 2>/dev/null || true
-            cp "episodes/$ep/metadata.md" "episodes/$ep/chapters.txt" "dist/$ep/" 2>/dev/null || true
-          done
-          ls -laR dist
+          python pipeline/build_episode.py "episodes/${{ steps.ep.outputs.episode }}"
+      - name: shard list
+        id: shards
+        if: steps.ep.outputs.episode != ''
+        run: echo "list=$(python -c "import json;print(json.dumps(list(range(int('${{ env.SHARDS }}')))))")" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4
-        with: {name: "render-${{ github.run_number }}", path: dist, retention-days: 30}
+        if: steps.ep.outputs.episode != ''
+        with:
+          name: voice-${{ steps.ep.outputs.episode }}
+          path: |
+            video/public/episodes/${{ steps.ep.outputs.episode }}/narration.wav
+            video/src/episodes/${{ steps.ep.outputs.episode }}.json
+            episodes/${{ steps.ep.outputs.episode }}/chapters.txt
+            episodes/${{ steps.ep.outputs.episode }}/timing.json
+          retention-days: 5
+
+  draw:
+    needs: voice
+    if: needs.voice.outputs.episode != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.voice.outputs.shards) }}
+    env: {EP: "${{ needs.voice.outputs.episode }}"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: "22", cache: npm, cache-dependency-path: video/package-lock.json}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - uses: actions/download-artifact@v4
+        with: {name: "voice-${{ needs.voice.outputs.episode }}", path: .}
+      - name: draw shard ${{ matrix.shard }}
+        run: |
+          ids=$(grep -ohE 'games/[0-9]+_header' "episodes/$EP/data.json" "episodes/$EP/script.md" 2>/dev/null | grep -oE '[0-9]+' | sort -u)
+          [ -n "$ids" ] && python pipeline/fetch_art.py $ids
+          cd video && npm ci --no-audit --no-fund
+          python3 - <<'PY'
+          import json, os
+          ep, i, n = os.environ["EP"], int("${{ matrix.shard }}"), int("${{ env.SHARDS }}")
+          spec = json.load(open(f"src/episodes/{ep}.json"))
+          total = round(spec["durationSec"] * spec["fps"])
+          a, b = total * i // n, total * (i + 1) // n - 1
+          json.dump({"spec": spec}, open("props.json", "w"))
+          open("range.txt", "w").write(f"{a}-{b}")
+          PY
+          mkdir -p out/seg
+          npx remotion render src/index.ts Episode out/seg/seg-$(printf %03d ${{ matrix.shard }}).mp4 \
+            --props=props.json --frames=$(cat range.txt) --muted --log=error
+      - uses: actions/upload-artifact@v4
+        with: {name: "seg-${{ needs.voice.outputs.episode }}-${{ matrix.shard }}", path: video/out/seg/, retention-days: 3}
+
+  assemble:
+    needs: [voice, draw]
+    if: needs.voice.outputs.episode != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env: {EP: "${{ needs.voice.outputs.episode }}"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: "22", cache: npm, cache-dependency-path: video/package-lock.json}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - uses: actions/download-artifact@v4
+        with: {name: "voice-${{ needs.voice.outputs.episode }}", path: .}
+      - uses: actions/download-artifact@v4
+        with: {pattern: "seg-${{ needs.voice.outputs.episode }}-*", path: segs, merge-multiple: true}
+      - name: assemble, mix, thumbnails
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+          mkdir -p dist
+          python pipeline/assemble.py segs "video/public/episodes/$EP/narration.wav" "dist/$EP.mp4"
+          ids=$(grep -ohE 'games/[0-9]+_header' episodes/$EP/thumbnails/*.json 2>/dev/null | grep -oE '[0-9]+' | sort -u)
+          [ -n "$ids" ] && python pipeline/fetch_art.py $ids
+          (cd video && npm ci --no-audit --no-fund)
+          python pipeline/render_thumbnails.py "episodes/$EP"
+          mv video/out/$EP/thumb_*.png dist/ 2>/dev/null || true
+          cp episodes/$EP/metadata.md episodes/$EP/chapters.txt dist/ 2>/dev/null || true
+          ls -la dist
+      - uses: actions/upload-artifact@v4
+        with: {name: "film-${{ needs.voice.outputs.episode }}", path: dist, retention-days: 90}
