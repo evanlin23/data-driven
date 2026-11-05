@@ -92,19 +92,18 @@ def _chunks(lines, max_words=int(os.environ.get("GEMINI_TTS_CHUNK_WORDS", "600")
 def say_script(lines, out_wav, gap=0.35, voice=None, synth_fn=None):
     """Same contract as voice.say_script: returns [{text, start, end}] per line and writes out_wav (24 kHz).
     Lines are synthesized in ~600-word chunks (free tier: ~10 requests/day per model), then each line is located
-    in its chunk with Whisper word timestamps (pipeline/align.py). The whole video uses ONE model: if the best
-    model's daily quota runs out mid-video, the video is redone on the next model so the voice stays consistent."""
+    in its chunk with Whisper word timestamps (pipeline/align.py). Always the best TTS model; if its daily quota
+    runs out the build stops (cached chunks are reused on the next run)."""
     if synth_fn:
         return _say(lines, out_wav, gap, voice, synth_fn, None)
-    tried = []
-    for model in models_ranked():
-        try:
-            print(f"narrating with {model}", file=sys.stderr)
-            return _say(lines, out_wav, gap, voice, None, model)
-        except DailyQuota:
-            tried.append(model); print(f"  daily free quota used up for {model}; trying next model", file=sys.stderr)
-    raise SystemExit(f"Gemini TTS daily free quota used up on every model ({', '.join(tried)}). It resets at midnight "
-                     "Pacific; voiced chunks are cached, so the next run only voices what's missing.")
+    # Best model only (owner's call: every video must sound like the approved Puck sample). No fallback models.
+    model = pick_model()
+    try:
+        print(f"narrating with {model}", file=sys.stderr)
+        return _say(lines, out_wav, gap, voice, None, model)
+    except DailyQuota:
+        raise SystemExit(f"Gemini TTS daily free quota (10 requests/day for {model}) is used up. It resets at midnight "
+                         "Pacific; voiced chunks are cached, so the next run only voices what's missing.")
 
 def _say(lines, out_wav, gap, voice, synth_fn, model):
     import numpy as np
