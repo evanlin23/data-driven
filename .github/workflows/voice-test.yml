@@ -1,0 +1,34 @@
+# Voice audition: renders the same sample text with several Gemini TTS voices (free AI Studio tier) and
+# Kokoro (current voice) for comparison, as MP3s in the artifact `voice-test`. Needs repo secret GEMINI_API_KEY.
+name: voice-test
+on:
+  workflow_dispatch:
+    inputs:
+      voices: {description: "Gemini voices (space-separated)", default: "Charon Iapetus Puck Orus Sadaltager Achird"}
+permissions: {contents: read}
+jobs:
+  audition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - uses: actions/cache@v4
+        with: {path: models, key: kokoro-v1.0}
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+      - name: gemini voices
+        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}"}
+        run: python pipeline/voice_gemini.py sample episodes/voice-sample.txt samples ${{ inputs.voices || 'Charon Iapetus Puck Orus Sadaltager Achird' }}
+      - name: kokoro (current voice) for comparison
+        run: |
+          pip install -q kokoro-onnx soundfile numpy
+          mkdir -p models
+          for f in kokoro-v1.0.onnx voices-v1.0.bin; do
+            [ -s models/$f ] || curl -sSL -o models/$f https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/$f
+          done
+          python -c "import sys; sys.path.insert(0,'pipeline'); from voice import say_script; say_script([l for l in open('episodes/voice-sample.txt').read().split('\n') if l.strip()], 'samples/kokoro_current.wav')"
+      - name: mp3s
+        run: for f in samples/*.wav; do ffmpeg -loglevel error -y -i "$f" -af loudnorm=I=-14:TP=-1.5 -b:a 160k "${f%.wav}.mp3" && rm "$f"; done; ls -la samples
+      - uses: actions/upload-artifact@v4
+        with: {name: voice-test, path: samples, retention-days: 30}
