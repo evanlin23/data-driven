@@ -50,7 +50,15 @@ def synth(text, voice, model):
             part = out["candidates"][0]["content"]["parts"][0]["inlineData"]
             return base64.b64decode(part["data"])  # raw PCM s16le 24 kHz mono
         except urllib.error.HTTPError as e:
-            msg = e.read().decode()[:300]
+            raw = e.read().decode()
+            try:
+                err = json.loads(raw)["error"]
+                msg = err.get("message", "")
+                # Google lists the exact quota hit ("Quota exceeded for metric: ..., limit: ...") and a retry delay
+                details = [d for d in err.get("details", []) if d.get("violations") or d.get("retryDelay")]
+                msg += " | " + json.dumps(details)[:1500]
+            except Exception:
+                msg = raw[:1500]
             print(f"  {voice}: HTTP {e.code} {msg}", file=sys.stderr)
             if e.code == 402:
                 raise SystemExit("Gemini API: prepaid balance is empty (HTTP 402). Buy credits in AI Studio -> Billing; "
