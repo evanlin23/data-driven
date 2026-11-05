@@ -13,9 +13,8 @@ Evidence base:
   the most rigorous public catalogue, Oct 2026 revision.
 - Creator and agency write-ups (directional only).
 - Our own cohort data (`packaging-playbook.md`).
-- Planned: transcripts of the 25 top and 10 bottom videos (`transcript_video_ids.txt`), to measure
-  the real pacing of hits. Pending, because YouTube bot-walls this container; the transcripts must
-  be fetched from a normal machine.
+- Transcripts of 25 top and 10 bottom videos (`transcript_video_ids.txt`), used to measure
+  the real pacing of hits (section 3).
 
 Enforcement: **`pipeline/script_lint.py`**. Every script must PASS before it goes to the voice
 model. It hard-bans AI vocabulary, significance puffery, chatbot residue and YouTube clichés. It
@@ -63,16 +62,53 @@ The Wikipedia guide also notes the reverse: **human writing uses plain copulas**
   skeleton (hook, method, countdown, payoff) but vary the shape: sometimes a countdown, sometimes
   a mystery ("why did this game fail?"), sometimes a head-to-head.
 
-## 3. Pacing
-- **Spoken rate.** Industry guidance for explainer narration is 130-160 wpm; one sample of 53
-  long-form voiceovers had a median of about 166 wpm. Target **150-165 wpm**, so 11-13 minutes is
-  about **1,700-2,100 words**. We'll calibrate against the top-video transcripts once we have them.
+## 3. Pacing: measured from 35 transcripts (25 hits, 10 flops)
+Source: `raw/transcript_stats.json`, built by `tools/transcript_stats.py` from auto-captions.
+"Hits" are 44-250x their channel median; "flops" are under 0.05x.
+
+| Metric | Hits (median) | Flops (median) |
+|---|---|---|
+| Spoken rate | **174 wpm** | 212 wpm |
+| Pauses > 0.7 s per minute | **15.5** | 10.2 |
+| "you / your" per 1k words | **20** | 6.5 |
+| "I / my / me" per 1k words | **37** | 4 |
+| Runtime | 14.6 min | 12 min |
+
+Caveat: 7 of the 10 flops are one channel (Wilytics), so channel style is mixed in. The three
+non-Wilytics flops point the same way on rate (216 and 245 wpm, one at 165).
+
+- **Spoken rate: about 175 wpm,** not rushed. The flops rattle along at more than 205 wpm with
+  few pauses. 12-14 minutes is about **2,100-2,450 words**.
+- **The narrator is a character.** Hits say "I" and "you" roughly 5x more often: "I downloaded
+  every…", "you see that dot?" The linter now checks this (want "you" ≥10 and "I/my/me" ≥15 per
+  1k words).
+- **Pauses are content.** About 15 per minute: after a number, before a reveal, after a joke.
+
+**How the hits open (first 45 s):**
+1. **Show, don't announce.** Astroid (250x): "check it out, you see that all the way down there?
+   That is 800 Pokémon, all properly scaled…" The thumbnail's image arrives in second 1.
+2. **Fire surprising facts.** Newbie Indie Game Dev (162x): "Did you know half of the top 50 games
+   on Steam are indie? … The word *life* appears in more titles than *death*…" Three fun facts in
+   about 15 s, numbers within 2 s.
+3. **Name the popular answer, then reframe it.** BlitzTalk (98x): "Everyone says the Browns and
+   the Jets… my problem with those lists: they measure misery. That's not luck, that's being bad.
+   I wanted to know which team the universe actually picked on." (This is a single, well-placed
+   "not X, it's Y". It's fine once, at the reframe.)
+4. **A second voice asks the viewer's question.** Data Time (120x, 105x) and Astroid use a skeptic
+   or friend voice: "what's the longest word MrBeast ever said?" "Oh, he did a whole video on that."
+   With TTS we can do this with a second, distinct voice. It's cheap, human-feeling, and breaks the
+   monologue.
+5. **A mystery with one strange data point.** Water CS2 (44x): "one single green dot… in North Korea."
+
+Even the hits sometimes use clichés ("today we're diving into the data", "in this video we're
+going to dive deep"). Clichés don't sink a strong idea, but they are free to remove, and for a
+synthetic voice they are the first thing that sounds machine-made.
 - **Visual change every 3-6 s.** There is no source for this exact number; it's the norm in the
   motion-graphics essay style. Change scale, highlight, camera, or a new element. Never hold a
   static chart longer than about 6 s.
 - **Chain of loops.** Each 60-90 s segment raises a question, resolves it, and the resolution opens
   the next question. Use "but / therefore" connections between beats, never "and then".
-- **Breathe after big reveals.** 0.5-1.0 s of silence after a key number, with the visual landing on
+- **Breathe after big reveals** (hits pause ~15x per minute). 0.5-1.0 s of silence after a key number, with the visual landing on
   the beat. The renderer inserts these from `[pause]` marks in the script.
 - **The first 30 s are the main drop-off point** (YouTube's Key Moments report labels them
   "Intro"). The claim and the visual from the thumbnail must appear by 0:10.

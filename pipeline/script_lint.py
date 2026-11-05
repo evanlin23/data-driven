@@ -113,14 +113,25 @@ def lint(text):
         penalty += (q - 0.15) * 20
         issues.append(f"soft  too many questions: {q:.0%} of sentences")
 
-    wpm_minutes = n / 160
-    return dict(words=n, minutes_at_160wpm=round(wpm_minutes, 1), hard=hard_hits,
+    # narrator presence: top-video transcripts use "you" ~20/1k and "I/my/me" ~37/1k words;
+    # flops ~6 and ~4. A narrator who is a person, talking to a person.
+    you = len(re.findall(r"\b(you|you're|your|you've|you'd)\b", low)) * 1000 / n
+    me = len(re.findall(r"\b(i|i'm|i've|i'd|my|me)\b", low)) * 1000 / n
+    if you < 10:
+        penalty += (10 - you) / 4
+        issues.append(f"soft  little direct address: 'you' {you:.0f}/1k words (hits median ~20)")
+    if me < 15:
+        penalty += (15 - me) / 5
+        issues.append(f"soft  narrator absent: 'I/my/me' {me:.0f}/1k words (hits median ~37)")
+
+    wpm_minutes = n / 175   # measured median of top videos: 174 wpm
+    return dict(words=n, minutes_at_175wpm=round(wpm_minutes, 1), hard=hard_hits,
                 penalty=round(penalty, 1), issues=issues,
                 passed=hard_hits == 0 and penalty <= 5)
 
 if __name__ == "__main__":
     r = lint(open(sys.argv[1], encoding="utf-8").read())
-    print(f"{r['words']} words ≈ {r['minutes_at_160wpm']} min at 160 wpm | hard hits {r['hard']} | soft penalty {r['penalty']}")
+    print(f"{r['words']} words ≈ {r['minutes_at_175wpm']} min at 175 wpm | hard hits {r['hard']} | soft penalty {r['penalty']}")
     for i in r["issues"]:
         print("  " + i)
     print("PASS" if r["passed"] else "FAIL")
