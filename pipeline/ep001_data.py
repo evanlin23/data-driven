@@ -17,15 +17,22 @@ cloud_pts = pts(cloud)
 # model's expectation curve: median expected reviews by quality bin
 bins = np.linspace(0.35, 0.99, 30)
 allg["qb"] = pd.cut(allg.q, bins)
-trend = [{"x": round(float(iv.mid), 3), "y": int(g.expected_n.median())} for iv, g in allg.groupby("qb", observed=True) if len(g) > 30]
+# The model's line depends on era, so expectation scenes show games that reached Steam around the same time
+# as Gravity Ghost (appid 220k-300k, roughly 2013-2015) with the model's line for that era.
+era = allg[(allg.appid >= 220000) & (allg.appid <= 300000)].copy()
+era_cloud = era.sample(min(2000, len(era)), random_state=7)
+era_pts = pts(era_cloud)
+bins2 = np.linspace(0.55, 0.99, 14)
+era["qb"] = pd.cut(era.q, bins2)
+trend = [{"x": round(float(iv.mid), 3), "y": int(g.expected_n.median())} for iv, g in era.groupby("qb", observed=True) if len(g) > 15]
 axes = {"xLabel": "players who liked it (adjusted % positive)", "yLabel": "Steam reviews", "yLog": True,
         "xDomain": [0.35, 1.0], "yDomain": [10, 3000000],
         "xTicks": [{"v": v / 100, "t": f"{v}%"} for v in range(40, 101, 10)],
         "yTicks": [{"v": v, "t": t} for v, t in [(10, "10"), (100, "100"), (1000, "1K"), (10000, "10K"), (100000, "100K"), (1000000, "1M")]]}
 D = {}
 D["scatter_cloud"] = {**axes, "points": cloud_pts, "revealSeconds": 2.5}
-D["scatter_trend"] = {**axes, "points": cloud_pts, "revealSeconds": 0.6, "trend": trend, "trendAt": 0.8}
-D["scatter_gg"] = {**axes, "points": cloud_pts + [{"x": round(float(gg.q), 4), "y": int(gg.n)}], "highlight": len(cloud_pts),
+D["scatter_trend"] = {**axes, "points": era_pts, "revealSeconds": 0.6, "trend": trend, "trendAt": 0.8}
+D["scatter_gg"] = {**axes, "points": era_pts + [{"x": round(float(gg.q), 4), "y": int(gg.n)}], "highlight": len(era_pts),
                    "highlightAt": 1.2, "revealSeconds": 0.5, "callout": f"{gg.q:.0%} liked it. {int(gg.n)} reviews."}
 D["scatter_gg_trend"] = {**D["scatter_gg"], "trend": trend, "trendAt": 0.3, "highlightAt": 0.4, "callout": f"expected: {int(round(gg.expected_n, -2)):,}"}
 for i, r in fin.iterrows():

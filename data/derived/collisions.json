@@ -9,6 +9,13 @@
     "date": "2015-01-26",
     "delta_days": 0,
     "reviews": 457632
+   },
+   {
+    "appid": 319630,
+    "name": "Life is Strange - Episode 1",
+    "date": "2015-01-29",
+    "delta_days": 3,
+    "reviews": 169201
    }
   ]
  },
@@ -25,12 +32,35 @@
  "496350": {
   "name": "Supipara - Chapter 1 Spring Has Come!",
   "date": "2016-07-29",
-  "hits": []
+  "hits": [
+   {
+    "appid": 477160,
+    "name": "Human Fall Flat",
+    "date": "2016-07-22",
+    "delta_days": -7,
+    "reviews": 213640
+   },
+   {
+    "appid": 211820,
+    "name": "Starbound",
+    "date": "2016-07-22",
+    "delta_days": -7,
+    "reviews": 164906
+   }
+  ]
  },
  "255340": {
   "name": "Escape Goat 2",
   "date": "2014-03-24",
-  "hits": []
+  "hits": [
+   {
+    "appid": 265930,
+    "name": "Goat Simulator",
+    "date": "2014-04-01",
+    "delta_days": 8,
+    "reviews": 68580
+   }
+  ]
  },
  "333260": {
   "name": "Marvin's Mittens",
@@ -42,18 +72,48 @@
     "date": "2014-12-22",
     "delta_days": 5,
     "reviews": 429921
+   },
+   {
+    "appid": 244210,
+    "name": "Assetto Corsa",
+    "date": "2014-12-19",
+    "delta_days": 2,
+    "reviews": 151391
    }
   ]
  },
  "349250": {
   "name": "Copy Kitty",
   "date": "2018-04-19",
-  "hits": []
+  "hits": [
+   {
+    "appid": 323190,
+    "name": "Frostpunk",
+    "date": "2018-04-24",
+    "delta_days": 5,
+    "reviews": 123546
+   },
+   {
+    "appid": 644560,
+    "name": "Mirror",
+    "date": "2018-04-19",
+    "delta_days": 0,
+    "reviews": 82973
+   }
+  ]
  },
  "385250": {
   "name": "Paint it Back",
   "date": "2015-10-14",
-  "hits": []
+  "hits": [
+   {
+    "appid": 233450,
+    "name": "Prison Architect",
+    "date": "2015-10-06",
+    "delta_days": -8,
+    "reviews": 72330
+   }
+  ]
  },
  "412670": {
   "name": "Bullet Heaven 2",
@@ -65,6 +125,20 @@
     "date": "2015-12-01",
     "delta_days": -6,
     "reviews": 1398584
+   },
+   {
+    "appid": 225540,
+    "name": "Just Cause\u2122 3",
+    "date": "2015-11-30",
+    "delta_days": -7,
+    "reviews": 122161
+   },
+   {
+    "appid": 376210,
+    "name": "The Isle",
+    "date": "2015-12-01",
+    "delta_days": -6,
+    "reviews": 94804
    }
   ]
  },
@@ -78,6 +152,13 @@
     "date": "2015-05-18",
     "delta_days": 4,
     "reviews": 835349
+   },
+   {
+    "appid": 363970,
+    "name": "Clicker Heroes",
+    "date": "2015-05-13",
+    "delta_days": -1,
+    "reviews": 61304
    }
   ]
  },
@@ -89,12 +170,42 @@
  "262850": {
   "name": "The Journey Down: Chapter Two",
   "date": "2014-08-25",
-  "hits": []
+  "hits": [
+   {
+    "appid": 286690,
+    "name": "METRO 2033 Redux",
+    "date": "2014-08-25",
+    "delta_days": 0,
+    "reviews": 110967
+   },
+   {
+    "appid": 287390,
+    "name": "METRO Last Light Redux",
+    "date": "2014-08-25",
+    "delta_days": 0,
+    "reviews": 70096
+   }
+  ]
  },
  "259810": {
   "name": "Home Sheep Home: Farmageddon Party Edition",
   "date": "2014-02-17",
-  "hits": []
+  "hits": [
+   {
+    "appid": 254700,
+    "name": "Resident Evil 4 (2005)",
+    "date": "2014-02-27",
+    "delta_days": 10,
+    "reviews": 82434
+   },
+   {
+    "appid": 39210,
+    "name": "FINAL FANTASY XIV Online",
+    "date": "2014-02-18",
+    "delta_days": 1,
+    "reviews": 80036
+   }
+  ]
  },
  "415920": {
   "name": "Voidspire Tactics",
@@ -106,6 +217,20 @@
     "date": "2015-11-09",
     "delta_days": 7,
     "reviews": 392287
+   },
+   {
+    "appid": 311210,
+    "name": "Call of Duty\u00ae: Black Ops III",
+    "date": "2015-11-05",
+    "delta_days": 3,
+    "reviews": 215026
+   },
+   {
+    "appid": 388520,
+    "name": "Call of Duty\u00ae: Black Ops III",
+    "date": "2015-11-05",
+    "delta_days": 3,
+    "reviews": 62347
    }
   ]
  }

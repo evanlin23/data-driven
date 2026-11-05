@@ -4,3 +4,4 @@ node_modules/
 video/out/
 video/public/games/
 models/
+video/public/bench*.json

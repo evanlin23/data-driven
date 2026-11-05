@@ -1,12 +1,12 @@
 {
  "top-100 underrated": {
   "n": 84,
-  "within_7d_of_mega_hit": 0.429,
+  "within_7d_of_mega_hit": 0.619,
   "oct_dec_launch": 0.274
  },
  "random games (>=300 reviews)": {
   "n": 141,
-  "within_7d_of_mega_hit": 0.482,
+  "within_7d_of_mega_hit": 0.738,
   "oct_dec_launch": 0.213
  }
 }

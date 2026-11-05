@@ -11,7 +11,10 @@ def date(appid):
         try: return dt.datetime.strptime(s, fmt).date(), d.get("name")
         except ValueError: pass
     return None, d.get("name")
-scored = pd.read_csv("data/derived/all_scored.csv").set_index("appid")
+import glob
+cat = {}
+for f in glob.glob("data/raw/steamspy/page_*.json"):
+    for a in json.load(open(f)).values(): cat[a["appid"]] = a["positive"] + a["negative"]
 mega = [int(l) for l in open("data/derived/mega_hits_ids.txt")]
 mega_dates = {a: date(a) for a in mega}
 have = sum(1 for v in mega_dates.values() if v[0])
@@ -23,7 +26,7 @@ for _, r in fin.iterrows():
     hits = []
     for a, (d, name) in mega_dates.items():
         if d and d0 and abs((d - d0).days) <= WINDOW:
-            n = int(scored.loc[a, "n"]) if a in scored.index else None
+            n = cat.get(a)
             hits.append({"appid": a, "name": name, "date": str(d), "delta_days": (d - d0).days, "reviews": n})
     hits.sort(key=lambda h: -(h["reviews"] or 0))
     out[int(r.appid)] = {"name": r["name"], "date": str(d0), "hits": hits}

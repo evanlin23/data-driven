@@ -1,6 +1,5 @@
 # Episode 001 — I Built a Model to Find the Most Underrated Game on Steam
 # Every number comes from facts.json / data.json / traits.json. Rounded only for speech.
-# TRAITS numbers marked {{...}} are filled from traits.json by the final pass (see notes at bottom).
 
 @chapter The red dot
 @scene scatter @ref:scatter_gg {"highlightAt": 2.0}
@@ -32,7 +31,7 @@ So I shrink every score toward the Steam average, and the fewer reviews a game h
 A tiny game has to earn its ninety-eight percent.
 
 @scene scatter @ref:scatter_trend
-Better games get more reviews. You'd hope so. That gold line is my model. [pause 0.3]
+Better games get more reviews. You'd hope so. That gold line is my model, for games that reached Steam around 2014 and 2015. [pause 0.3]
 You give it a game's rating and the year it came out. It tells you how many reviews a game like that usually ends up with.
 I trained it on every game with at least ten reviews, so it knows what normal looks like, not just what hits look like.
 
@@ -86,12 +85,12 @@ And five days after it launched, Geometry Dash showed up. That one has four hund
 At this point I had a theory. These games launched next to giants, and got crushed.
 Witcher 3. Rainbow Six. Geometry Dash. It's a great story. So I checked it.
 
-@scene bigNumber {"value": {{NEAR_ALL}}, "kind": "pct", "label": "of ALL games launch within a week of a mega-hit", "color": "text"}
+@scene bigNumber {"value": 0.74, "kind": "pct", "label": "of ALL games launch within a week of a mega-hit", "color": "text"}
 I took Steam's four hundred most-reviewed games and checked every launch against them.
-{{NEAR_ALL_SPOKEN}} of games in general launched within a week of one of those hits. There's always a giant nearby.
+Almost three out of four of games in general launched within a week of one of those hits. There's always a giant nearby.
 
-@scene bigNumber {"value": {{NEAR_TOP}}, "kind": "pct", "label": "of the most underrated games did", "color": "accent"}
-And for the hundred most underrated games? {{NEAR_TOP_SPOKEN}}. {{TIMING_VERDICT}}
+@scene bigNumber {"value": 0.62, "kind": "pct", "label": "of the most underrated games did", "color": "accent"}
+And for the hundred most underrated games? About six in ten. Fewer, not more.
 So my theory was wrong. Bad timing makes a good story, but it isn't what these games have in common.
 
 @scene bigNumber {"value": 6.99, "kind": "int", "label": "median price: the 100 most underrated", "sub": "vs $11.99 for top-rated games that hit expectations", "color": "gold"}
@@ -171,5 +170,5 @@ I know, I just told you timing doesn't explain these games. But for this one, th
 So that's the list. Your favourite hidden gem probably isn't on it, so tell me which game my model missed.
 Next time I'm flipping the model around: the most overrated game on Steam. That one's going to start some fights.
 
-# NOTES for final pass: replace {{NEAR_ALL}}, {{NEAR_TOP}} (fractions) and their spoken forms from traits.json once
+# NOTES for final pass: replace 0.74, 0.62 (fractions) and their spoken forms from traits.json once
 # all 400 mega-hit release dates are fetched. If underrated games are NOT less/more likely to collide, TIMING_VERDICT = "About the same."
