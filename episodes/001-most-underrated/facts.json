@@ -1,0 +1,173 @@
+{
+ "games_scored": 51897,
+ "candidates": 15452,
+ "finalists": [
+  {
+   "appid": 251490,
+   "name": "Gravity Ghost",
+   "n": 302,
+   "q": 0.9631925727222732,
+   "expected_n": 6588.1170280036295,
+   "gap": 21.814957046369635,
+   "release": "Jan 26, 2015",
+   "developer": "Ivy Games"
+  },
+  {
+   "appid": 570490,
+   "name": "SHENZHEN SOLITAIRE",
+   "n": 208,
+   "q": 0.9703616488174256,
+   "expected_n": 2548.4686174248545,
+   "gap": 12.252252968388724,
+   "release": "Dec 15, 2016",
+   "developer": "Zachtronics"
+  },
+  {
+   "appid": 236930,
+   "name": "Blackwell Epiphany",
+   "n": 934,
+   "q": 0.9762261175722772,
+   "expected_n": 10263.909388538175,
+   "gap": 10.989196347471282,
+   "release": "Apr 24, 2014",
+   "developer": "Wadjet Eye Games"
+  },
+  {
+   "appid": 496350,
+   "name": "Supipara - Chapter 1 Spring Has Come!",
+   "n": 255,
+   "q": 0.9833206609522772,
+   "expected_n": 2703.485506615108,
+   "gap": 10.601903947510229,
+   "release": "Jul 29, 2016",
+   "developer": "minori"
+  },
+  {
+   "appid": 255340,
+   "name": "Escape Goat 2",
+   "n": 441,
+   "q": 0.9545200745751682,
+   "expected_n": 4587.797251973535,
+   "gap": 10.403168371822074,
+   "release": "Mar 24, 2014",
+   "developer": "MagicalTimeBean"
+  },
+  {
+   "appid": 333260,
+   "name": "Marvin's Mittens",
+   "n": 205,
+   "q": 0.951058443723298,
+   "expected_n": 1765.5116021842916,
+   "gap": 8.612251717972155,
+   "release": "Dec 17, 2014",
+   "developer": "Breakfall"
+  },
+  {
+   "appid": 349250,
+   "name": "Copy Kitty",
+   "n": 383,
+   "q": 0.9708406101940548,
+   "expected_n": 3155.09978458532,
+   "gap": 8.23785844539248,
+   "release": "Apr 19, 2018",
+   "developer": "Nuclear Strawberry"
+  },
+  {
+   "appid": 385250,
+   "name": "Paint it Back",
+   "n": 542,
+   "q": 0.9774662892342076,
+   "expected_n": 4156.630863119405,
+   "gap": 7.669060633061633,
+   "release": "Oct 14, 2015",
+   "developer": "Casual Labs"
+  },
+  {
+   "appid": 412670,
+   "name": "Bullet Heaven 2",
+   "n": 493,
+   "q": 0.9792586103596038,
+   "expected_n": 3755.460789694928,
+   "gap": 7.617567524736163,
+   "release": "Dec 7, 2015",
+   "developer": "Matt Roszak"
+  },
+  {
+   "appid": 344480,
+   "name": "Quell",
+   "n": 438,
+   "q": 0.9699498488126144,
+   "expected_n": 3171.194941698305,
+   "gap": 7.24017109976782,
+   "release": "May 14, 2015",
+   "developer": "Fallen Tree Games Ltd"
+  }
+ ],
+ "collisions": {
+  "251490": {
+   "name": "Gravity Ghost",
+   "date": "2015-01-26",
+   "hits": [
+    {
+     "appid": 239140,
+     "name": "Dying Light",
+     "date": "2015-01-26",
+     "delta_days": 0,
+     "reviews": 457632
+    }
+   ]
+  },
+  "333260": {
+   "name": "Marvin's Mittens",
+   "date": "2014-12-17",
+   "hits": [
+    {
+     "appid": 322170,
+     "name": "Geometry Dash",
+     "date": "2014-12-22",
+     "delta_days": 5,
+     "reviews": 429921
+    }
+   ]
+  },
+  "412670": {
+   "name": "Bullet Heaven 2",
+   "date": "2015-12-07",
+   "hits": [
+    {
+     "appid": 359550,
+     "name": "Tom Clancy's Rainbow Six Siege",
+     "date": "2015-12-01",
+     "delta_days": -6,
+     "reviews": 1398584
+    }
+   ]
+  },
+  "344480": {
+   "name": "Quell",
+   "date": "2015-05-14",
+   "hits": [
+    {
+     "appid": 292030,
+     "name": "The Witcher 3: Wild Hunt \u2014 Remastered",
+     "date": "2015-05-18",
+     "delta_days": 4,
+     "reviews": 835349
+    }
+   ]
+  },
+  "415920": {
+   "name": "Voidspire Tactics",
+   "date": "2015-11-02",
+   "hits": [
+    {
+     "appid": 377160,
+     "name": "Fallout 4",
+     "date": "2015-11-09",
+     "delta_days": 7,
+     "reviews": 392287
+    }
+   ]
+  }
+ }
+}

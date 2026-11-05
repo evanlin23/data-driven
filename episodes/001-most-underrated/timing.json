@@ -1,0 +1,282 @@
+[
+ {
+  "text": "See that red dot? That's a game. Ninety-six percent of the people who played it liked it.",
+  "start": 0.0,
+  "end": 4.715
+ },
+ {
+  "text": "It came out in 2015, it costs ten bucks, and it has three hundred and two reviews.",
+  "start": 4.995,
+  "end": 10.785
+ },
+ {
+  "text": "And it launched on the exact same day as one of the biggest games of that year.",
+  "start": 11.065,
+  "end": 14.905
+ },
+ {
+  "text": "So I scored fifty-one thousand, eight hundred and ninety-seven games on Steam to answer one question.",
+  "start": 15.185,
+  "end": 21.153
+ },
+ {
+  "text": "Given how good a game is, how many people should have played it? And which games got robbed the hardest?",
+  "start": 21.433,
+  "end": 26.724
+ },
+ {
+  "text": "Here's every one of them. Left to right is how much players liked it. Bottom to top is how many reviews it has.",
+  "start": 27.004,
+  "end": 33.148
+ },
+ {
+  "text": "I'm using reviews as the stand-in for players, because Steam doesn't publish sales.",
+  "start": 33.428,
+  "end": 37.865
+ },
+ {
+  "text": "Better games get more reviews. You'd hope so. That gold line is my model.",
+  "start": 38.145,
+  "end": 42.627
+ },
+ {
+  "text": "You give it a game's rating and the year it came out, and it tells you how many reviews a game like that usually gets.",
+  "start": 42.907,
+  "end": 48.773
+ },
+ {
+  "text": "Quick reality check before anyone yells at me. A review isn't a sale.",
+  "start": 49.053,
+  "end": 53.128
+ },
+ {
+  "text": "For the games on this list, SteamSpy's owner estimates work out to about one review for every hundred people who own it. Bundles do that.",
+  "start": 53.408,
+  "end": 61.024
+ },
+ {
+  "text": "So I'm not saying nobody played these. I'm saying far fewer people cared enough to show up than a game this good normally gets.",
+  "start": 61.304,
+  "end": 68.237
+ },
+ {
+  "text": "A few rules. Only games released from 2014 on, because Steam reviews didn't exist before late 2013.",
+  "start": 68.517,
+  "end": 75.813
+ },
+ {
+  "text": "No re-releases of nineties classics. Those already had their moment. And one game per studio, or a single developer would take three spots.",
+  "start": 76.093,
+  "end": 83.624
+ },
+ {
+  "text": "Then I sorted by one number: how many times short of its expected reviews each game landed.",
+  "start": 83.904,
+  "end": 89.173
+ },
+ {
+  "text": "Fifteen thousand games cleared the bar to be judged. Ten of them got robbed the worst. Let's count down.",
+  "start": 89.453,
+  "end": 95.32
+ },
+ {
+  "text": "Number ten. Quell. A puzzle game you can get for about four dollars. Ninety-seven percent positive.",
+  "start": 95.6,
+  "end": 101.168
+ },
+ {
+  "text": "My model expected around three thousand two hundred reviews. It has four hundred and thirty-eight.",
+  "start": 101.448,
+  "end": 106.568
+ },
+ {
+  "text": "Want to know why? Look at the calendar. Quell came out on May 14th, 2015.",
+  "start": 106.848,
+  "end": 112.155
+ },
+ {
+  "text": "Four days later, The Witcher 3 launched. I don't think I'd have noticed a quiet puzzle game that week either.",
+  "start": 112.435,
+  "end": 118.067
+ },
+ {
+  "text": "Number nine. Bullet Heaven 2. A bullet-hell shooter where you dodge hundreds of bullets a second.",
+  "start": 118.347,
+  "end": 123.552
+ },
+ {
+  "text": "Ninety-eight percent positive. That's the highest rating in the whole top ten. Seven point six times short.",
+  "start": 123.832,
+  "end": 129.933
+ },
+ {
+  "text": "It came out on December 7th, 2015. Rainbow Six Siege had launched six days before.",
+  "start": 130.213,
+  "end": 136.037
+ },
+ {
+  "text": "Siege now has over a million reviews. Bullet Heaven 2 has four hundred and ninety-three.",
+  "start": 136.317,
+  "end": 141.544
+ },
+ {
+  "text": "Number eight. Paint it Back. You solve logic puzzles to restore pixel art.",
+  "start": 141.824,
+  "end": 146.155
+ },
+ {
+  "text": "It's the kind of game people sink a whole weekend into. Five hundred and forty-two reviews. The model wanted more than four thousand.",
+  "start": 146.435,
+  "end": 153.411
+ },
+ {
+  "text": "Number seven. Copy Kitty. You copy enemy powers and combine up to three of them into one super-weapon.",
+  "start": 153.691,
+  "end": 159.708
+ },
+ {
+  "text": "Ninety-seven percent positive, eight times short of where it should be. This one's on sale for under four dollars right now, by the way.",
+  "start": 159.988,
+  "end": 167.113
+ },
+ {
+  "text": "Number six. Marvin's Mittens. No enemies, no danger. You just explore.",
+  "start": 167.393,
+  "end": 171.639
+ },
+ {
+  "text": "Two hundred and five reviews against an expected seventeen hundred.",
+  "start": 171.919,
+  "end": 175.993
+ },
+ {
+  "text": "And five days after it launched, Geometry Dash came out. That game has four hundred and thirty thousand reviews now.",
+  "start": 176.273,
+  "end": 182.695
+ },
+ {
+  "text": "Okay, quick detour, because I expected a different game to be here.",
+  "start": 182.975,
+  "end": 186.644
+ },
+ {
+  "text": "Tadpole Treble scored ninety on Metacritic. That's higher than anything else on this list.",
+  "start": 186.924,
+  "end": 191.724
+ },
+ {
+  "text": "It only has two hundred and eighty reviews. But my model judges games by what players thought, not critics, and it's six point three times short.",
+  "start": 192.004,
+  "end": 199.919
+ },
+ {
+  "text": "Underrated, for sure. Just not top ten. The next five are even worse off.",
+  "start": 200.199,
+  "end": 204.551
+ },
+ {
+  "text": "Number five. Escape Goat 2. A puzzle platformer where you team up with a mouse to get out of a dungeon.",
+  "start": 204.831,
+  "end": 210.591
+ },
+ {
+  "text": "The first Escape Goat would have made this list too. It got cut because it came out before Steam reviews existed.",
+  "start": 210.871,
+  "end": 216.759
+ },
+ {
+  "text": "Four hundred and forty-one reviews. Ten point four times short.",
+  "start": 217.039,
+  "end": 220.793
+ },
+ {
+  "text": "Number four is a visual novel. Supipara, Chapter One. Ninety-eight percent positive from two hundred and fifty-five reviews.",
+  "start": 221.073,
+  "end": 228.369
+ },
+ {
+  "text": "Here's what's strange about it. A third of its English reviews showed up in just the last two years. People are still finding it, ten years later.",
+  "start": 228.649,
+  "end": 236.137
+ },
+ {
+  "text": "Number three. Blackwell Epiphany, the final game in the Blackwell series from Wadjet Eye.",
+  "start": 236.417,
+  "end": 241.26
+ },
+ {
+  "text": "Nine hundred and thirty-four reviews sounds like a lot until you see the expectation. Over ten thousand. That's eleven times short.",
+  "start": 241.54,
+  "end": 248.857
+ },
+ {
+  "text": "Number two surprised me. It's a solitaire game.",
+  "start": 249.137,
+  "end": 252.481
+ },
+ {
+  "text": "SHENZHEN SOLITAIRE started as a mini-game inside Zachtronics' SHENZHEN I/O, then got released on its own for three dollars.",
+  "start": 252.761,
+  "end": 259.993
+ },
+ {
+  "text": "Ninety-seven percent positive. The model expected twenty-five hundred reviews. It has two hundred and eight. Twelve times short.",
+  "start": 260.273,
+  "end": 267.356
+ },
+ {
+  "text": "Which brings us back to the red dot from the start.",
+  "start": 267.636,
+  "end": 270.303
+ },
+ {
+  "text": "Number one is twenty-one point eight times short of what my model expected. Nobody else on the list comes close.",
+  "start": 270.583,
+  "end": 276.556
+ },
+ {
+  "text": "For a game this well liked, from 2015, the typical count is about six thousand six hundred reviews. It has three hundred and two.",
+  "start": 276.836,
+  "end": 284.409
+ },
+ {
+  "text": "It's Gravity Ghost, by Ivy Games. You run, jump, and glide around tiny planets using gravity, rescuing survivors across a shattered galaxy.",
+  "start": 284.689,
+  "end": 293.095
+ },
+ {
+  "text": "Ninety-six percent positive. Seventy-five on Metacritic.",
+  "start": 293.375,
+  "end": 296.937
+ },
+ {
+  "text": "And here's the day it launched. January 26th, 2015.",
+  "start": 297.217,
+  "end": 301.685
+ },
+ {
+  "text": "The same day as Dying Light. Dying Light has four hundred and fifty-seven thousand reviews. Gravity Ghost has three hundred and two.",
+  "start": 301.965,
+  "end": 309.411
+ },
+ {
+  "text": "This is every month of Gravity Ghost's life on Steam. A small spike at launch, then a trickle that never fully stopped.",
+  "start": 309.691,
+  "end": 316.027
+ },
+ {
+  "text": "You can't really blame anyone. That week, everybody was fighting zombies.",
+  "start": 316.307,
+  "end": 320.424
+ },
+ {
+  "text": "So that's my list. I'm sure your favourite hidden gem isn't on it, so tell me which game the model missed.",
+  "start": 320.704,
+  "end": 326.336
+ },
+ {
+  "text": "Next time I'm flipping the model around: the most overrated game on Steam. That one's going to start some fights.",
+  "start": 326.616,
+  "end": 332.717
+ }
+]

@@ -25,16 +25,19 @@ ep = os.path.abspath(sys.argv[1]); slug = os.path.basename(ep)
 flags = set(sys.argv[2:])
 
 def parse(path):
-    blocks, cur = [], None
+    blocks, cur, pending_chapter = [], None, [None]
     for raw in open(path, encoding="utf-8"):
         line = raw.rstrip("\n")
         if not line.strip() or line.lstrip().startswith("#"):
             continue
+        if line.startswith("@chapter"):
+            pending_chapter[0] = line[len("@chapter"):].strip(); continue
         if line.startswith("@scene"):
             m = re.match(r"@scene\s+(\w+)((?:\s+@ref:\w+)*)\s*(\{.*\})?\s*$", line)
             if not m: sys.exit(f"bad scene line: {line}")
-            cur = {"type": m.group(1), "refs": re.findall(r"@ref:(\w+)", m.group(2) or ""),
+            cur = {"chapter": pending_chapter[0], "type": m.group(1), "refs": re.findall(r"@ref:(\w+)", m.group(2) or ""),
                    "props": json.loads(m.group(3)) if m.group(3) else {}, "lines": [], "hold": 0.0}
+            pending_chapter[0] = None
             blocks.append(cur)
         elif line.startswith("@hold"):
             cur["hold"] = float(line.split()[1])
@@ -58,7 +61,7 @@ audio_dir = os.path.join(ROOT, "video", "public", "episodes", slug); os.makedirs
 lines = [l for b in blocks for l in b["lines"]]
 timing = say_script(lines, os.path.join(audio_dir, "narration.wav"))
 
-scenes, li, t_shift = [], 0, 0.0
+scenes, li, t_shift, chapters = [], 0, 0.0, []
 for b in blocks:
     n = len(b["lines"])
     if n == 0: sys.exit(f"scene {b['type']} has no narration")
@@ -68,6 +71,7 @@ for b in blocks:
     props = {}
     for ref in b["refs"]: props.update(data[ref])
     props.update(b["props"])
+    if b.get("chapter"): chapters.append((start, b["chapter"]))
     scenes.append({"type": b["type"], "from": round(start, 3), "dur": round(end - start + b["hold"], 3), "props": props})
     if b["hold"]:
         t_shift += b["hold"]  # NOTE: holds extend visuals only; narration audio is continuous, so keep holds on the last scene
@@ -77,6 +81,11 @@ spec = {"fps": 30, "durationSec": round(dur, 2), "audio": f"episodes/{slug}/narr
 spec_path = os.path.join(ROOT, "video", "src", "episodes", f"{slug}.json"); os.makedirs(os.path.dirname(spec_path), exist_ok=True)
 json.dump(spec, open(spec_path, "w"), indent=1)
 json.dump(timing, open(os.path.join(ep, "timing.json"), "w"), indent=1)
+if chapters:
+    fmt = lambda t: f"{int(t // 60)}:{int(t % 60):02d}"
+    chapters[0] = (0.0, chapters[0][1])  # YouTube requires the first chapter at 0:00
+    open(os.path.join(ep, "chapters.txt"), "w").write("\n".join(f"{fmt(t)} {c}" for t, c in chapters) + "\n")
+    print("chapters:", "; ".join(f"{fmt(t)} {c}" for t, c in chapters))
 long = [s for s in scenes if s["dur"] > 14]
 print(f"spec: {len(scenes)} scenes, {dur/60:.1f} min -> {spec_path}")
 if long: print(f"  note: {len(long)} scenes longer than 14 s (consider splitting): {[round(s['dur']) for s in long]}")

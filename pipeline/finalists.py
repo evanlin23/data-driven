@@ -26,8 +26,17 @@ for _, r in c.iterrows():
     rows.append({**r, "status": status, "release": rd, "year": int(yr.group(0)) if yr else None, "genres": genres,
                  "short": d.get("short_description", "")[:160], "metacritic": (d.get("metacritic") or {}).get("score")})
 f = pd.DataFrame(rows)
+import sys
+if len(sys.argv) > 1 and os.path.exists(sys.argv[1]):
+    ex = {int(k): v for k, v in json.load(open(sys.argv[1])).items() if k.isdigit()}
+    f.loc[f.appid.isin(ex), "status"] = f.loc[f.appid.isin(ex), "appid"].map(lambda a: "editorial: " + ex[a])
 f.to_csv("data/derived/finalists.csv", index=False)
-ok = f[f.status == "ok"]
+# Steam user reviews launched Nov 2013: games released earlier missed reviews from their launch window.
+f.loc[(f.status == "ok") & (f.year < 2014), "status"] = "released before Steam reviews existed (pre-2014)"
+ok = f[f.status == "ok"].copy()
+ok["one_per_dev"] = ~ok.developer.duplicated()
+ok = ok[ok.one_per_dev]
+ok.to_csv("data/derived/finalists_ok.csv", index=False)
 print(f"checked {len(f)} | ok {len(ok)} | excluded: {f[f.status != 'ok'].status.value_counts().to_dict()}")
-for _, r in ok.head(35).iterrows():
+for _, r in ok.head(30).iterrows():
     print(f"x{r.gap:5.1f} {r.q:5.1%} {int(r.n):>6,}rev exp{int(r.expected_n):>7,} {str(r.release):>13} mc={r.metacritic if r.metacritic==r.metacritic else '-':>4} {str(r['name'])[:34]:<34} | {r.genres[:30]}")

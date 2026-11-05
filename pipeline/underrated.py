@@ -51,6 +51,8 @@ df["expected_n"] = 10 ** pred
 df["gap"] = df.expected_n / df.n          # >1 = fewer players than a game this good "should" have
 df["pct_rank_quality"] = df.q.rank(pct=True)
 n_trained = len(df)
+os.makedirs("data/derived", exist_ok=True)
+df[["appid", "name", "n", "q", "expected_n", "gap"]].to_csv("data/derived/all_scored.csv", index=False)
 df = df[df.n >= MIN].copy()
 
 os.makedirs("data/derived", exist_ok=True)
