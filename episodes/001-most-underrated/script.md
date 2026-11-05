@@ -35,6 +35,15 @@ Better games get more reviews. You'd hope so. That gold line is my model, for ga
 You give it a game's rating and the year it came out. It tells you how many reviews a game like that usually ends up with.
 I trained it on every game with at least ten reviews, so it knows what normal looks like, not just what hits look like.
 
+@scene textBeat {"text": "Does the model actually *work*?"}
+Fair question. Does that line predict anything real? So before trusting it, I checked it against the actual games.
+
+@scene bigNumber {"value": 4748, "label": "reviews: the real median", "sub": "games from that era rated 95 to 97%", "color": "text"}
+Take every game from that era with a rating between ninety-five and ninety-seven percent. The typical one has about four thousand seven hundred reviews.
+
+@scene bigNumber {"value": 4588, "label": "reviews: what my model predicted", "sub": "within 4%", "color": "gold"}
+My model said four thousand six hundred. That's within four percent. So when it says a game should have thousands of reviews, it isn't making that up.
+
 @chapter The rules
 @scene textBeat {"text": "The rules", "sub": "Released 2014 or later · no re-releases · no DLC · one game per studio"}
 A few rules. Only games from 2014 on, because Steam reviews didn't exist until late 2013.
@@ -71,6 +80,9 @@ Five hundred and forty-two reviews. The model wanted more than four thousand.
 @scene gameCard @ref:card_349250 {"rank": 7}
 Number seven. Copy Kitty. You copy enemy powers and combine up to three of them into one super-weapon. [pause 0.3]
 Ninety-seven percent positive. Eight times short. It's under four dollars right now, if you want to fix that.
+
+@scene launchCollision @ref:collision_349250 {"caption": "5 days later: Frostpunk"}
+It launched April 19th, 2018. Five days later, Frostpunk came out. Starting to see a pattern? I was.
 
 @scene gameCard @ref:card_333260 {"rank": 6}
 Number six. Marvin's Mittens. No enemies, no danger. You just explore.
@@ -111,7 +123,8 @@ Online PvP? One percent, against twenty-one percent of Steam games. Multiplayer 
 
 @chapter Honorable mentions
 @scene leaderboard @ref:board_hm
-Before the top five, a few that just missed. The Lands of Dream. The Journey Down, Chapter Two. Home Sheep Home.
+Before the top five, a few that just missed. The Lands of Dream. Home Sheep Home.
+The Journey Down, Chapter Two, which launched on the same day as not one but both Metro Redux games.
 
 @scene launchCollision @ref:collision_415920 {"caption": "7 days later: Fallout 4"}
 Voidspire Tactics, which came out one week before Fallout 4. Again, a great story, not the cause.
@@ -160,6 +173,9 @@ Ninety-six percent positive. Seventy-five on Metacritic.
 @scene launchCollision @ref:collision_251490 {"caption": "Same day: Dying Light"}
 And this is the day it launched. January 26th, 2015. [pause 0.5]
 The same day as Dying Light. Dying Light has four hundred and fifty-seven thousand reviews. Gravity Ghost has three hundred and two.
+
+@scene launchCollision @ref:collision_251490_both {"caption": "3 days later: Life is Strange, Episode 1"}
+And it got worse that week. Three days later, Life is Strange, Episode One. That has a hundred and sixty-nine thousand reviews.
 
 @scene lineChart @ref:gg_history
 This is every month of Gravity Ghost's life on Steam. A small bump at launch, then a trickle that never quite stopped.

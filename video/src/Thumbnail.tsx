@@ -39,7 +39,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({variant, cloud, hero, words
         </div>
       )}
       {variant !== 'number' && words && (
-        <div style={{position: 'absolute', left: 60, top: 70, fontFamily: display, fontSize: 104, color: C.text, lineHeight: 0.95, maxWidth: 700,
+        <div style={{position: 'absolute', left: 60, ...(variant === 'versus' ? {bottom: 60} : {top: 70}), fontFamily: display, fontSize: 104, color: C.text, lineHeight: 0.95, maxWidth: 700,
           textShadow: '0 6px 30px rgba(0,0,0,.8)'}}>
           {words}
         </div>
@@ -47,9 +47,13 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({variant, cloud, hero, words
       {image && variant !== 'versus' && (
         <Img src={staticFile(image)} style={{position: 'absolute', right: 50, top: 50, width: 360, borderRadius: 12, border: `5px solid ${C.accent}`}} />
       )}
-      {variant === 'versus' && image && versusImage && (
+      {variant === 'versus' && versusImage && (
         <div style={{position: 'absolute', right: 40, top: 40, display: 'flex', alignItems: 'center', gap: 16}}>
-          <Img src={staticFile(image)} style={{width: 300, borderRadius: 12, border: `5px solid ${C.accent}`}} />
+          {image ? <Img src={staticFile(image)} style={{width: 300, borderRadius: 12, border: `5px solid ${C.accent}`}} /> : (
+            // the mystery game: never show the answer on the thumbnail
+            <div style={{width: 300, height: 140, borderRadius: 12, border: `5px solid ${C.accent}`, background: C.panel,
+              display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: display, fontSize: 110, color: C.accent}}>?</div>
+          )}
           <div style={{fontFamily: hand, fontSize: 64, color: C.gold}}>vs</div>
           <Img src={staticFile(versusImage)} style={{width: 300, borderRadius: 12, opacity: 0.9}} />
         </div>

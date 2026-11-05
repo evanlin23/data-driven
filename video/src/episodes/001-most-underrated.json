@@ -1,6 +1,6 @@
 {
  "fps": 30,
- "durationSec": 447.94,
+ "durationSec": 489.19,
  "audio": "episodes/001-most-underrated/narration.wav",
  "scenes": [
   {
@@ -35974,6 +35974,36 @@
   {
    "type": "textBeat",
    "from": 94.405,
+   "dur": 6.403,
+   "props": {
+    "text": "Does the model actually *work*?"
+   }
+  },
+  {
+   "type": "bigNumber",
+   "from": 100.808,
+   "dur": 8.579,
+   "props": {
+    "value": 4748,
+    "label": "reviews: the real median",
+    "sub": "games from that era rated 95 to 97%",
+    "color": "text"
+   }
+  },
+  {
+   "type": "bigNumber",
+   "from": 109.387,
+   "dur": 7.789,
+   "props": {
+    "value": 4588,
+    "label": "reviews: what my model predicted",
+    "sub": "within 4%",
+    "color": "gold"
+   }
+  },
+  {
+   "type": "textBeat",
+   "from": 117.176,
    "dur": 7.256,
    "props": {
     "text": "The rules",
@@ -35982,7 +36012,7 @@
   },
   {
    "type": "textBeat",
-   "from": 101.661,
+   "from": 124.432,
    "dur": 14.451,
    "props": {
     "text": "No 90s re-releases. One game per studio.",
@@ -35991,7 +36021,7 @@
   },
   {
    "type": "leaderboard",
-   "from": 116.112,
+   "from": 138.883,
    "dur": 6.296,
    "props": {
     "title": "Most underrated on Steam (since 2014)",
@@ -36072,7 +36102,7 @@
   },
   {
    "type": "gameCard",
-   "from": 122.408,
+   "from": 145.179,
    "dur": 11.248,
    "props": {
     "rank": 10,
@@ -36106,7 +36136,7 @@
   },
   {
    "type": "launchCollision",
-   "from": 133.656,
+   "from": 156.427,
    "dur": 10.496,
    "props": {
     "dateLabel": "May 2015",
@@ -36130,7 +36160,7 @@
   },
   {
    "type": "gameCard",
-   "from": 144.152,
+   "from": 166.923,
    "dur": 12.464,
    "props": {
     "rank": 9,
@@ -36164,7 +36194,7 @@
   },
   {
    "type": "launchCollision",
-   "from": 156.616,
+   "from": 179.387,
    "dur": 10.565,
    "props": {
     "dateLabel": "December 2015",
@@ -36188,7 +36218,7 @@
   },
   {
    "type": "gameCard",
-   "from": 167.181,
+   "from": 189.952,
    "dur": 9.264,
    "props": {
     "rank": 8,
@@ -36222,7 +36252,7 @@
   },
   {
    "type": "gameCard",
-   "from": 176.445,
+   "from": 199.216,
    "dur": 12.487,
    "props": {
     "rank": 7,
@@ -36255,8 +36285,32 @@
    }
   },
   {
+   "type": "launchCollision",
+   "from": 211.703,
+   "dur": 6.85,
+   "props": {
+    "dateLabel": "April 2018",
+    "daysInWindow": 21,
+    "small": {
+     "title": "Copy Kitty",
+     "image": "games/349250_header.jpg",
+     "day": 4,
+     "reviews": 383
+    },
+    "big": [
+     {
+      "title": "Frostpunk",
+      "image": "games/323190_header.jpg",
+      "day": 9,
+      "reviews": 123546
+     }
+    ],
+    "caption": "5 days later: Frostpunk"
+   }
+  },
+  {
    "type": "gameCard",
-   "from": 188.932,
+   "from": 218.553,
    "dur": 8.88,
    "props": {
     "rank": 6,
@@ -36290,7 +36344,7 @@
   },
   {
    "type": "launchCollision",
-   "from": 197.812,
+   "from": 227.433,
    "dur": 6.616,
    "props": {
     "dateLabel": "December 2014",
@@ -36314,7 +36368,7 @@
   },
   {
    "type": "textBeat",
-   "from": 204.428,
+   "from": 234.049,
    "dur": 9.499,
    "props": {
     "text": "So it's bad *timing*. Right?",
@@ -36323,8 +36377,8 @@
   },
   {
    "type": "bigNumber",
-   "from": 213.927,
-   "dur": 11.29,
+   "from": 243.548,
+   "dur": 11.291,
    "props": {
     "value": 0.74,
     "kind": "pct",
@@ -36334,8 +36388,8 @@
   },
   {
    "type": "bigNumber",
-   "from": 225.217,
-   "dur": 10.779,
+   "from": 254.839,
+   "dur": 10.778,
    "props": {
     "value": 0.62,
     "kind": "pct",
@@ -36345,8 +36399,8 @@
   },
   {
    "type": "bigNumber",
-   "from": 235.996,
-   "dur": 10.309,
+   "from": 265.617,
+   "dur": 10.31,
    "props": {
     "value": 6.99,
     "kind": "usd",
@@ -36357,7 +36411,7 @@
   },
   {
    "type": "bigNumber",
-   "from": 246.305,
+   "from": 275.927,
    "dur": 12.784,
    "props": {
     "value": 0.04,
@@ -36369,7 +36423,7 @@
   },
   {
    "type": "compareBars",
-   "from": 259.089,
+   "from": 288.711,
    "dur": 15.792,
    "props": {
     "title": "What kind of games get overlooked?",
@@ -36402,7 +36456,7 @@
   },
   {
    "type": "compareBars",
-   "from": 274.881,
+   "from": 304.503,
    "dur": 14.128,
    "props": {
     "title": "Who do you play it with?",
@@ -36430,8 +36484,8 @@
   },
   {
    "type": "leaderboard",
-   "from": 289.009,
-   "dur": 6.531,
+   "from": 318.631,
+   "dur": 10.821,
    "props": {
     "title": "Honorable mentions",
     "rows": [
@@ -36471,7 +36525,7 @@
   },
   {
    "type": "launchCollision",
-   "from": 295.54,
+   "from": 329.452,
    "dur": 5.912,
    "props": {
     "dateLabel": "November 2015",
@@ -36495,7 +36549,7 @@
   },
   {
    "type": "gameCard",
-   "from": 301.452,
+   "from": 335.364,
    "dur": 15.323,
    "props": {
     "rank": 15,
@@ -36530,7 +36584,7 @@
   },
   {
    "type": "gameCard",
-   "from": 316.775,
+   "from": 350.687,
    "dur": 11.141,
    "props": {
     "rank": 5,
@@ -36564,7 +36618,7 @@
   },
   {
    "type": "textBeat",
-   "from": 327.916,
+   "from": 361.828,
    "dur": 6.659,
    "props": {
     "text": "The first *Escape* *Goat* would have made the list too.",
@@ -36573,7 +36627,7 @@
   },
   {
    "type": "gameCard",
-   "from": 334.575,
+   "from": 368.487,
    "dur": 7.576,
    "props": {
     "rank": 4,
@@ -36607,7 +36661,7 @@
   },
   {
    "type": "bigNumber",
-   "from": 342.151,
+   "from": 376.063,
    "dur": 7.277,
    "props": {
     "value": 0.34,
@@ -36619,7 +36673,7 @@
   },
   {
    "type": "gameCard",
-   "from": 349.428,
+   "from": 383.34,
    "dur": 11.909,
    "props": {
     "rank": 3,
@@ -36653,7 +36707,7 @@
   },
   {
    "type": "textBeat",
-   "from": 361.337,
+   "from": 395.249,
    "dur": 3.624,
    "props": {
     "text": "Number two is a *solitaire* game.",
@@ -36662,7 +36716,7 @@
   },
   {
    "type": "gameCard",
-   "from": 364.961,
+   "from": 398.873,
    "dur": 14.875,
    "props": {
     "rank": 2,
@@ -36696,7 +36750,7 @@
   },
   {
    "type": "leaderboard",
-   "from": 379.836,
+   "from": 413.748,
    "dur": 2.968,
    "props": {
     "title": "Most underrated on Steam (since 2014)",
@@ -36777,7 +36831,7 @@
   },
   {
    "type": "scatter",
-   "from": 382.804,
+   "from": 416.716,
    "dur": 14.491,
    "props": {
     "xLabel": "players who liked it (adjusted % positive)",
@@ -44296,7 +44350,7 @@
   },
   {
    "type": "gameCard",
-   "from": 397.295,
+   "from": 431.207,
    "dur": 12.464,
    "props": {
     "rank": 1,
@@ -44330,7 +44384,7 @@
   },
   {
    "type": "launchCollision",
-   "from": 409.759,
+   "from": 443.671,
    "dur": 12.708,
    "props": {
     "dateLabel": "January 2015",
@@ -44353,8 +44407,38 @@
    }
   },
   {
+   "type": "launchCollision",
+   "from": 456.379,
+   "dur": 7.341,
+   "props": {
+    "dateLabel": "January 2015",
+    "daysInWindow": 21,
+    "small": {
+     "title": "Gravity Ghost",
+     "image": "games/251490_header.jpg",
+     "day": 4,
+     "reviews": 302
+    },
+    "big": [
+     {
+      "title": "Dying Light",
+      "image": "games/239140_header.jpg",
+      "day": 4,
+      "reviews": 457632
+     },
+     {
+      "title": "Life is Strange - Episode 1",
+      "image": "games/319630_header.jpg",
+      "day": 7,
+      "reviews": 169201
+     }
+    ],
+    "caption": "3 days later: Life is Strange, Episode 1"
+   }
+  },
+  {
    "type": "lineChart",
-   "from": 422.467,
+   "from": 463.72,
    "dur": 12.592,
    "props": {
     "title": "Gravity Ghost: reviews per month",
@@ -44479,8 +44563,8 @@
   },
   {
    "type": "textBeat",
-   "from": 435.059,
-   "dur": 12.378,
+   "from": 476.312,
+   "dur": 12.379,
    "props": {
     "text": "Which game did my model *miss*?",
     "sub": "Next: the most OVERRATED game on Steam"

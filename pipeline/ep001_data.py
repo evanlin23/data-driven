@@ -52,15 +52,17 @@ def board(revealed_upto):
     return {"title": "Most underrated on Steam (since 2014)", "rows": rows, "focusRank": revealed_upto}
 for k in range(10, 0, -1): D[f"board_{k}"] = board(k)
 # launch collisions
-def collision(appid, label):
-    c = coll[str(int(appid))]; d0 = dt.date.fromisoformat(c["date"]); h = c["hits"][0]; d1 = dt.date.fromisoformat(h["date"])
-    start = min(d0, d1) - dt.timedelta(days=3)
+def collision(appid, label, nbig=1):
+    c = coll[str(int(appid))]; d0 = dt.date.fromisoformat(c["date"]); hs = c["hits"][:nbig]
+    ds = [dt.date.fromisoformat(h["date"]) for h in hs]
+    start = min([d0] + ds) - dt.timedelta(days=3)
     small = fin15[fin15.appid == appid].iloc[0]
     return {"dateLabel": label, "daysInWindow": 21,
             "small": {"title": small["name"], "image": img(appid), "day": (d0 - start).days + 1, "reviews": int(small.n)},
-            "big": [{"title": h["name"], "image": f"games/{h['appid']}_header.jpg", "day": (d1 - start).days + 1, "reviews": int(h["reviews"])}]}
-for a, lab in [(251490, "January 2015"), (344480, "May 2015"), (412670, "December 2015"), (333260, "December 2014"), (415920, "November 2015")]:
+            "big": [{"title": h["name"], "image": f"games/{h['appid']}_header.jpg", "day": (d1 - start).days + 1, "reviews": int(h["reviews"])} for h, d1 in zip(hs, ds)]}
+for a, lab in [(251490, "January 2015"), (344480, "May 2015"), (412670, "December 2015"), (333260, "December 2014"), (415920, "November 2015"), (349250, "April 2018")]:
     if coll.get(str(a), {}).get("hits"): D[f"collision_{a}"] = collision(a, lab)
+D["collision_251490_both"] = collision(251490, "January 2015", nbig=2)
 # Gravity Ghost lifetime review history (shape only: English-language reviews by month)
 ro = json.load(open("data/raw/histograms/251490.json"))["results"]["rollups"]
 vals = [x["recommendations_up"] + x["recommendations_down"] for x in ro]
