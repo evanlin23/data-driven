@@ -2,6 +2,7 @@ data/raw/
 __pycache__/
 node_modules/
 video/out/
-video/public/games/
 models/
 video/public/bench*.json
+video/public/episodes/**/*.wav
+video/public/episodes/**/props.json

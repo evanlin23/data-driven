@@ -36098,6 +36098,7 @@
      {
       "label": "Times short",
       "value": 7.2,
+      "kind": "x1",
       "color": "accent"
      }
     ]
@@ -36155,6 +36156,7 @@
      {
       "label": "Times short",
       "value": 7.6,
+      "kind": "x1",
       "color": "accent"
      }
     ]
@@ -36212,6 +36214,7 @@
      {
       "label": "Times short",
       "value": 7.7,
+      "kind": "x1",
       "color": "accent"
      }
     ]
@@ -36245,6 +36248,7 @@
      {
       "label": "Times short",
       "value": 8.2,
+      "kind": "x1",
       "color": "accent"
      }
     ]
@@ -36278,6 +36282,7 @@
      {
       "label": "Times short",
       "value": 8.6,
+      "kind": "x1",
       "color": "accent"
      }
     ]
@@ -36344,7 +36349,7 @@
    "dur": 10.309,
    "props": {
     "value": 6.99,
-    "kind": "int",
+    "kind": "usd",
     "label": "median price: the 100 most underrated",
     "sub": "vs $11.99 for top-rated games that hit expectations",
     "color": "gold"
@@ -36516,6 +36521,7 @@
      {
       "label": "Times short",
       "value": 6.3,
+      "kind": "x1",
       "color": "accent"
      }
     ],
@@ -36550,6 +36556,7 @@
      {
       "label": "Times short",
       "value": 10.4,
+      "kind": "x1",
       "color": "accent"
      }
     ]
@@ -36592,6 +36599,7 @@
      {
       "label": "Times short",
       "value": 10.6,
+      "kind": "x1",
       "color": "accent"
      }
     ]
@@ -36637,6 +36645,7 @@
      {
       "label": "Times short",
       "value": 11.0,
+      "kind": "x1",
       "color": "accent"
      }
     ]
@@ -36679,6 +36688,7 @@
      {
       "label": "Times short",
       "value": 12.3,
+      "kind": "x1",
       "color": "accent"
      }
     ]
@@ -44312,6 +44322,7 @@
      {
       "label": "Times short",
       "value": 21.8,
+      "kind": "x1",
       "color": "accent"
      }
     ]

@@ -1,0 +1,61 @@
+# Renders an episode on GitHub's runners: lint -> Kokoro narration -> Remotion video -> loudness pass -> thumbnails.
+# Triggered by a push that changes an episode's script/data, or by hand from the Actions tab (pick the episode folder).
+# The finished MP4 + thumbnails + chapters are attached to the run as an artifact (too big for git: ~100 MB per video).
+name: render
+on:
+  workflow_dispatch:
+    inputs:
+      episode: {description: "episode folder under episodes/, e.g. 001-most-underrated", required: true}
+  push:
+    paths: ["episodes/*/script.md", "episodes/*/data.json", "episodes/*/thumbnails/*.json"]
+concurrency: {group: "render-${{ github.ref }}", cancel-in-progress: false}
+permissions: {contents: read}
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - name: which episode(s)
+        id: eps
+        run: |
+          if [ -n "${{ inputs.episode }}" ]; then
+            echo "list=${{ inputs.episode }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "list=$(git diff --name-only HEAD~1 HEAD -- episodes | cut -d/ -f2 | sort -u | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - uses: actions/setup-node@v4
+        with: {node-version: "22", cache: npm, cache-dependency-path: video/package-lock.json}
+      - name: voice model cache
+        uses: actions/cache@v4
+        with: {path: models, key: kokoro-v1.0}
+      - name: install
+        run: |
+          pip install -q kokoro-onnx soundfile numpy
+          mkdir -p models
+          for f in kokoro-v1.0.onnx voices-v1.0.bin; do
+            [ -s models/$f ] || curl -sSL -o models/$f https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/$f
+          done
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+          cd video && npm ci --no-audit --no-fund
+      - name: render
+        env: {REMOTION_CONCURRENCY: "4"}
+        run: |
+          for ep in ${{ steps.eps.outputs.list }}; do
+            [ -f "episodes/$ep/script.md" ] || continue
+            # game art referenced by the episode (verified downloads; committed art is reused)
+            ids=$(grep -ohE 'games/[0-9]+_header' "episodes/$ep/data.json" "episodes/$ep/script.md" episodes/$ep/thumbnails/*.json 2>/dev/null | grep -oE '[0-9]+' | sort -u)
+            [ -n "$ids" ] && python pipeline/fetch_art.py $ids
+            python pipeline/build_episode.py "episodes/$ep" --render
+            python pipeline/render_thumbnails.py "episodes/$ep"
+            mkdir -p "dist/$ep"
+            mv "video/out/$ep.final.mp4" "dist/$ep/$ep.mp4"
+            mv video/out/$ep/thumb_*.png "dist/$ep/" 2>/dev/null || true
+            cp "episodes/$ep/metadata.md" "episodes/$ep/chapters.txt" "dist/$ep/" 2>/dev/null || true
+          done
+          ls -laR dist
+      - uses: actions/upload-artifact@v4
+        with: {name: "render-${{ github.run_number }}", path: dist, retention-days: 30}
