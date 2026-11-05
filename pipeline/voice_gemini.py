@@ -27,15 +27,22 @@ def _req(path, body=None):
     with urllib.request.urlopen(r, timeout=300) as resp:
         return json.load(resp)
 
-def pick_model():
-    if os.environ.get("GEMINI_TTS_MODEL"): return os.environ["GEMINI_TTS_MODEL"]
+class DailyQuota(Exception):
+    """Free tier allows ~10 requests/day PER MODEL (GenerateRequestsPerDayPerProjectPerModel-FreeTier)."""
+
+def models_ranked():
+    """TTS models visible to this key, best first. GEMINI_TTS_MODEL pins one."""
+    if os.environ.get("GEMINI_TTS_MODEL"): return [os.environ["GEMINI_TTS_MODEL"]]
     names = [m["name"].split("/", 1)[1] for m in _req("models?pageSize=1000").get("models", []) if "tts" in m["name"].lower()]
     if not names: sys.exit("no TTS model visible to this key")
     def ver(n):
         v = re.findall(r"(\d+(?:\.\d+)?)", n); return float(v[0]) if v else 0
-    names.sort(key=lambda n: (ver(n), "flash" in n, "lite" not in n, "preview" not in n))
-    print("TTS models visible:", names, file=sys.stderr)
-    return names[-1]
+    names.sort(key=lambda n: (ver(n), "flash" in n, "lite" not in n, "preview" not in n), reverse=True)
+    print("TTS models (best first):", names, file=sys.stderr)
+    return names
+
+def pick_model():
+    return models_ranked()[0]
 
 def synth(text, voice, model):
     wait = MIN_GAP - (time.time() - _last[0])
@@ -63,16 +70,17 @@ def synth(text, voice, model):
             if e.code == 402:
                 raise SystemExit("Gemini API: prepaid balance is empty (HTTP 402). Buy credits in AI Studio -> Billing; "
                                  "Google Cloud / Developer Program credits only apply after a Prepay purchase.")
+            if e.code == 429 and "PerDay" in raw:
+                raise DailyQuota(model)  # waiting won't help until the daily reset; caller tries the next model
             if e.code in (429, 500, 503): time.sleep(30 * (attempt + 1)); continue
             raise
-    raise SystemExit("Gemini TTS quota exhausted (free tier is ~15 requests/day; it resets at midnight Pacific). "
-                     "Cached chunks are kept, so re-running later only voices what's missing.")
+    raise DailyQuota(model)
 
 def write_wav(pcm, path, sr=24000):
     with wave.open(path, "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr); w.writeframes(pcm)
 
-def _chunks(lines, max_words=330):
+def _chunks(lines, max_words=int(os.environ.get("GEMINI_TTS_CHUNK_WORDS", "600"))):  # ~3.5 min audio; 8-min video = 3 requests
     cur, n = [], 0
     for i, l in enumerate(lines):
         w = len(l.split())
@@ -83,13 +91,26 @@ def _chunks(lines, max_words=330):
 
 def say_script(lines, out_wav, gap=0.35, voice=None, synth_fn=None):
     """Same contract as voice.say_script: returns [{text, start, end}] per line and writes out_wav (24 kHz).
-    Lines are synthesized in ~200-word chunks (free-tier friendly, better prosody), then each line is located
-    in its chunk with Whisper word timestamps (pipeline/align.py)."""
+    Lines are synthesized in ~600-word chunks (free tier: ~10 requests/day per model), then each line is located
+    in its chunk with Whisper word timestamps (pipeline/align.py). The whole video uses ONE model: if the best
+    model's daily quota runs out mid-video, the video is redone on the next model so the voice stays consistent."""
+    if synth_fn:
+        return _say(lines, out_wav, gap, voice, synth_fn, None)
+    tried = []
+    for model in models_ranked():
+        try:
+            print(f"narrating with {model}", file=sys.stderr)
+            return _say(lines, out_wav, gap, voice, None, model)
+        except DailyQuota:
+            tried.append(model); print(f"  daily free quota used up for {model}; trying next model", file=sys.stderr)
+    raise SystemExit(f"Gemini TTS daily free quota used up on every model ({', '.join(tried)}). It resets at midnight "
+                     "Pacific; voiced chunks are cached, so the next run only voices what's missing.")
+
+def _say(lines, out_wav, gap, voice, synth_fn, model):
     import numpy as np
     from align import transcribe_words, line_times
     voice = voice or os.environ.get("GEMINI_TTS_VOICE", "Puck")
     clean = [re.sub(r"\s*\[pause(?: [\d.]+)?\]\s*", "... ", l).strip() for l in lines]
-    model = None if synth_fn else pick_model()
     synth_fn = synth_fn or (lambda text: np.frombuffer(synth(text, voice, model), np.int16).astype(np.float32) / 32768)
     parts, timing, t0 = [], [], 0.0
     for idx in _chunks(clean):
@@ -107,6 +128,10 @@ def say_script(lines, out_wav, gap=0.35, voice=None, synth_fn=None):
         a16 = np.interp(np.arange(0, len(audio), 1.5), np.arange(len(audio)), audio).astype(np.float32)
         spans, anchored = line_times(chunk_lines, transcribe_words(a16), dur)
         print(f"  chunk {len(timing) // 1}: {len(idx)} lines, {dur:.1f}s, anchored {anchored}/{len(idx)}", file=sys.stderr)
+        if anchored < 0.7 * len(idx):  # long chunks can get cut off; never ship a video with missing narration
+            os.remove(cpath) if os.path.exists(cpath) else None
+            raise SystemExit(f"narration chunk looks incomplete ({anchored}/{len(idx)} lines heard). "
+                             "Lower GEMINI_TTS_CHUNK_WORDS and re-run.")
         for i, (s0, s1) in zip(idx, spans):
             timing.append({"text": re.sub(r"\[pause[^\]]*\]", "", lines[i]).strip(), "start": round(t0 + s0, 3), "end": round(t0 + s1, 3)})
         parts += [audio, np.zeros(int(24000 * gap), np.float32)]
