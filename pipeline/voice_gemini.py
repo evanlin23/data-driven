@@ -11,10 +11,10 @@ import base64, json, os, re, sys, time, urllib.request, wave
 
 API = "https://generativelanguage.googleapis.com/v1beta"
 KEY = os.environ.get("GEMINI_API_KEY", "")
-STYLE = os.environ.get("GEMINI_TTS_STYLE", (
-    "Narrate this like a YouTube video essayist who did the research himself: relaxed, conversational, "
-    "dry sense of humour, genuinely curious. Natural pace, slight emphasis on the numbers, brief pauses before reveals. "
-    "Not a news anchor, not an advert."))
+# Short "Read aloud ...:" lead-in, like Google's own examples. A long paragraph of direction sometimes gets
+# read out as part of the script (Charon and Iapetus did this in the first audition).
+STYLE = os.environ.get("GEMINI_TTS_STYLE",
+    "Read aloud in a relaxed, conversational YouTube-narrator voice, dry and curious, never like a news anchor:")
 MIN_GAP = float(os.environ.get("GEMINI_TTS_GAP", "21"))  # seconds between calls (free tier ~3 RPM)
 _last = [0.0]
 
