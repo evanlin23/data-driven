@@ -22,5 +22,19 @@ def mix(video, wav, out):
                     "-c:v", "copy", "-af", af, "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-shortest", out], check=True)
 
 mix(video, wav, out)
-dur = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out], capture_output=True, text=True).stdout.strip()
+
+# Verify on the final file (AAC encode can shift integrated loudness ~1 LU); correct with a plain gain if off by > 0.5.
+def measure(path):
+    e = subprocess.run(["ffmpeg", "-hide_banner", "-i", path, "-af", "ebur128=framelog=quiet", "-f", "null", "-"], capture_output=True, text=True).stderr
+    return float(e[e.rfind(" I:"):].split()[1])
+li = measure(out)
+if abs(li + 14) > 0.5:
+    tmp = out + ".tmp.mp4"
+    subprocess.run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", out, "-c:v", "copy", "-af", f"volume={-14 - li:.2f}dB",
+                    "-c:a", "aac", "-b:a", "192k", "-ar", "48000", tmp], check=True)
+    os.replace(tmp, out)
+    print(f"loudness corrected {li:.1f} -> {measure(out):.1f} LUFS")
+else:
+    print(f"loudness {li:.1f} LUFS")
+dur =subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out], capture_output=True, text=True).stdout.strip()
 print(f"assembled {len(segs)} segments -> {out} ({float(dur):.1f}s)")
