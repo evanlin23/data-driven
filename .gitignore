@@ -6,3 +6,4 @@ models/
 video/public/bench*.json
 video/public/episodes/**/*.wav
 video/public/episodes/**/props.json
+.tts-cache/

@@ -16,6 +16,7 @@ KEY = os.environ.get("GEMINI_API_KEY", "")
 STYLE = os.environ.get("GEMINI_TTS_STYLE",
     "Read aloud in a relaxed, conversational YouTube-narrator voice, dry and curious, never like a news anchor:")
 if STYLE.strip().lower() == "none": STYLE = ""  # some voices (Charon, Iapetus) read any direction aloud
+CACHE = os.environ.get("TTS_CACHE", os.path.join(os.path.dirname(__file__), "..", ".tts-cache"))
 MIN_GAP = float(os.environ.get("GEMINI_TTS_GAP", "21"))  # seconds between calls (free tier ~3 RPM)
 _last = [0.0]
 
@@ -53,12 +54,14 @@ def synth(text, voice, model):
             print(f"  {voice}: HTTP {e.code} {msg}", file=sys.stderr)
             if e.code in (429, 500, 503): time.sleep(30 * (attempt + 1)); continue
             raise
+    raise SystemExit("Gemini TTS quota exhausted (free tier is ~15 requests/day; it resets at midnight Pacific). "
+                     "Cached chunks are kept, so re-running later only voices what's missing.")
 
 def write_wav(pcm, path, sr=24000):
     with wave.open(path, "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr); w.writeframes(pcm)
 
-def _chunks(lines, max_words=200):
+def _chunks(lines, max_words=330):
     cur, n = [], 0
     for i, l in enumerate(lines):
         w = len(l.split())
@@ -80,7 +83,15 @@ def say_script(lines, out_wav, gap=0.35, voice=None, synth_fn=None):
     parts, timing, t0 = [], [], 0.0
     for idx in _chunks(clean):
         chunk_lines = [clean[i] for i in idx]
-        audio = synth_fn("\n".join(chunk_lines))          # float32 @ 24 kHz
+        text = "\n".join(chunk_lines)
+        import hashlib
+        key = hashlib.sha256(f"{voice}|{STYLE}|{model}|{text}".encode()).hexdigest()[:20]
+        cpath = os.path.join(CACHE, f"{key}.npy")
+        if os.path.exists(cpath):
+            audio = np.load(cpath)
+        else:
+            audio = synth_fn(text)          # float32 @ 24 kHz
+            os.makedirs(CACHE, exist_ok=True); np.save(cpath, audio)
         dur = len(audio) / 24000
         a16 = np.interp(np.arange(0, len(audio), 1.5), np.arange(len(audio)), audio).astype(np.float32)
         spans, anchored = line_times(chunk_lines, transcribe_words(a16), dur)
