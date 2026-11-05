@@ -52,6 +52,9 @@ def synth(text, voice, model):
         except urllib.error.HTTPError as e:
             msg = e.read().decode()[:300]
             print(f"  {voice}: HTTP {e.code} {msg}", file=sys.stderr)
+            if e.code == 402:
+                raise SystemExit("Gemini API: prepaid balance is empty (HTTP 402). Buy credits in AI Studio -> Billing; "
+                                 "Google Cloud / Developer Program credits only apply after a Prepay purchase.")
             if e.code in (429, 500, 503): time.sleep(30 * (attempt + 1)); continue
             raise
     raise SystemExit("Gemini TTS quota exhausted (free tier is ~15 requests/day; it resets at midnight Pacific). "
