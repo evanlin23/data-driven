@@ -1,11 +1,11 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame, useVideoConfig} from 'remotion';
 import {C, body, display} from '../theme';
-import {ease, fmt, pop} from '../anim';
+import {ease, fmt, NumKind, pop} from '../anim';
 
 export type BigNumberProps = {
   value: number;
-  kind?: 'int' | 'pct' | 'compact';
+  kind?: NumKind;
   label: string;
   sub?: string;
   color?: 'text' | 'accent' | 'gold' | 'good';

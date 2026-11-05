@@ -1,14 +1,14 @@
 import React from 'react';
 import {AbsoluteFill, Img, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {C, body, display} from '../theme';
-import {ease, fmt, pop} from '../anim';
+import {ease, fmt, NumKind, pop} from '../anim';
 
 export type GameCardProps = {
   rank?: number;
   title: string;
   image: string; // path under public/ (download assets first; the render browser can't fetch remote images)
   year?: number;
-  stats: {label: string; value: number; kind?: 'int' | 'pct' | 'compact'; color?: 'text' | 'accent' | 'gold' | 'good'}[];
+  stats: {label: string; value: number; kind?: NumKind; color?: 'text' | 'accent' | 'gold' | 'good'}[];
   note?: string;
 };
 

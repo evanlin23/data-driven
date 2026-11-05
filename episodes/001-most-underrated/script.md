@@ -45,7 +45,6 @@ And one game per studio, or a single developer would take three spots.
 Then I ranked everything by one number: how many times short of its expected reviews a game landed.
 
 @chapter #10 to #6
-@chapter #1
 @scene leaderboard @ref:board_10
 Fifteen thousand games had enough reviews to be judged. These ten got robbed the worst. Let's count down.
 
@@ -93,7 +92,7 @@ Almost three out of four of games in general launched within a week of one of th
 And for the hundred most underrated games? About six in ten. Fewer, not more.
 So my theory was wrong. Bad timing makes a good story, but it isn't what these games have in common.
 
-@scene bigNumber {"value": 6.99, "kind": "int", "label": "median price: the 100 most underrated", "sub": "vs $11.99 for top-rated games that hit expectations", "color": "gold"}
+@scene bigNumber {"value": 6.99, "kind": "usd", "label": "median price: the 100 most underrated", "sub": "vs $11.99 for top-rated games that hit expectations", "color": "gold"}
 Here's what they do share. They're cheap. The hundred most underrated games have a median price of seven dollars.
 Top-rated games that did as well as expected? Twelve dollars.
 
@@ -146,6 +145,7 @@ Number two surprised me. It's a solitaire game. [pause 0.4]
 SHENZHEN SOLITAIRE started as a mini-game inside Zachtronics' SHENZHEN I/O, then got released on its own for three dollars.
 Ninety-seven percent positive. The model expected twenty-five hundred reviews. It has two hundred and eight. Twelve times short.
 
+@chapter #1
 @scene leaderboard @ref:board_1
 Which brings us back to that red dot from the start.
 

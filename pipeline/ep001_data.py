@@ -42,7 +42,7 @@ for i, r in fin15.iterrows():
         "stats": [{"label": "Steam reviews", "value": int(r.n)},
                   {"label": "Players who liked it", "value": round(float(r.q), 3), "kind": "pct", "color": "good"},
                   {"label": "Model expected", "value": int(round(r.expected_n, -1)), "color": "gold"},
-                  {"label": "Times short", "value": round(float(r.gap), 1), "color": "accent"}]}
+                  {"label": "Times short", "value": round(float(r.gap), 1), "kind": "x1", "color": "accent"}]}
 def board(revealed_upto):
     rows = []
     for i, r in fin.iterrows():
