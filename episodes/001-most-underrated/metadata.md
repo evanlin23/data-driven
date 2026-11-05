@@ -8,9 +8,9 @@
 (Playbook check: first person ✓, big exact number ✓ (#2), superlative ✓, no year, no parentheses, all ≤ 60 chars except #3 (61), so trim #3 if Studio truncates.)
 
 ## Thumbnails (render with `npx remotion still src/index.ts Thumbnail` + props in thumbnails/*.json)
-- A `dot`: scatter cloud, one red-circled dot, arrow, text "ROBBED." Small Gravity Ghost art top-right.
-- B `number`: "302" huge + "REVIEWS. 96% LOVED IT." Same red dot on the chart.
-- C `versus`: Gravity Ghost art vs Dying Light art, "SAME DAY." Game art stays small and the chart stays the hero (copyright guide §thumbnails).
+- **A `dot` (PRIMARY, owner pick)**: scatter cloud, one red-circled dot, arrow, "ROBBED." No game art (never spoil #1).
+- B `number` (test variant): "302" huge + "REVIEWS. 96% LOVED IT." + the red dot.
+- C `versus` (test variant): "?" card vs Dying Light art, "SAME DAY." The mystery game is never shown.
 
 ## Description
 I scored 51,897 Steam games to find the ones that got robbed: games players loved that almost nobody showed up for. The model predicts how many reviews a game *should* have from its rating and release year, then ranks games by how far short they landed.
