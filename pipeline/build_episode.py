@@ -56,7 +56,13 @@ for i in r["issues"]: print("   ", i)
 if not r["passed"] and "--skip-lint" not in flags:
     sys.exit("script failed lint (use --skip-lint only for drafts)")
 
-from voice import say_script  # noqa: E402  (slow import; after lint)
+# Narrator: Gemini "Puck" (owner's pick, free AI Studio tier) when GEMINI_API_KEY is set; Kokoro otherwise.
+ENGINE = os.environ.get("VOICE_ENGINE") or ("gemini" if os.environ.get("GEMINI_API_KEY") else "kokoro")
+if ENGINE == "gemini":
+    from voice_gemini import say_script  # noqa: E402
+else:
+    from voice import say_script  # noqa: E402
+print("voice engine:", ENGINE)
 audio_dir = os.path.join(ROOT, "video", "public", "episodes", slug); os.makedirs(audio_dir, exist_ok=True)
 lines = [l for b in blocks for l in b["lines"]]
 timing = say_script(lines, os.path.join(audio_dir, "narration.wav"))

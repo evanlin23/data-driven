@@ -58,6 +58,41 @@ def write_wav(pcm, path, sr=24000):
     with wave.open(path, "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr); w.writeframes(pcm)
 
+def _chunks(lines, max_words=200):
+    cur, n = [], 0
+    for i, l in enumerate(lines):
+        w = len(l.split())
+        if cur and n + w > max_words:
+            yield cur; cur, n = [], 0
+        cur.append(i); n += w
+    if cur: yield cur
+
+def say_script(lines, out_wav, gap=0.35, voice=None, synth_fn=None):
+    """Same contract as voice.say_script: returns [{text, start, end}] per line and writes out_wav (24 kHz).
+    Lines are synthesized in ~200-word chunks (free-tier friendly, better prosody), then each line is located
+    in its chunk with Whisper word timestamps (pipeline/align.py)."""
+    import numpy as np
+    from align import transcribe_words, line_times
+    voice = voice or os.environ.get("GEMINI_TTS_VOICE", "Puck")
+    clean = [re.sub(r"\s*\[pause(?: [\d.]+)?\]\s*", "... ", l).strip() for l in lines]
+    model = None if synth_fn else pick_model()
+    synth_fn = synth_fn or (lambda text: np.frombuffer(synth(text, voice, model), np.int16).astype(np.float32) / 32768)
+    parts, timing, t0 = [], [], 0.0
+    for idx in _chunks(clean):
+        chunk_lines = [clean[i] for i in idx]
+        audio = synth_fn("\n".join(chunk_lines))          # float32 @ 24 kHz
+        dur = len(audio) / 24000
+        a16 = np.interp(np.arange(0, len(audio), 1.5), np.arange(len(audio)), audio).astype(np.float32)
+        spans, anchored = line_times(chunk_lines, transcribe_words(a16), dur)
+        print(f"  chunk {len(timing) // 1}: {len(idx)} lines, {dur:.1f}s, anchored {anchored}/{len(idx)}", file=sys.stderr)
+        for i, (s0, s1) in zip(idx, spans):
+            timing.append({"text": re.sub(r"\[pause[^\]]*\]", "", lines[i]).strip(), "start": round(t0 + s0, 3), "end": round(t0 + s1, 3)})
+        parts += [audio, np.zeros(int(24000 * gap), np.float32)]
+        t0 += dur + gap
+    import soundfile as sf
+    sf.write(out_wav, np.concatenate(parts), 24000)
+    return timing
+
 if __name__ == "__main__":
     if not KEY: sys.exit("GEMINI_API_KEY is not set")
     cmd, text_file, out = sys.argv[1], sys.argv[2], sys.argv[3]

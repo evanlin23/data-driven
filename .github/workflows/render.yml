@@ -18,7 +18,7 @@ env:
 jobs:
   voice:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     outputs:
       episode: ${{ steps.ep.outputs.episode }}
       shards: ${{ steps.shards.outputs.list }}
@@ -40,8 +40,9 @@ jobs:
         with: {path: models, key: kokoro-v1.0}
       - name: narrate (lint gate inside build_episode.py)
         if: steps.ep.outputs.episode != ''
+        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}", GEMINI_TTS_VOICE: Puck}
         run: |
-          pip install -q kokoro-onnx soundfile numpy
+          pip install -q kokoro-onnx soundfile numpy faster-whisper
           mkdir -p models
           for f in kokoro-v1.0.onnx voices-v1.0.bin; do
             [ -s models/$f ] || curl -sSL -o models/$f https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/$f
