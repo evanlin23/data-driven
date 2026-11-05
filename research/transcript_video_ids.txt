@@ -1,0 +1,37 @@
+# top outliers
+https://www.youtube.com/watch?v=m2UohoQ5GJI  # 250x AstroidmaniaVideos: Using VFX to Reveal the True Scale of Pokémon
+https://www.youtube.com/watch?v=qiNv3qv-YbU  # 162x NewbieIndieGameDev: I Scraped the Entire Steam Catalog, Here’s the Data
+https://www.youtube.com/watch?v=mM7EhT5UdAE  # 155x AstroidmaniaVideos: I Simulated 1,810,053 Battles to Find the Strongest Pokémon
+https://www.youtube.com/watch?v=AN_BEd8BJQM  # 130x AstroidmaniaVideos: I Created the Most Powerful Pokémon
+https://www.youtube.com/watch?v=lXeNZeLSsgY  # 120x DataTime27: I analyzed all words on the Mr Beast channel
+https://www.youtube.com/watch?v=yMUJnwqdc1I  # 105x DataTime27: I used AI to analyze presidential speeches... I was surprised
+https://www.youtube.com/watch?v=c6E3v5POHVY  # 98x blitztalkyt: I Built a Model to Find the Unluckiest Team in the NFL
+https://www.youtube.com/watch?v=4Ru2vv8kmm0  # 95x AstroidmaniaVideos: I Created an Immortal Pokémon
+https://www.youtube.com/watch?v=Dfdy6ziUIes  # 85x AstroidmaniaVideos: I Created the Most Annoying Pokémon
+https://www.youtube.com/watch?v=54AmjtIpNCo  # 85x AstroidmaniaVideos: How I Got Away with Cheating in Pokémon
+https://www.youtube.com/watch?v=wWjiJVbSzTg  # 80x AstroidmaniaVideos: I Simulated A Billion Lions VS 1 of Every Pokemon
+https://www.youtube.com/watch?v=Su41yU_irf4  # 75x AstroidmaniaVideos: I Created the World's Strongest Pokémon
+https://www.youtube.com/watch?v=pB23R6iRHX0  # 72x DataTime27: Disaster in California: I went to the San Andreas Fault
+https://www.youtube.com/watch?v=z26DADfXczc  # 65x AstroidmaniaVideos: I Modded Pokémon So My Mom Can Beat It
+https://www.youtube.com/watch?v=joam5ccEzN4  # 60x AstroidmaniaVideos: It Only Takes 6 Abilities to Create an Immortal Pokémon
+https://www.youtube.com/watch?v=sGgpNmOW0oo  # 55x AstroidmaniaVideos: I Created the Ultimate Pokémon Team (they can cheat)
+https://www.youtube.com/watch?v=4jQ4-CsptxM  # 55x AstroidmaniaVideos: Choose Your Starter, but They’re All Pokémon I’ve Made
+https://www.youtube.com/watch?v=r7P8qHb1yoE  # 50x AstroidmaniaVideos: Using VFX to Reveal the True Weight of Pokémon
+https://www.youtube.com/watch?v=cae0YJBwygg  # 50x AstroidmaniaVideos: Level 1 to 100 Impossible Pokémon Battles
+https://www.youtube.com/watch?v=0giYUWSIuG0  # 50x AstroidmaniaVideos: How to 100% Pokémon
+https://www.youtube.com/watch?v=6OtyiXNNxto  # 50x AstroidmaniaVideos: Can You Beat the Hardest Pokémon Escape Room?
+https://www.youtube.com/watch?v=JUIyhoLfFzI  # 50x AstroidmaniaVideos: I Made Your Stupid Pokémon Ideas
+https://www.youtube.com/watch?v=szi24FesVYQ  # 44x i_am_a_dot: Games Where You're NOT the Main Character
+https://www.youtube.com/watch?v=l7m76GUDLPA  # 44x AstroidmaniaVideos: I Created the Weakest Pokémon, Then Tried to Beat the Game
+https://www.youtube.com/watch?v=dZUViYj4gQ4  # 44x watercs: Who Owns North Korea's Steam Account?
+# low performers (contrast)
+https://www.youtube.com/watch?v=vuq4VhVWX_8  # 0.02x Wilytics: The 2023 Cincinnati Bengals are a DISASTER...
+https://www.youtube.com/watch?v=5Ve3XwpEDmA  # 0.02x Wilytics: How the Giants Turned an Average Team into a Playoff Contender
+https://www.youtube.com/watch?v=9nzib4AdCkI  # 0.02x Wilytics: The Yankees are the UNLUCKIEST Team… and Why They Will Make the Playoffs
+https://www.youtube.com/watch?v=60jJ7xFdV98  # 0.02x RealityMargin: What If America Lost Two Carriers on Day One of WW3?
+https://www.youtube.com/watch?v=QGPyFrStvsI  # 0.03x Wilytics: He Was the Worst Hitter in the League… But Everybody Loved Him
+https://www.youtube.com/watch?v=4t4TUdEGseU  # 0.04x Wilytics: How the Royals Ended a 30 YEAR Playoff Drought | Rebuild Recap
+https://www.youtube.com/watch?v=UDMf_yu8JNA  # 0.04x blitztalkyt: The Broncos Will Be Scary Next Year
+https://www.youtube.com/watch?v=DGVzUHg_-NE  # 0.04x JustJordanParker: Pokemon Emerald SABLEYE ONLY ➡️ Pokemon Challenge ❌ No Items In Battle
+https://www.youtube.com/watch?v=vEK2dx7ehjM  # 0.04x Wilytics: The Most Surprising Team in Major League Baseball
+https://www.youtube.com/watch?v=58pguiM0i_I  # 0.05x Wilytics: Breaking Down the NASTIEST Pitcher in Baseball (using statistics)
