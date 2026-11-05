@@ -15,6 +15,7 @@ KEY = os.environ.get("GEMINI_API_KEY", "")
 # read out as part of the script (Charon and Iapetus did this in the first audition).
 STYLE = os.environ.get("GEMINI_TTS_STYLE",
     "Read aloud in a relaxed, conversational YouTube-narrator voice, dry and curious, never like a news anchor:")
+if STYLE.strip().lower() == "none": STYLE = ""  # some voices (Charon, Iapetus) read any direction aloud
 MIN_GAP = float(os.environ.get("GEMINI_TTS_GAP", "21"))  # seconds between calls (free tier ~3 RPM)
 _last = [0.0]
 
@@ -38,7 +39,7 @@ def pick_model():
 def synth(text, voice, model):
     wait = MIN_GAP - (time.time() - _last[0])
     if wait > 0: time.sleep(wait)
-    body = {"contents": [{"parts": [{"text": f"{STYLE}\n\n{text}"}]}],
+    body = {"contents": [{"parts": [{"text": f"{STYLE}\n\n{text}" if STYLE else text}]}],
             "generationConfig": {"responseModalities": ["AUDIO"],
                                  "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voice}}}}}
     for attempt in range(5):

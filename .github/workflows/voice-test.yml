@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       voices: {description: "Gemini voices (space-separated)", default: "Charon Iapetus Puck Orus Sadaltager Achird"}
+      style: {description: "delivery direction (blank = default, none = plain script)", default: ""}
 permissions: {contents: read}
 jobs:
   audition:
@@ -18,8 +19,10 @@ jobs:
         with: {path: models, key: kokoro-v1.0}
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
       - name: gemini voices
-        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}"}
-        run: python pipeline/voice_gemini.py sample episodes/voice-sample.txt samples ${{ inputs.voices || 'Charon Iapetus Puck Orus Sadaltager Achird' }}
+        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}", STYLE_IN: "${{ inputs.style }}"}
+        run: |
+          [ -n "$STYLE_IN" ] && export GEMINI_TTS_STYLE="$STYLE_IN"
+          python pipeline/voice_gemini.py sample episodes/voice-sample.txt samples ${{ inputs.voices || 'Charon Iapetus Puck Orus Sadaltager Achird' }}
       - name: kokoro (current voice) for comparison
         run: |
           pip install -q kokoro-onnx soundfile numpy
