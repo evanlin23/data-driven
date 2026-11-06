@@ -59,6 +59,8 @@ jobs:
           for f in kokoro-v1.0.onnx voices-v1.0.bin; do
             [ -s models/$f ] || curl -sSL -o models/$f https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/$f
           done
+          # simulate the narration guards on this script's real chunks before spending any daily TTS quota
+          python pipeline/qa/test_voice_guards.py "episodes/${{ steps.ep.outputs.episode }}" 2>/dev/null
           python pipeline/build_episode.py "episodes/${{ steps.ep.outputs.episode }}"
       - name: save narration cache (even if narration failed part-way, keep the chunks that were voiced)
         if: always() && steps.ep.outputs.episode != ''
