@@ -62,7 +62,8 @@ for b in blocks:
     if b["hold"]:
         t_shift += b["hold"]  # NOTE: holds extend visuals only; narration audio is continuous, so keep holds on the last scene
 
-dur = scenes[-1]["from"] + scenes[-1]["dur"] + 0.5
+scenes[-1]["dur"] = round(scenes[-1]["dur"] + 0.5, 3)  # the end card holds through the tail (no blank frames)
+dur = scenes[-1]["from"] + scenes[-1]["dur"]
 spec = {"fps": 30, "durationSec": round(dur, 2), "audio": f"episodes/{slug}/narration.wav", "scenes": scenes}
 spec_path = os.path.join(ROOT, "video", "src", "episodes", f"{slug}.json"); os.makedirs(os.path.dirname(spec_path), exist_ok=True)
 json.dump(spec, open(spec_path, "w"), indent=1)

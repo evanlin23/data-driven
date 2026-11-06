@@ -57,7 +57,8 @@ const Camera: React.FC<{children: React.ReactNode; dur: number; i: number}> = ({
     const o = interpolate(f, [0, 4], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
     return <AbsoluteFill style={{transform: `translateX(${(1 - t) * SLIDE_PX}px) scale(${z})`, opacity: o}}>{children}</AbsoluteFill>;
   }
-  const o = interpolate(f, [0, 5, n - 4, n], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const e = Math.min(5, n / 3);  // very short scenes: shorter fades (input range must stay increasing)
+  const o = n > 3 ? interpolate(f, [0, e, n - e, n], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) : 1;
   return <AbsoluteFill style={{transform: `scale(${z})`, opacity: o}}>{children}</AbsoluteFill>;
 };
 
