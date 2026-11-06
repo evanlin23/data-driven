@@ -1,9 +1,9 @@
 0:00 The red dot
-0:37 How the model works
+0:36 How the model works
 2:27 The rules
-3:05 #10 to #6
-4:13 Was it bad timing?
-4:45 What they have in common
-5:37 #5 to #2
-7:00 #1
-7:54 What did the model miss?
+3:04 #10 to #6
+4:10 Was it bad timing?
+4:43 What they have in common
+5:40 #5 to #2
+7:02 #1
+7:57 What did the model miss?

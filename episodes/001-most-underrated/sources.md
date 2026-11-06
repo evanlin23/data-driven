@@ -44,7 +44,7 @@ Every number in the script comes from `facts.json` (built by `pipeline/ep001_fac
   or release year (the underrated group skews 2014-16 and higher-rated), so differences may partly reflect era.
 - Timing: launched within 7 days (Steam store dates) of one of Steam's 400 most-reviewed games, never itself:
   71.6% vs 67.6%. 63% of all calendar days 2014-2025 fall within a week of one of those 400 games.
-- Genres: Casual 47% vs 25%; Strategy 15% vs 31%; Simulation 12% vs 34%; RPG 18% vs 30%.
+- Genres (6 of 34 RPG, 5 strategy, 4 simulation): Casual 47% vs 25%; Strategy 15% vs 31%; Simulation 12% vs 34%; RPG 18% vs 30%.
 - Online PvP (Steam store category) 2.9% vs 22.7%. Price $20+ (current SteamSpy list price): 2.9% vs 22.3%.
 - Model error: typical miss 2.68x across all 51,897 scored games; among games with 200+ reviews
   only 0.9% are that far short (the model underpredicts most 200+ games, since lookalikes include tiny games).
@@ -56,7 +56,10 @@ Every number in the script comes from `facts.json` (built by `pipeline/ep001_fac
   Secret Sealing Travel), so the claim is about the checked finalists, as the video says.
 - Ratings shown and spoken are the real share of positive reviews (e.g. Gravity Ghost 96.7% -> 97%); the adjusted
   (shrunk) score is used only for the model and the scatter's x axis (Gravity Ghost 96.3%).
-- Release dates are Steam store dates (e.g. Dying Light Jan 26, 2015 on Steam; Jan 27 in some regions).
+- Release dates are Steam store dates, often a day earlier than commonly cited dates (Dying Light Jan 26 vs Jan 27;
+  Life is Strange Ep. 1 Jan 29 vs Jan 30; Black Ops III Nov 5 vs Nov 6; Fallout 4 Nov 9 vs Nov 10). The video says 'on Steam'.
+- RPG share in the underrated-looking group (6/34 vs 42/141) is not distinguishable from chance (Fisher p~0.2), so
+  the video doesn't claim it; strategy (p~0.06), simulation (p~0.01), online PvP and $20+ (p~0.006) are.
 - Review-history chart: English-language reviews only (138 of Gravity Ghost's 302).
 
 ## Known limitations
