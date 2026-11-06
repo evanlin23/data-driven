@@ -10,7 +10,8 @@ import {TextBeat, TextBeatProps} from './scenes/TextBeat';
 import {ReviewQuote, ReviewQuoteProps} from './scenes/ReviewQuote';
 import {CompareBars, CompareBarsProps} from './scenes/CompareBars';
 import {GapBars, GapBarsProps} from './scenes/GapBars';
-import {C} from './theme';
+import {C, setStyle, texture} from './theme';
+import {TextureOverlay} from './Texture';
 
 type Base = {from: number; dur: number};
 export type Scene = Base & (
@@ -26,7 +27,7 @@ export type Scene = Base & (
   | {type: 'gapBars'; props: GapBarsProps}
 );
 
-export type EpisodeSpec = {fps: number; durationSec: number; audio?: string; music?: string; musicVolume?: number; scenes: Scene[]};
+export type EpisodeSpec = {fps: number; durationSec: number; style?: string; audio?: string; music?: string; musicVolume?: number; scenes: Scene[]};
 
 const render = (s: Scene) => {
   switch (s.type) {
@@ -54,7 +55,9 @@ const Camera: React.FC<{children: React.ReactNode; dur: number; i: number}> = ({
 };
 
 /** Renders an episode from a JSON spec. Scene timing (seconds) comes from the narration timing file. */
-export const Episode: React.FC<{spec: EpisodeSpec}> = ({spec}) => (
+export const Episode: React.FC<{spec: EpisodeSpec; style?: string}> = ({spec, style}) => {
+  setStyle(style ?? spec.style);  // before any scene renders: scenes read the live palette/fonts
+  return (
   <AbsoluteFill style={{background: C.bg}}>
     {spec.audio && <Audio src={staticFile(spec.audio)} />}
     {spec.music && <Audio src={staticFile(spec.music)} volume={spec.musicVolume ?? 0.08} loop />}
@@ -63,5 +66,7 @@ export const Episode: React.FC<{spec: EpisodeSpec}> = ({spec}) => (
         <Camera dur={s.dur} i={i}>{render(s)}</Camera>
       </Sequence>
     ))}
+    <TextureOverlay kind={texture} />
   </AbsoluteFill>
-);
+  );
+};

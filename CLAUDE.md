@@ -36,6 +36,13 @@ only state numbers that exist in facts.json, and data.json is generated from fac
 - `visual-audit`: contact sheets, scene lengths, audio levels, thumbnails.
 - `voice-render-run`: dispatching the CI render under the daily TTS quota, and verifying the film.
 
+## Visual styles
+`video/src/theme.ts` holds the channel looks (`STYLES`: palette, display/body/hand fonts, texture overlay). An episode
+picks one with `"style"` in its spec (default `midnight`); thumbnails take a `style` prop. Scenes only read `C`,
+`display`, `body` and `hand`, so a new look never touches scene code. Preview every look on an episode's key moments:
+`cd video && node style-gallery.mjs src/episodes/<ep>.json ../episodes/<ep>/thumbnails/A_dot.json <out> [style ...]`.
+Fonts must be bundled woff2 files in `video/public/fonts` (OFL; get them with `npm pack @fontsource/<family>`).
+
 ## QA tools
 - `pipeline/script_lint.py`: AI-writing tells (also runs inside build_episode).
 - `pipeline/qa/claims_sheet.py episodes/<ep>`: every checkable claim, per scene (input for the fact-check loop).

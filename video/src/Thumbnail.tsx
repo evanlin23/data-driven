@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
 import {AbsoluteFill, Img, staticFile} from 'remotion';
-import {C, display, hand} from './theme';
+import {C, display, hand, setStyle, texture} from './theme';
+import {TextureOverlay} from './Texture';
 
 export type ThumbnailProps = {
   variant: 'dot' | 'number' | 'versus';
@@ -11,12 +12,14 @@ export type ThumbnailProps = {
   bigNumber?: string;           // for 'number' variant, e.g. "302"
   image?: string;               // small game art (secondary), under public/
   versusImage?: string;         // for 'versus': the mega-hit it launched against
+  style?: string;               // channel look (theme.ts STYLES)
 };
 
 const TW = 1280, TH = 720;
 
 /** YouTube thumbnail. Readable at 160px: one chart, one red mark, <=3 words. */
-export const Thumbnail: React.FC<ThumbnailProps> = ({variant, cloud, hero, words, bigNumber, image, versusImage}) => {
+export const Thumbnail: React.FC<ThumbnailProps> = ({variant, cloud, hero, words, bigNumber, image, versusImage, style}) => {
+  setStyle(style);
   const L = 60, R = TW - 60, T = 60, B = TH - 60;
   const sx = (q: number) => L + ((q - 0.35) / 0.65) * (R - L);
   const sy = (lg: number) => B - ((lg - 1.0) / 5.2) * (B - T);
@@ -58,6 +61,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({variant, cloud, hero, words
           <Img src={staticFile(versusImage)} style={{width: 300, borderRadius: 12, opacity: 0.9}} />
         </div>
       )}
+      <TextureOverlay kind={texture} />
     </AbsoluteFill>
   );
 };
