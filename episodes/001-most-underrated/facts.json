@@ -1,133 +1,39 @@
 {
  "games_scored": 51897,
- "candidates": 15452,
- "finalists": [
+ "candidates_min200": 15452,
+ "prior_mean_positive": 0.8,
+ "top10": [
   {
-   "appid": 251490,
-   "name": "Gravity Ghost",
-   "n": 302,
-   "q": 0.9631925727222732,
-   "expected_n": 6588.1170280036295,
-   "gap": 21.814957046369635,
-   "release": "Jan 26, 2015",
-   "developer": "Ivy Games"
-  },
-  {
+   "rank": 1,
    "appid": 570490,
    "name": "SHENZHEN SOLITAIRE",
-   "n": 208,
-   "q": 0.9703616488174256,
-   "expected_n": 2548.4686174248545,
-   "gap": 12.252252968388724,
+   "developer": "Zachtronics",
    "release": "Dec 15, 2016",
-   "developer": "Zachtronics"
+   "reviews": 208,
+   "liked_adj": 0.9704,
+   "liked_raw": 0.976,
+   "expected": 2548,
+   "times_short": 12.3,
+   "list_price_usd": 2.99,
+   "metacritic": null,
+   "short_description": "NO ENGINEERING, ALL PROCRASTINATION! SHENZHEN SOLITAIRE is a brand-new solitaire variant originally developed for SHENZHEN I/O, and is now available as a standalone game! It's simple but challenging, and oddly addictive.",
+   "collisions": []
   },
   {
-   "appid": 236930,
-   "name": "Blackwell Epiphany",
-   "n": 934,
-   "q": 0.9762261175722772,
-   "expected_n": 10263.909388538175,
-   "gap": 10.989196347471282,
-   "release": "Apr 24, 2014",
-   "developer": "Wadjet Eye Games"
-  },
-  {
+   "rank": 2,
    "appid": 496350,
    "name": "Supipara - Chapter 1 Spring Has Come!",
-   "n": 255,
-   "q": 0.9833206609522772,
-   "expected_n": 2703.485506615108,
-   "gap": 10.601903947510229,
+   "developer": "minori",
    "release": "Jul 29, 2016",
-   "developer": "minori"
-  },
-  {
-   "appid": 255340,
-   "name": "Escape Goat 2",
-   "n": 441,
-   "q": 0.9545200745751682,
-   "expected_n": 4587.797251973535,
-   "gap": 10.403168371822074,
-   "release": "Mar 24, 2014",
-   "developer": "MagicalTimeBean"
-  },
-  {
-   "appid": 333260,
-   "name": "Marvin's Mittens",
-   "n": 205,
-   "q": 0.951058443723298,
-   "expected_n": 1765.5116021842916,
-   "gap": 8.612251717972155,
-   "release": "Dec 17, 2014",
-   "developer": "Breakfall"
-  },
-  {
-   "appid": 349250,
-   "name": "Copy Kitty",
-   "n": 383,
-   "q": 0.9708406101940548,
-   "expected_n": 3155.09978458532,
-   "gap": 8.23785844539248,
-   "release": "Apr 19, 2018",
-   "developer": "Nuclear Strawberry"
-  },
-  {
-   "appid": 385250,
-   "name": "Paint it Back",
-   "n": 542,
-   "q": 0.9774662892342076,
-   "expected_n": 4156.630863119405,
-   "gap": 7.669060633061633,
-   "release": "Oct 14, 2015",
-   "developer": "Casual Labs"
-  },
-  {
-   "appid": 412670,
-   "name": "Bullet Heaven 2",
-   "n": 493,
-   "q": 0.9792586103596038,
-   "expected_n": 3755.460789694928,
-   "gap": 7.617567524736163,
-   "release": "Dec 7, 2015",
-   "developer": "Matt Roszak"
-  },
-  {
-   "appid": 344480,
-   "name": "Quell",
-   "n": 438,
-   "q": 0.9699498488126144,
-   "expected_n": 3171.194941698305,
-   "gap": 7.24017109976782,
-   "release": "May 14, 2015",
-   "developer": "Fallen Tree Games Ltd"
-  }
- ],
- "collisions": {
-  "251490": {
-   "name": "Gravity Ghost",
-   "date": "2015-01-26",
-   "hits": [
-    {
-     "appid": 239140,
-     "name": "Dying Light",
-     "date": "2015-01-26",
-     "delta_days": 0,
-     "reviews": 457632
-    },
-    {
-     "appid": 319630,
-     "name": "Life is Strange - Episode 1",
-     "date": "2015-01-29",
-     "delta_days": 3,
-     "reviews": 169201
-    }
-   ]
-  },
-  "496350": {
-   "name": "Supipara - Chapter 1 Spring Has Come!",
-   "date": "2016-07-29",
-   "hits": [
+   "reviews": 255,
+   "liked_adj": 0.9833,
+   "liked_raw": 0.9882,
+   "expected": 2703,
+   "times_short": 10.6,
+   "list_price_usd": 14.99,
+   "metacritic": null,
+   "short_description": "Spring has come, and our protagonist, Yukinari, returns home after 7 years. Between his second cousin Sakura, who meets him outside in a full maid outfit, Hotaru, a half-Japanese beauty with a sharp tongue, and the lazy scheming witch Alice - life just got way more interesting!",
+   "collisions": [
     {
      "appid": 477160,
      "name": "Human Fall Flat",
@@ -144,23 +50,21 @@
     }
    ]
   },
-  "255340": {
-   "name": "Escape Goat 2",
-   "date": "2014-03-24",
-   "hits": [
-    {
-     "appid": 265930,
-     "name": "Goat Simulator",
-     "date": "2014-04-01",
-     "delta_days": 8,
-     "reviews": 68580
-    }
-   ]
-  },
-  "333260": {
+  {
+   "rank": 3,
+   "appid": 333260,
    "name": "Marvin's Mittens",
-   "date": "2014-12-17",
-   "hits": [
+   "developer": "Breakfall",
+   "release": "Dec 17, 2014",
+   "reviews": 205,
+   "liked_adj": 0.9511,
+   "liked_raw": 0.9561,
+   "expected": 1766,
+   "times_short": 8.6,
+   "list_price_usd": 5.99,
+   "metacritic": null,
+   "short_description": "Marvin's Mittens presents a soothing world to explore, free from enemies and danger. Go on an adventure!",
+   "collisions": [
     {
      "appid": 322170,
      "name": "Geometry Dash",
@@ -177,70 +81,21 @@
     }
    ]
   },
-  "349250": {
-   "name": "Copy Kitty",
-   "date": "2018-04-19",
-   "hits": [
-    {
-     "appid": 323190,
-     "name": "Frostpunk",
-     "date": "2018-04-24",
-     "delta_days": 5,
-     "reviews": 123546
-    },
-    {
-     "appid": 644560,
-     "name": "Mirror",
-     "date": "2018-04-19",
-     "delta_days": 0,
-     "reviews": 82973
-    }
-   ]
-  },
-  "385250": {
-   "name": "Paint it Back",
-   "date": "2015-10-14",
-   "hits": [
-    {
-     "appid": 233450,
-     "name": "Prison Architect",
-     "date": "2015-10-06",
-     "delta_days": -8,
-     "reviews": 72330
-    }
-   ]
-  },
-  "412670": {
-   "name": "Bullet Heaven 2",
-   "date": "2015-12-07",
-   "hits": [
-    {
-     "appid": 359550,
-     "name": "Tom Clancy's Rainbow Six Siege",
-     "date": "2015-12-01",
-     "delta_days": -6,
-     "reviews": 1398584
-    },
-    {
-     "appid": 225540,
-     "name": "Just Cause\u2122 3",
-     "date": "2015-11-30",
-     "delta_days": -7,
-     "reviews": 122161
-    },
-    {
-     "appid": 376210,
-     "name": "The Isle",
-     "date": "2015-12-01",
-     "delta_days": -6,
-     "reviews": 94804
-    }
-   ]
-  },
-  "344480": {
+  {
+   "rank": 4,
+   "appid": 344480,
    "name": "Quell",
-   "date": "2015-05-14",
-   "hits": [
+   "developer": "Fallen Tree Games Ltd",
+   "release": "May 14, 2015",
+   "reviews": 438,
+   "liked_adj": 0.9699,
+   "liked_raw": 0.9726,
+   "expected": 3539,
+   "times_short": 8.1,
+   "list_price_usd": 3.99,
+   "metacritic": null,
+   "short_description": "An enchanting game of logic and relaxation.",
+   "collisions": [
     {
      "appid": 292030,
      "name": "The Witcher 3: Wild Hunt \u2014 Remastered",
@@ -257,30 +112,76 @@
     }
    ]
   },
-  "262850": {
-   "name": "The Journey Down: Chapter Two",
-   "date": "2014-08-25",
-   "hits": [
+  {
+   "rank": 5,
+   "appid": 385250,
+   "name": "Paint it Back",
+   "developer": "Casual Labs",
+   "release": "Oct 14, 2015",
+   "reviews": 542,
+   "liked_adj": 0.9775,
+   "liked_raw": 0.9797,
+   "expected": 4356,
+   "times_short": 8.0,
+   "list_price_usd": 7.99,
+   "metacritic": null,
+   "short_description": "Use logic as your paintbrush to restore lost works of pixel art. Try the demo!",
+   "collisions": [
     {
-     "appid": 286690,
-     "name": "METRO 2033 Redux",
-     "date": "2014-08-25",
-     "delta_days": 0,
-     "reviews": 110967
-    },
-    {
-     "appid": 287390,
-     "name": "METRO Last Light Redux",
-     "date": "2014-08-25",
-     "delta_days": 0,
-     "reviews": 70096
+     "appid": 233450,
+     "name": "Prison Architect",
+     "date": "2015-10-06",
+     "delta_days": -8,
+     "reviews": 72330
     }
    ]
   },
-  "259810": {
+  {
+   "rank": 6,
+   "appid": 412670,
+   "name": "Bullet Heaven 2",
+   "developer": "Matt Roszak",
+   "release": "Dec 7, 2015",
+   "reviews": 493,
+   "liked_adj": 0.9793,
+   "liked_raw": 0.9817,
+   "expected": 3755,
+   "times_short": 7.6,
+   "list_price_usd": 14.99,
+   "metacritic": null,
+   "short_description": "Bullet Heaven 2 is a bullet-hell shoot-em-up inspired by games like Touhou and Jamestown. It's all about shooting every cute thing that moves, while dodging hundreds of shiny bullets per second!",
+   "collisions": [
+    {
+     "appid": 359550,
+     "name": "Tom Clancy's Rainbow Six Siege",
+     "date": "2015-12-01",
+     "delta_days": -6,
+     "reviews": 1398584
+    },
+    {
+     "appid": 225540,
+     "name": "Just Cause\u2122 3",
+     "date": "2015-11-30",
+     "delta_days": -7,
+     "reviews": 122161
+    }
+   ]
+  },
+  {
+   "rank": 7,
+   "appid": 259810,
    "name": "Home Sheep Home: Farmageddon Party Edition",
-   "date": "2014-02-17",
-   "hits": [
+   "developer": "Aardman Animations, Mobile Pie, Black Smoke Studios",
+   "release": "Feb 17, 2014",
+   "reviews": 757,
+   "liked_adj": 0.9563,
+   "liked_raw": 0.9577,
+   "expected": 5295,
+   "times_short": 7.0,
+   "list_price_usd": 9.99,
+   "metacritic": null,
+   "short_description": "Join Shaun the Sheep and his friends Timmy and Shirley on this epic adventure journeying through caverns, the busy streets of London and through outer space all in search of the green grass of home. Now with new multiplayer modes, controller support, widescreen graphics and much, much more!",
+   "collisions": [
     {
      "appid": 254700,
      "name": "Resident Evil 4 (2005)",
@@ -297,10 +198,21 @@
     }
    ]
   },
-  "415920": {
+  {
+   "rank": 8,
+   "appid": 415920,
    "name": "Voidspire Tactics",
-   "date": "2015-11-02",
-   "hits": [
+   "developer": "Rad Codex",
+   "release": "Nov 2, 2015",
+   "reviews": 268,
+   "liked_adj": 0.9623,
+   "liked_raw": 0.9664,
+   "expected": 1790,
+   "times_short": 6.7,
+   "list_price_usd": 14.99,
+   "metacritic": null,
+   "short_description": "An indie turn-based Tactics RPG with a heavy emphasis on exploration, character progression, and highly tactical combat. Create your own deeply customizable party of Warriors, Sorcerers, and Shiftcloaks to take on the Spire!",
+   "collisions": [
     {
      "appid": 377160,
      "name": "Fallout 4",
@@ -314,15 +226,229 @@
      "date": "2015-11-05",
      "delta_days": 3,
      "reviews": 215026
-    },
+    }
+   ]
+  },
+  {
+   "rank": 9,
+   "appid": 344860,
+   "name": "Crystal Story II",
+   "developer": "Lanstrash",
+   "release": "Feb 6, 2015",
+   "reviews": 325,
+   "liked_adj": 0.9446,
+   "liked_raw": 0.9477,
+   "expected": 1822,
+   "times_short": 5.6,
+   "list_price_usd": 2.99,
+   "metacritic": null,
+   "short_description": "Crystal Story II is a turn-based RPG that follows the story of a young Dragon on his quest to defeat an evil witch. He must seek allies to aid him on his journey and save the world from the oncoming invasion.",
+   "collisions": [
     {
-     "appid": 388520,
-     "name": "Call of Duty\u00ae: Black Ops III",
-     "date": "2015-11-05",
-     "delta_days": 3,
-     "reviews": 62347
+     "appid": 319630,
+     "name": "Life is Strange - Episode 1",
+     "date": "2015-01-29",
+     "delta_days": -8,
+     "reviews": 169201
+    }
+   ]
+  },
+  {
+   "rank": 10,
+   "appid": 516480,
+   "name": "Pinkman",
+   "developer": "Viridino Studios",
+   "release": "Jan 16, 2017",
+   "reviews": 667,
+   "liked_adj": 0.9757,
+   "liked_raw": 0.9775,
+   "expected": 3678,
+   "times_short": 5.5,
+   "list_price_usd": 0.99,
+   "metacritic": null,
+   "short_description": "Pinkman is a fast-paced, action platformer about a lost man with pink skin and an incredible skill to fart.",
+   "collisions": [
+    {
+     "appid": 418370,
+     "name": "Resident Evil 7 Biohazard",
+     "date": "2017-01-23",
+     "delta_days": 7,
+     "reviews": 97846
     }
    ]
   }
- }
+ ],
+ "next5": [
+  {
+   "rank": 11,
+   "appid": 337720,
+   "name": "The Lands of Dream",
+   "developer": "Jonas Kyratzes",
+   "release": "Mar 24, 2016",
+   "reviews": 220,
+   "liked_adj": 0.9543,
+   "liked_raw": 0.9591,
+   "expected": 1202,
+   "times_short": 5.5,
+   "list_price_usd": 0.99,
+   "metacritic": null,
+   "short_description": "A cycle of adventure games set in the Lands of Dream, including The Sea Will Claim Everything.",
+   "collisions": []
+  },
+  {
+   "rank": 12,
+   "appid": 251490,
+   "name": "Gravity Ghost",
+   "developer": "Ivy Games",
+   "release": "Jan 26, 2015",
+   "reviews": 302,
+   "liked_adj": 0.9632,
+   "liked_raw": 0.9669,
+   "expected": 1649,
+   "times_short": 5.5,
+   "list_price_usd": 9.99,
+   "metacritic": 75,
+   "short_description": "Gravity Ghost is a physics game with a twist. Run, jump, and soar around planets, using gravity to glide through the air. Explore a shattered galaxy and rescue its survivors, armed with powerups and mysterious terraforming powers. Meet the 7 magical guardians and best their challenges. There's no killing, no dying, and no way to fail.",
+   "collisions": [
+    {
+     "appid": 239140,
+     "name": "Dying Light",
+     "date": "2015-01-26",
+     "delta_days": 0,
+     "reviews": 457632
+    },
+    {
+     "appid": 319630,
+     "name": "Life is Strange - Episode 1",
+     "date": "2015-01-29",
+     "delta_days": 3,
+     "reviews": 169201
+    }
+   ]
+  },
+  {
+   "rank": 13,
+   "appid": 368160,
+   "name": "WORLD END ECONOMiCA episode.02",
+   "developer": "Spicy Tails",
+   "release": "Jul 21, 2015",
+   "reviews": 244,
+   "liked_adj": 0.9427,
+   "liked_raw": 0.9467,
+   "expected": 1196,
+   "times_short": 4.9,
+   "list_price_usd": 12.99,
+   "metacritic": null,
+   "short_description": "From the creator of Spice and Wolf, Isuna Hasekura, comes World End Economica. Haru woke up with his life but without his dream. 4 years after the incident, he finds a new cause, as a driven young lady offers him a chance to return to investing and to find justice.",
+   "collisions": []
+  },
+  {
+   "rank": 14,
+   "appid": 284790,
+   "name": "Nightmares from the Deep 2: The Siren`s Call",
+   "developer": "Artifex Mundi",
+   "release": "May 15, 2014",
+   "reviews": 848,
+   "liked_adj": 0.9575,
+   "liked_raw": 0.9587,
+   "expected": 3974,
+   "times_short": 4.7,
+   "list_price_usd": 0.0,
+   "metacritic": null,
+   "short_description": "Answer the siren`s call and defeat the cruel Mayor Murray and his pet sea monster, the Kraken",
+   "collisions": [
+    {
+     "appid": 238460,
+     "name": "BattleBlock Theater\u00ae",
+     "date": "2014-05-15",
+     "delta_days": 0,
+     "reviews": 71614
+    }
+   ]
+  },
+  {
+   "rank": 15,
+   "appid": 375130,
+   "name": "Tin Star",
+   "developer": "Hosted Games",
+   "release": "Jun 5, 2015",
+   "reviews": 297,
+   "liked_adj": 0.9461,
+   "liked_raw": 0.9495,
+   "expected": 1323,
+   "times_short": 4.5,
+   "list_price_usd": 11.99,
+   "metacritic": null,
+   "short_description": "Ride out into the Old West as a U.S. marshal in the biggest interactive novel ever made! Confront outlaws, find romance, defy the elements, and craft an enduring legend as you uncover a conspiracy whose deadly web stretches from San Francisco to New York City.",
+   "collisions": []
+  }
+ ],
+ "highest_rated_in_top10": "Supipara - Chapter 1 Spring Has Come!",
+ "model_check": {
+  "group": "released in 2015, rated 95-97% (adjusted), >=200 reviews, release date known",
+  "n_games": 28,
+  "median_actual": 16501,
+  "median_expected": 1875
+ },
+ "price": {
+  "top100_median": 9.99,
+  "met_expectations_median": 11.99,
+  "top100_share_20plus": 0.05,
+  "met_share_20plus": 0.174,
+  "met_n": 2333
+ },
+ "genres": {
+  "underrated_n": 100,
+  "random_n": 160,
+  "Casual": [
+   0.35,
+   0.225
+  ],
+  "Strategy": [
+   0.1,
+   0.306
+  ],
+  "Simulation": [
+   0.06,
+   0.312
+  ],
+  "RPG": [
+   0.11,
+   0.294
+  ]
+ },
+ "categories": {
+  "Single-player": [
+   0.97,
+   0.906
+  ],
+  "Multi-player": [
+   0.19,
+   0.362
+  ],
+  "Online PvP": [
+   0.02,
+   0.212
+  ]
+ },
+ "timing": {
+  "definition": "launched within 7 days of one of the 400 most-reviewed Steam games",
+  "random": {
+   "n": 141,
+   "share": 0.738
+  },
+  "top100": {
+   "n": 81,
+   "share": 0.654
+  }
+ },
+ "robustness": "Top 3 identical with era cutoff at 70th/80th/90th percentile; ranks 4-10 shuffle (ERA_Q env in underrated.py)",
+ "reviews_per_owner_top10": {
+  "median": 0.0199,
+  "min": 0.0059,
+  "max": 0.0438,
+  "note": "SteamSpy owner-range midpoints"
+ },
+ "model_typical_miss_x": 2.7,
+ "model_typical_miss_note": "median |log10(actual/expected)| = 0.43 over all 51,897 trained games (out-of-fold)"
 }

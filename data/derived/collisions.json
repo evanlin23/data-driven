@@ -1,32 +1,7 @@
 {
- "251490": {
-  "name": "Gravity Ghost",
-  "date": "2015-01-26",
-  "hits": [
-   {
-    "appid": 239140,
-    "name": "Dying Light",
-    "date": "2015-01-26",
-    "delta_days": 0,
-    "reviews": 457632
-   },
-   {
-    "appid": 319630,
-    "name": "Life is Strange - Episode 1",
-    "date": "2015-01-29",
-    "delta_days": 3,
-    "reviews": 169201
-   }
-  ]
- },
  "570490": {
   "name": "SHENZHEN SOLITAIRE",
   "date": "2016-12-15",
-  "hits": []
- },
- "236930": {
-  "name": "Blackwell Epiphany",
-  "date": "2014-04-24",
   "hits": []
  },
  "496350": {
@@ -46,19 +21,6 @@
     "date": "2016-07-22",
     "delta_days": -7,
     "reviews": 164906
-   }
-  ]
- },
- "255340": {
-  "name": "Escape Goat 2",
-  "date": "2014-03-24",
-  "hits": [
-   {
-    "appid": 265930,
-    "name": "Goat Simulator",
-    "date": "2014-04-01",
-    "delta_days": 8,
-    "reviews": 68580
    }
   ]
  },
@@ -82,23 +44,23 @@
    }
   ]
  },
- "349250": {
-  "name": "Copy Kitty",
-  "date": "2018-04-19",
+ "344480": {
+  "name": "Quell",
+  "date": "2015-05-14",
   "hits": [
    {
-    "appid": 323190,
-    "name": "Frostpunk",
-    "date": "2018-04-24",
-    "delta_days": 5,
-    "reviews": 123546
+    "appid": 292030,
+    "name": "The Witcher 3: Wild Hunt \u2014 Remastered",
+    "date": "2015-05-18",
+    "delta_days": 4,
+    "reviews": 835349
    },
    {
-    "appid": 644560,
-    "name": "Mirror",
-    "date": "2018-04-19",
-    "delta_days": 0,
-    "reviews": 82973
+    "appid": 363970,
+    "name": "Clicker Heroes",
+    "date": "2015-05-13",
+    "delta_days": -1,
+    "reviews": 61304
    }
   ]
  },
@@ -139,51 +101,6 @@
     "date": "2015-12-01",
     "delta_days": -6,
     "reviews": 94804
-   }
-  ]
- },
- "344480": {
-  "name": "Quell",
-  "date": "2015-05-14",
-  "hits": [
-   {
-    "appid": 292030,
-    "name": "The Witcher 3: Wild Hunt \u2014 Remastered",
-    "date": "2015-05-18",
-    "delta_days": 4,
-    "reviews": 835349
-   },
-   {
-    "appid": 363970,
-    "name": "Clicker Heroes",
-    "date": "2015-05-13",
-    "delta_days": -1,
-    "reviews": 61304
-   }
-  ]
- },
- "337720": {
-  "name": "The Lands of Dream",
-  "date": "2016-03-24",
-  "hits": []
- },
- "262850": {
-  "name": "The Journey Down: Chapter Two",
-  "date": "2014-08-25",
-  "hits": [
-   {
-    "appid": 286690,
-    "name": "METRO 2033 Redux",
-    "date": "2014-08-25",
-    "delta_days": 0,
-    "reviews": 110967
-   },
-   {
-    "appid": 287390,
-    "name": "METRO Last Light Redux",
-    "date": "2014-08-25",
-    "delta_days": 0,
-    "reviews": 70096
    }
   ]
  },
@@ -231,6 +148,75 @@
     "date": "2015-11-05",
     "delta_days": 3,
     "reviews": 62347
+   }
+  ]
+ },
+ "344860": {
+  "name": "Crystal Story II",
+  "date": "2015-02-06",
+  "hits": [
+   {
+    "appid": 319630,
+    "name": "Life is Strange - Episode 1",
+    "date": "2015-01-29",
+    "delta_days": -8,
+    "reviews": 169201
+   }
+  ]
+ },
+ "516480": {
+  "name": "Pinkman",
+  "date": "2017-01-16",
+  "hits": [
+   {
+    "appid": 418370,
+    "name": "Resident Evil 7 Biohazard",
+    "date": "2017-01-23",
+    "delta_days": 7,
+    "reviews": 97846
+   }
+  ]
+ },
+ "337720": {
+  "name": "The Lands of Dream",
+  "date": "2016-03-24",
+  "hits": []
+ },
+ "251490": {
+  "name": "Gravity Ghost",
+  "date": "2015-01-26",
+  "hits": [
+   {
+    "appid": 239140,
+    "name": "Dying Light",
+    "date": "2015-01-26",
+    "delta_days": 0,
+    "reviews": 457632
+   },
+   {
+    "appid": 319630,
+    "name": "Life is Strange - Episode 1",
+    "date": "2015-01-29",
+    "delta_days": 3,
+    "reviews": 169201
+   }
+  ]
+ },
+ "368160": {
+  "name": "WORLD END ECONOMiCA episode.02",
+  "date": "2015-07-21",
+  "hits": []
+ },
+ "284790": {
+  "name": "Nightmares from the Deep 2: The Siren`s Call",
+  "date": "2014-05-15",
+  "hits": [
+   {
+    "appid": 238460,
+    "name": "BattleBlock Theater\u00ae",
+    "date": "2014-05-15",
+    "delta_days": 0,
+    "reviews": 71614
    }
   ]
  }

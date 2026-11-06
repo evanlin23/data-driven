@@ -67,7 +67,7 @@ for f in glob.glob("data/raw/store_details/*.json"):
 ym = pd.Series({a: d.year * 12 + d.month - 1 for a, d in rel.items()})
 def era_appid(m):
     near = ym[(ym >= m - 2) & (ym <= m + 2)]
-    return float(np.quantile(near.index.values, 0.8)) if len(near) >= 15 else None
+    return float(np.quantile(near.index.values, float(os.environ.get("ERA_Q", "0.8")))) if len(near) >= 15 else None
 eff = df.appid.map(lambda a: max(a, era_appid(ym[a]) or a) if a in ym.index else None).astype(float)
 df["release_date"] = df.appid.map(lambda a: str(rel.get(a, "")))
 has = eff.notna().to_numpy()
@@ -78,6 +78,15 @@ if has.any():
         idx = has & (fold_of == k)
         if idx.any(): pred2[idx] = mdl.predict(X2[idx])
 df["era_source"] = np.where(has, "release date", "store page (appid)")
+df["era_appid"] = np.where(has, eff.fillna(0).to_numpy(), df.appid.to_numpy())
+# The model's own prediction curve (median expected reviews vs rating) at fixed eras, averaged over fold models.
+# Charts must draw THIS (the prediction for a game's era), not an average over a span of years.
+qs = np.round(np.arange(0.55, 0.996, 0.01), 3)
+curves = {}
+for era_a in range(200000, 3000001, 10000):
+    Xg = np.column_stack([np.log(qs / (1 - qs)), np.full(len(qs), era_a), np.zeros(len(qs))])
+    curves[era_a] = [round(float(10 ** np.mean([m.predict(Xg)[i] for m in models])), 1) for i in range(len(qs))]
+json.dump({"q": qs.tolist(), "curves": curves}, open("data/derived/model_curves.json", "w"))
 print(f"era from release date for {has.sum():,} games; from appid for the rest")
 df["expected_n"] = 10 ** pred2
 df["gap"] = df.expected_n / df.n          # >1 = fewer players than a game this good "should" have
@@ -89,7 +98,7 @@ df = df[df.n >= MIN].copy()
 
 os.makedirs("data/derived", exist_ok=True)
 out = df.sort_values("gap", ascending=False)
-out[["appid", "name", "developer", "publisher", "positive", "negative", "n", "q", "price_usd", "owners", "release_date", "era_source", "expected_n_appid_era",
+out[["appid", "name", "developer", "publisher", "positive", "negative", "n", "q", "price_usd", "owners", "release_date", "era_source", "era_appid", "expected_n_appid_era",
      "expected_n", "gap", "pct_rank_quality"]].to_csv("data/derived/underrated.csv", index=False)
 
 print(f"trained on {n_trained:,} games (>= {TRAIN_MIN} reviews); candidates {len(df):,} (>= {MIN}) | prior a={a0:.1f} b={b0:.1f} mean={m:.3f}")
