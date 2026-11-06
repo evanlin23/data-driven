@@ -42,12 +42,44 @@ df["log_n"] = np.log10(df.n)
 X = df[["logit_q", "appid", "free"]].to_numpy()
 y = df.log_n.to_numpy()
 pred = np.zeros(len(df))
-for tr, te in KFold(5, shuffle=True, random_state=0).split(X):
+fold_of = np.zeros(len(df), int); models = []
+for k, (tr, te) in enumerate(KFold(5, shuffle=True, random_state=0).split(X)):
     mdl = HistGradientBoostingRegressor(loss="quantile", quantile=0.5, max_iter=300, learning_rate=0.05,
                                         min_samples_leaf=80, monotonic_cst=[1, 0, 0], random_state=0)
     mdl.fit(X[tr], y[tr])
-    pred[te] = mdl.predict(X[te])
-df["expected_n"] = 10 ** pred
+    pred[te] = mdl.predict(X[te]); fold_of[te] = k; models.append(mdl)
+df["expected_n_appid_era"] = 10 ** pred
+
+# --- Era by RELEASE DATE where we know it -------------------------------------------------------------------
+# appid tracks when the store PAGE was created. Some games (Greenlight era, long early access) launched years
+# later, and would be compared with an older, higher-review era (e.g. Gravity Ghost: page 2013, release 2015).
+# For games with a known release date, use the appid typical of NEW store pages launching within +/-2 months
+# (80th percentile: the sample of dated games is full of old pages released late, so the median skews old),
+# and only ever move a game's era LATER (max with its own appid), never earlier.
+import datetime as dt
+rel = {}
+for f in glob.glob("data/raw/store_details/*.json"):
+    d = (json.load(open(f)) or {}).get("data") or {}
+    s = (d.get("release_date") or {}).get("date", "")
+    for fmt in ("%b %d, %Y", "%d %b, %Y", "%B %d, %Y"):
+        try: rel[d["steam_appid"]] = dt.datetime.strptime(s, fmt).date(); break
+        except Exception: pass
+ym = pd.Series({a: d.year * 12 + d.month - 1 for a, d in rel.items()})
+def era_appid(m):
+    near = ym[(ym >= m - 2) & (ym <= m + 2)]
+    return float(np.quantile(near.index.values, 0.8)) if len(near) >= 15 else None
+eff = df.appid.map(lambda a: max(a, era_appid(ym[a]) or a) if a in ym.index else None).astype(float)
+df["release_date"] = df.appid.map(lambda a: str(rel.get(a, "")))
+has = eff.notna().to_numpy()
+pred2 = pred.copy()
+if has.any():
+    X2 = X.copy(); X2[has, 1] = eff[has]
+    for k, mdl in enumerate(models):
+        idx = has & (fold_of == k)
+        if idx.any(): pred2[idx] = mdl.predict(X2[idx])
+df["era_source"] = np.where(has, "release date", "store page (appid)")
+print(f"era from release date for {has.sum():,} games; from appid for the rest")
+df["expected_n"] = 10 ** pred2
 df["gap"] = df.expected_n / df.n          # >1 = fewer players than a game this good "should" have
 df["pct_rank_quality"] = df.q.rank(pct=True)
 n_trained = len(df)
@@ -57,7 +89,7 @@ df = df[df.n >= MIN].copy()
 
 os.makedirs("data/derived", exist_ok=True)
 out = df.sort_values("gap", ascending=False)
-out[["appid", "name", "developer", "publisher", "positive", "negative", "n", "q", "price_usd", "owners",
+out[["appid", "name", "developer", "publisher", "positive", "negative", "n", "q", "price_usd", "owners", "release_date", "era_source", "expected_n_appid_era",
      "expected_n", "gap", "pct_rank_quality"]].to_csv("data/derived/underrated.csv", index=False)
 
 print(f"trained on {n_trained:,} games (>= {TRAIN_MIN} reviews); candidates {len(df):,} (>= {MIN}) | prior a={a0:.1f} b={b0:.1f} mean={m:.3f}")
