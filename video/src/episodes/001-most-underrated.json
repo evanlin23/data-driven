@@ -1,6 +1,6 @@
 {
  "fps": 30,
- "durationSec": 478.76,
+ "durationSec": 486.84,
  "audio": "episodes/001-most-underrated/narration.wav",
  "scenes": [
   {
@@ -34991,31 +34991,31 @@
   {
    "type": "bigNumber",
    "from": 115.188,
-   "dur": 10.907,
+   "dur": 18.203,
    "props": {
     "value": 2.7,
     "kind": "x1",
-    "label": "how far off the model is on a typical game",
-    "sub": "the further past this, the more confident",
+    "label": "typical miss, across all 51,897 games",
+    "sub": "fewer than 1% of games with 200+ reviews are this far short",
     "color": "text"
    }
   },
   {
    "type": "bigNumber",
-   "from": 126.095,
-   "dur": 13.293,
+   "from": 133.391,
+   "dur": 14.552,
    "props": {
     "value": 7,
     "kind": "int",
     "label": "versions of the model",
-    "sub": "same core of the top 10 in every version \u00b7 ranked among games whose release history I checked",
+    "sub": "same 7 in the top 10 every time \u00b7 among the 16 games that passed every check",
     "color": "gold"
    }
   },
   {
    "type": "textBeat",
-   "from": 139.388,
-   "dur": 11.011,
+   "from": 147.943,
+   "dur": 11.01,
    "props": {
     "text": "The rules",
     "sub": "released 2014 or later \u00b7 200+ reviews"
@@ -35023,7 +35023,7 @@
   },
   {
    "type": "textBeat",
-   "from": 150.399,
+   "from": 158.953,
    "dur": 4.952,
    "props": {
     "text": "No DLC|one game per *studio*",
@@ -35032,8 +35032,8 @@
   },
   {
    "type": "textBeat",
-   "from": 155.351,
-   "dur": 7.362,
+   "from": 163.905,
+   "dur": 7.363,
    "props": {
     "text": "It has to launch|on *Steam first*",
     "sub": "or the same day as everywhere else",
@@ -35042,7 +35042,7 @@
   },
   {
    "type": "bigNumber",
-   "from": 162.713,
+   "from": 171.268,
    "dur": 9.923,
    "props": {
     "value": 34,
@@ -35054,7 +35054,7 @@
   },
   {
    "type": "textBeat",
-   "from": 172.636,
+   "from": 181.191,
    "dur": 4.504,
    "props": {
     "text": "played somewhere else first|= *not overlooked*",
@@ -35063,7 +35063,7 @@
   },
   {
    "type": "leaderboard",
-   "from": 177.14,
+   "from": 185.695,
    "dur": 7.533,
    "props": {
     "title": "Most underrated on Steam (since 2014)",
@@ -35080,7 +35080,7 @@
       "rank": 2,
       "title": "Escape Goat 2",
       "image": "games/255340_header.jpg",
-      "value": "6.5x short",
+      "value": "6.6x short",
       "hidden": true
      },
      {
@@ -35144,12 +35144,12 @@
   },
   {
    "type": "gapBars",
-   "from": 184.673,
-   "dur": 10.776,
+   "from": 193.228,
+   "dur": 10.755,
    "props": {
     "title": "I and Me",
     "image": "games/399600_header.jpg",
-    "expected": 934,
+    "expected": 935,
     "actual": 358,
     "timesShort": 2.6,
     "liked": 0.961
@@ -35157,12 +35157,12 @@
   },
   {
    "type": "gapBars",
-   "from": 195.449,
-   "dur": 6.638,
+   "from": 203.983,
+   "dur": 6.637,
    "props": {
     "title": "Starlight Vega",
     "image": "games/377690_header.jpg",
-    "expected": 724,
+    "expected": 725,
     "actual": 255,
     "timesShort": 2.8,
     "liked": 0.937
@@ -35170,12 +35170,12 @@
   },
   {
    "type": "gapBars",
-   "from": 202.087,
-   "dur": 19.162,
+   "from": 210.62,
+   "dur": 19.291,
    "props": {
     "title": "Blackwell Epiphany",
     "image": "games/236930_header.jpg",
-    "expected": 2737,
+    "expected": 2735,
     "actual": 934,
     "timesShort": 2.9,
     "liked": 0.978
@@ -35183,7 +35183,7 @@
   },
   {
    "type": "gapBars",
-   "from": 221.249,
+   "from": 229.911,
    "dur": 9.624,
    "props": {
     "title": "Stardust Galaxy Warriors: Stellar Climax",
@@ -35196,8 +35196,8 @@
   },
   {
    "type": "gameCard",
-   "from": 230.873,
-   "dur": 7.726,
+   "from": 239.535,
+   "dur": 7.725,
    "props": {
     "rank": 6,
     "title": "Nelly Cootalot: The Fowl Fleet",
@@ -35230,8 +35230,8 @@
   },
   {
    "type": "gapBars",
-   "from": 238.599,
-   "dur": 6.082,
+   "from": 247.26,
+   "dur": 6.083,
    "props": {
     "title": "Nelly Cootalot: The Fowl Fleet",
     "image": "games/317320_header.jpg",
@@ -35243,8 +35243,8 @@
   },
   {
    "type": "textBeat",
-   "from": 244.681,
-   "dur": 9.07,
+   "from": 253.343,
+   "dur": 9.069,
    "props": {
     "text": "So it's bad *timing*.|Right?",
     "size": 96
@@ -35252,7 +35252,7 @@
   },
   {
    "type": "bigNumber",
-   "from": 253.751,
+   "from": 262.412,
    "dur": 11.568,
    "props": {
     "value": 0.716,
@@ -35264,52 +35264,52 @@
   },
   {
    "type": "bigNumber",
-   "from": 265.319,
+   "from": 273.98,
    "dur": 11.696,
    "props": {
-    "value": 0.659,
+    "value": 0.676,
     "kind": "pct",
     "label": "of the underrated-looking games did",
-    "sub": "44 games rated 93%+ with 1.5x+ fewer reviews than expected \u00b7 one per studio \u00b7 known earlier releases left out \u00b7 not matched on year",
+    "sub": "34 games rated 93%+ with two-thirds or less of expected reviews \u00b7 one per studio \u00b7 known earlier releases left out \u00b7 small sample, not matched on year",
     "color": "accent"
    }
   },
   {
    "type": "compareBars",
-   "from": 277.015,
-   "dur": 13.253,
+   "from": 285.676,
+   "dur": 14.64,
    "props": {
     "title": "What kind of games look overlooked?",
-    "aLabel": "44 underrated-looking games",
+    "aLabel": "34 underrated-looking games",
     "bLabel": "Popular Steam games (random sample)",
     "rows": [
      {
       "label": "Casual",
-      "a": 0.409,
+      "a": 0.471,
       "b": 0.248
      },
      {
       "label": "Strategy",
-      "a": 0.159,
+      "a": 0.147,
       "b": 0.312
      },
      {
       "label": "Simulation",
-      "a": 0.136,
+      "a": 0.118,
       "b": 0.34
      },
      {
       "label": "RPG",
-      "a": 0.136,
+      "a": 0.176,
       "b": 0.298
      }
     ],
-    "note": "Steam store genres \u00b7 44 games rated 93%+ with 1.5x+ fewer reviews than expected (one per studio, known earlier releases left out) vs a random sample of 141 games from 2014 on with 300+ reviews \u00b7 not matched on rating or year"
+    "note": "Steam store genres \u00b7 34 games rated 93%+ (two-thirds or less of expected reviews, one per studio, known earlier releases left out, small sample) vs a random sample of 141 games from 2014 on with 300+ reviews \u00b7 not matched on rating or year"
    }
   },
   {
    "type": "textBeat",
-   "from": 290.268,
+   "from": 300.316,
    "dur": 6.019,
    "props": {
     "text": "Strategy, sim and RPG fans|go *digging* for new games",
@@ -35319,26 +35319,26 @@
   },
   {
    "type": "compareBars",
-   "from": 296.287,
-   "dur": 13.488,
+   "from": 306.335,
+   "dur": 11.418,
    "props": {
     "title": "Who do you play it with?",
-    "aLabel": "44 underrated-looking games",
+    "aLabel": "34 underrated-looking games",
     "bLabel": "Popular Steam games (random sample)",
     "rows": [
      {
       "label": "Single-player",
-      "a": 0.977,
+      "a": 1.0,
       "b": 0.894
      },
      {
       "label": "Multiplayer",
-      "a": 0.227,
+      "a": 0.147,
       "b": 0.362
      },
      {
       "label": "Online PvP",
-      "a": 0.045,
+      "a": 0.029,
       "b": 0.227
      }
     ],
@@ -35347,8 +35347,8 @@
   },
   {
    "type": "textBeat",
-   "from": 309.775,
-   "dur": 5.741,
+   "from": 317.753,
+   "dur": 5.742,
    "props": {
     "text": "Nobody drags you into|a *puzzle game*.",
     "size": 96
@@ -35356,19 +35356,19 @@
   },
   {
    "type": "bigNumber",
-   "from": 315.516,
-   "dur": 7.683,
+   "from": 323.495,
+   "dur": 7.789,
    "props": {
-    "value": 0.023,
+    "value": 0.029,
     "kind": "pct",
     "label": "of the underrated-looking games cost $20 or more",
-    "sub": "1 of 44 \u00b7 vs 22% of popular Steam games \u00b7 current list prices \u00b7 groups not matched on rating or year",
+    "sub": "1 of 34 \u00b7 vs 22% of popular Steam games \u00b7 current list prices \u00b7 groups not matched on rating or year",
     "color": "accent"
    }
   },
   {
    "type": "textBeat",
-   "from": 323.199,
+   "from": 331.284,
    "dur": 6.061,
    "props": {
     "text": "cheap often means a tiny team|with *no marketing budget*",
@@ -35378,7 +35378,7 @@
   },
   {
    "type": "gameCard",
-   "from": 329.26,
+   "from": 337.345,
    "dur": 6.936,
    "props": {
     "rank": 5,
@@ -35412,7 +35412,7 @@
   },
   {
    "type": "gapBars",
-   "from": 336.196,
+   "from": 344.281,
    "dur": 9.027,
    "props": {
     "title": "The Journey Down: Chapter Two",
@@ -35425,7 +35425,7 @@
   },
   {
    "type": "gameCard",
-   "from": 345.223,
+   "from": 353.308,
    "dur": 6.552,
    "props": {
     "rank": 4,
@@ -35441,7 +35441,7 @@
      },
      {
       "label": "Model expected",
-      "value": 1134,
+      "value": 1133,
       "color": "gold"
      },
      {
@@ -35459,12 +35459,12 @@
   },
   {
    "type": "gapBars",
-   "from": 351.775,
+   "from": 359.86,
    "dur": 7.725,
    "props": {
     "title": "Wand Wars",
     "image": "games/422110_header.jpg",
-    "expected": 1134,
+    "expected": 1133,
     "actual": 218,
     "timesShort": 5.2,
     "liked": 0.963
@@ -35472,7 +35472,7 @@
   },
   {
    "type": "textBeat",
-   "from": 359.5,
+   "from": 367.585,
    "dur": 6.616,
    "props": {
     "text": "built for *couch play*|no online PvP",
@@ -35481,7 +35481,7 @@
   },
   {
    "type": "gameCard",
-   "from": 366.116,
+   "from": 374.201,
    "dur": 5.656,
    "props": {
     "rank": 3,
@@ -35515,7 +35515,7 @@
   },
   {
    "type": "gapBars",
-   "from": 371.772,
+   "from": 379.857,
    "dur": 7.811,
    "props": {
     "title": "Voidspire Tactics",
@@ -35528,8 +35528,8 @@
   },
   {
    "type": "launchCollision",
-   "from": 379.583,
-   "dur": 10.562,
+   "from": 387.668,
+   "dur": 10.563,
    "props": {
     "dateLabel": "November 2015",
     "daysInWindow": 21,
@@ -35558,8 +35558,8 @@
   },
   {
    "type": "gameCard",
-   "from": 390.145,
-   "dur": 6.147,
+   "from": 398.231,
+   "dur": 6.146,
    "props": {
     "rank": 2,
     "title": "Escape Goat 2",
@@ -35574,7 +35574,7 @@
      },
      {
       "label": "Model expected",
-      "value": 2889,
+      "value": 2890,
       "color": "gold"
      },
      {
@@ -35583,7 +35583,7 @@
      },
      {
       "label": "Times short",
-      "value": 6.5,
+      "value": 6.6,
       "kind": "x1",
       "color": "accent"
      }
@@ -35592,21 +35592,21 @@
   },
   {
    "type": "gapBars",
-   "from": 396.292,
+   "from": 404.377,
    "dur": 8.216,
    "props": {
     "title": "Escape Goat 2",
     "image": "games/255340_header.jpg",
-    "expected": 2889,
+    "expected": 2890,
     "actual": 441,
-    "timesShort": 6.5,
+    "timesShort": 6.6,
     "liked": 0.957
    }
   },
   {
    "type": "textBeat",
-   "from": 404.508,
-   "dur": 7.725,
+   "from": 412.593,
+   "dur": 7.726,
    "props": {
     "text": "#1 vs #2: *neck and neck*",
     "sub": "Escape Goat 2 was #1 in 3 of 7 versions of the model",
@@ -35615,7 +35615,7 @@
   },
   {
    "type": "scatter",
-   "from": 412.233,
+   "from": 420.319,
    "dur": 11.44,
    "props": {
     "xLabel": "positive reviews (adjusted %)",
@@ -43858,13 +43858,13 @@
      }
     ],
     "trendAt": 0.3,
-    "expected": 2005,
+    "expected": 2006,
     "expectedAt": 1.4
    }
   },
   {
    "type": "gameCard",
-   "from": 423.673,
+   "from": 431.759,
    "dur": 10.928,
    "props": {
     "rank": 1,
@@ -43880,7 +43880,7 @@
      },
      {
       "label": "Model expected",
-      "value": 2005,
+      "value": 2006,
       "color": "gold"
      },
      {
@@ -43898,7 +43898,7 @@
   },
   {
    "type": "launchCollision",
-   "from": 434.601,
+   "from": 442.687,
    "dur": 11.876,
    "props": {
     "dateLabel": "January 2015",
@@ -43928,7 +43928,7 @@
   },
   {
    "type": "textBeat",
-   "from": 446.477,
+   "from": 454.563,
    "dur": 8.28,
    "props": {
     "text": "Same day: Dying Light|3 days later: *Life is Strange*",
@@ -43938,8 +43938,8 @@
   },
   {
    "type": "lineChart",
-   "from": 454.757,
-   "dur": 7.683,
+   "from": 462.843,
+   "dur": 7.682,
    "props": {
     "title": "Gravity Ghost: English reviews per month (138 of its 302)",
     "values": [
@@ -44119,12 +44119,12 @@
   },
   {
    "type": "gapBars",
-   "from": 462.44,
-   "dur": 4.205,
+   "from": 470.525,
+   "dur": 4.206,
    "props": {
     "title": "Gravity Ghost",
     "image": "games/251490_header.jpg",
-    "expected": 2005,
+    "expected": 2006,
     "actual": 302,
     "timesShort": 6.6,
     "liked": 0.967
@@ -44132,8 +44132,8 @@
   },
   {
    "type": "textBeat",
-   "from": 466.645,
-   "dur": 11.611,
+   "from": 474.731,
+   "dur": 11.61,
    "props": {
     "text": "Which game did my model *miss*?",
     "sub": "Next: the most OVERRATED game on Steam"
