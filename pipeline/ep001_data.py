@@ -10,7 +10,12 @@ top, nxt = F["top10"], F["next5"]
 hero = top[0]
 short = lambda n: n.split(" - ")[0].replace(": Farmageddon Party Edition", "").replace(": The Siren`s Call", "")
 
-def pts(df): return [{"x": round(float(q), 4), "y": int(n)} for q, n in zip(df.q, df.n)]
+def pts(df):
+    # Display-only jitter (+/-5% reviews, +/-0.3 pt rating): small integer review counts with shrunk ratings otherwise
+    # line up into visible curved streaks at the bottom of the chart. The hero dot is never jittered.
+    r = np.random.default_rng(11)
+    jy = 10 ** r.uniform(-0.021, 0.021, len(df)); jx = r.uniform(-0.003, 0.003, len(df))
+    return [{"x": round(float(q + a), 4), "y": round(float(n * b), 1)} for q, n, a, b in zip(df.q, df.n, jx, jy)]
 axes = {"xLabel": "positive reviews (adjusted %)", "yLabel": "Steam reviews", "yLog": True,
         "xDomain": [0.35, 1.0], "yDomain": [10, 3000000],
         "xTicks": [{"v": v / 100, "t": f"{v}%"} for v in range(40, 101, 10)],

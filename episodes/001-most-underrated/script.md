@@ -12,7 +12,11 @@ Oh, and it launched on the exact same day as one of the biggest games of 2015. H
 
 @scene textBeat {"text": "51,897 games. One question.", "sub": "Given how good it is, how many people should have played it?"}
 I wanted to find the great games that got overlooked the worst. I scored fifty-one thousand, eight hundred and ninety-seven Steam games, all with one question. [pause 0.4]
+
+@scene textBeat {"text": "Given how good it is,|how many people *should* have played it?", "size": 80}
 Given how good a game is, how many people should have played it? And which games got robbed the hardest?
+
+@scene scatter @ref:scatter_hero {"highlightAt": 0.3, "revealSeconds": 0.3}
 That red dot is on my list. You'll see where at the end.
 
 @chapter How the model works
@@ -21,15 +25,23 @@ Here's a sample of those games. Left to right is how much reviewers liked it. Bo
 
 @scene bigNumber {"value": 130, "kind": "int", "label": "owners for every review", "sub": "typical for the games in this video (SteamSpy estimates)", "color": "gold"}
 Steam doesn't publish sales, so I'm using reviews instead. For the games on my list, there's roughly one review for every hundred and thirty owners.
+
+@scene textBeat {"text": "reviews aren't players|but more reviews = *more players*", "size": 84}
 Reviews aren't players, and that ratio moves around a lot. But more reviews generally means more players, so it's the best yardstick I've got.
 
-@scene textBeat {"text": "20 out of 20 is *not* better|than 9,800 out of 10,000."}
+@scene textBeat {"text": "Rating = *% positive*?", "size": 96}
 Now, ratings. You can't just sort by percent positive.
+
+@scene textBeat {"text": "20 out of 20 is *not* better|than 9,800 out of 10,000."}
 A game with twenty reviews, all positive, isn't better than a game with nine thousand eight hundred out of ten thousand.
+
+@scene textBeat {"text": "every score pulled toward *80%*|fewer reviews = harder pull", "size": 80}
 So I pull every score toward the Steam average, which is eighty percent. The fewer reviews a game has, the harder it gets pulled.
 
 @scene textBeat {"text": "150 games just like it:|same rating, same launch window.", "size": 80}
 Here's the model. For every game, I find the hundred and fifty games most like it. Released around the same time, with almost the same rating.
+
+@scene textBeat {"text": "what the typical one got|= *expected*", "size": 96}
 Whatever the typical one of those got, that's what I call expected.
 
 @scene scatter @ref:scatter_trend
@@ -42,16 +54,24 @@ That's ten times short. The bigger that number, the harder a game got robbed.
 @scene bigNumber {"value": 2.7, "kind": "x1", "label": "how far off the model is on a typical game", "sub": "the further past this, the more confident", "color": "text"}
 Is this perfect? No. On a typical game, the prediction is off by about two point seven times, one way or the other.
 So the further past that a game is, the more sure I am it really got robbed.
+
+@scene bigNumber {"value": 7, "kind": "int", "label": "versions of the model", "sub": "the same 7 games made the top 10 in every one", "color": "gold"}
 And to check I wasn't fooling myself, I ran the model seven different ways. The same seven games made the top ten every single time. The final order is the average.
 
 @chapter The rules
-@scene textBeat {"text": "The rules", "sub": "released 2014 or later · 200+ reviews · no DLC · one game per studio"}
+@scene textBeat {"text": "The rules", "sub": "released 2014 or later · 200+ reviews"}
 A few rules. Only games released from 2014 on, because Steam reviews didn't exist until late 2013. At least two hundred reviews, so a handful of fans can't fake it.
+
+@scene textBeat {"text": "No DLC|one game per *studio*", "size": 96}
 No DLC. And one game per studio, so no single developer hogs the list.
 
-@scene bigNumber {"value": 34, "kind": "int", "label": "of the 51 games I checked had been released somewhere else first", "sub": "browser and Flash games, mobile, older PC versions, Japan", "color": "accent"}
+@scene textBeat {"text": "It has to launch|on *Steam first*", "size": 96}
 And one more rule, which ended up mattering more than anything else. The game has to have launched on Steam first.
+
+@scene bigNumber {"value": 34, "kind": "int", "label": "of the 51 games I checked had been released somewhere else first", "sub": "browser and Flash games, mobile, older PC versions, Japan", "color": "accent"}
 I checked fifty-one of the top candidates by hand. Thirty-four of them had already been out somewhere else. Free Flash games, phone games, games that came out years earlier in Japan.
+
+@scene textBeat {"text": "played somewhere else first|= *not overlooked*", "size": 88}
 Those aren't overlooked. Their fans just played them somewhere else first. So they're out.
 
 @chapter #10 to #6
@@ -73,6 +93,8 @@ Number seven. Stardust Galaxy Warriors, a couch co-op space shooter. Two hundred
 
 @scene gameCard @ref:card_317320
 Number six. Nelly Cootalot: The Fowl Fleet. A pirate point-and-click adventure, and its store page says Tom Baker is in the cast.
+
+@scene gapBars @ref:gap_317320
 Eighty-one on Metacritic, the best critic score on the list. Three point two times short.
 
 @chapter Was it bad timing?
@@ -90,15 +112,22 @@ Bad timing makes a good story. But it isn't the pattern.
 @chapter What they have in common
 @scene compareBars @ref:genres_chart
 So what do they have in common? Genre, for one. Compared with Steam in general, casual games show up about twice as often.
-Strategy, RPGs and simulation games show up only about a third as often. My guess? Those genres have fans who go digging for new games.
+Strategy, RPGs and simulation games show up only about a third as often.
+
+@scene textBeat {"text": "My guess: those fans|go *digging* for new games", "size": 88}
+My guess? Those genres have fans who go digging for new games.
 
 @scene compareBars @ref:players_chart
 Almost all of them are single-player. But so are most Steam games. The real gap is online PvP.
 Three percent of the underrated-looking games have it. Twenty-one percent of Steam games in general do.
+
+@scene textBeat {"text": "Nobody drags you into|a *puzzle game*.", "size": 96}
 My guess: multiplayer games spread because your friends drag you in. Nobody drags you into a puzzle game.
 
 @scene bigNumber {"value": 0.02, "kind": "pct", "label": "of them cost $20 or more", "sub": "vs 17% of top-rated games that got the reviews they should have", "color": "accent"}
 And they're rarely expensive. Only two percent cost twenty dollars or more. Among top-rated games that got the reviews they should have, it's seventeen percent.
+
+@scene textBeat {"text": "cheap often means a tiny team|with *no marketing budget*", "size": 80, "sub": "a guess, not something this data can prove"}
 I can't prove why from this data. My guess: cheap often means a tiny team with no marketing budget.
 
 @chapter #5 to #2
@@ -113,6 +142,8 @@ Number four. Wand Wars. According to its store page, you ride brooms, cast spell
 
 @scene gapBars @ref:gap_422110
 Ninety-six percent positive. About eleven hundred reviews expected. It has two hundred and eighteen. Five point two times short.
+
+@scene textBeat {"text": "couch multiplayer: friends *in the room*|no online PvP", "size": 80}
 And yes, it's multiplayer. But couch multiplayer: your friends have to be in the room. No online PvP.
 
 @scene gameCard @ref:card_415920
@@ -129,6 +160,8 @@ Number two. Escape Goat 2. A puzzle platformer where you team up with a friendly
 
 @scene gapBars @ref:gap_255340
 Ninety-five percent positive. Almost twenty-nine hundred reviews expected. It has four hundred and forty-one. Six point five times short.
+
+@scene textBeat {"text": "#1 vs #2: *neck and neck*", "sub": "Escape Goat 2 was #1 in 3 of 7 versions of the model", "size": 96}
 And honestly? Number one and number two are neck and neck. In three of my seven versions of the model, this was number one.
 
 @chapter #1
@@ -144,9 +177,13 @@ Critics gave it a seventy-five.
 And here's the launch day I told you to hold onto. January 26th, 2015. [pause 0.5]
 The same day as Dying Light. Dying Light has four hundred and fifty-seven thousand reviews.
 
-@scene lineChart @ref:hero_history
+@scene textBeat {"text": "Same day: Dying Light|3 days later: *Life is Strange*", "size": 84}
 I know, I just told you timing isn't the pattern. But Dying Light the same day, and Life is Strange three days later? That week couldn't have helped.
+
+@scene lineChart @ref:hero_history
 Here's every English-language review it's ever had, month by month. A small bump at launch, then a trickle that never quite stopped.
+
+@scene gapBars @ref:gap_251490
 It should have had about two thousand reviews. It got three hundred and two.
 
 @chapter What did the model miss?
