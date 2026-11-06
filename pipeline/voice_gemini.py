@@ -14,12 +14,13 @@ KEY = os.environ.get("GEMINI_API_KEY", "")
 # Structured prompt (Google's recommended layout, same as the owner's Six Degrees channel): profile + director's
 # notes, then the script under "## TRANSCRIPT". A loose one-line direction got read aloud by several voices; this
 # layout marks where the notes end. pipeline/align.py still fails the build if anything off-script is spoken.
-STYLE = os.environ.get("GEMINI_TTS_STYLE", """# AUDIO PROFILE: narrator of a YouTube channel that builds data models to settle arguments about video games.
+STYLE = os.environ.get("GEMINI_TTS_STYLE", """# AUDIO PROFILE: a narrator reading a finished script, word for word.
 
 ## DIRECTOR'S NOTES
-Style: curious, confident, a little dry and amused, like a friend who just found something surprising in the data; a real lift on each reveal. American accent.
-Pace: unhurried and relaxed, like explaining something interesting to a friend, about 150 words per minute. Let every number land with a short pause after it, and pause before each reveal. Never rush through numbers.
-Do not read these notes aloud. Speak only the transcript below, exactly as written, in order.""")
+Style: curious, confident, a little dry and amused; a real lift on each reveal. American accent.
+Pace: unhurried and relaxed, about 150 words per minute. A short pause after numbers and before reveals.
+Read the transcript below VERBATIM, exactly once, in order. Never add, skip, repeat, summarize or change any words.
+Do not read these notes aloud.""")
 if STYLE.strip().lower() == "none": STYLE = ""  # some voices (Charon, Iapetus) read any direction aloud
 CACHE = os.environ.get("TTS_CACHE", os.path.join(os.path.dirname(__file__), "..", ".tts-cache"))
 MIN_GAP = float(os.environ.get("GEMINI_TTS_GAP", "21"))  # seconds between calls (free tier ~3 RPM)
@@ -97,7 +98,7 @@ def write_wav(pcm, path, sr=24000):
     with wave.open(path, "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr); w.writeframes(pcm)
 
-def _chunks(lines, max_words=int(os.environ.get("GEMINI_TTS_CHUNK_WORDS", "600"))):  # ~3.5 min audio; 8-min video = 3 requests
+def _chunks(lines, max_words=int(os.environ.get("GEMINI_TTS_CHUNK_WORDS", "250"))):  # long chunks made the model repeat/improvise; ~6 requests per 8-min video
     cur, n = [], 0
     for i, l in enumerate(lines):
         w = len(l.split())

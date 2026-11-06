@@ -9,8 +9,6 @@ on:
   workflow_dispatch:
     inputs:
       episode: {description: "episode folder under episodes/, e.g. 001-most-underrated", required: true}
-  push:
-    paths: ["episodes/*/script.md", "episodes/*/data.json", "episodes/*/thumbnails/*.json"]
 concurrency: {group: "render-${{ github.ref }}", cancel-in-progress: false}
 permissions: {contents: read}
 env:
