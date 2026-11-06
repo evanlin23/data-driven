@@ -22,6 +22,9 @@ export type ScatterProps = {
   /** optional trend line y = f(x) sampled as points in data space */
   trend?: ScatterPoint[];
   trendAt?: number;
+  /** model's expected reviews for the highlighted game: gold ring + dashed line down to the dot */
+  expected?: number;
+  expectedAt?: number; // seconds
 };
 
 const PAD = {l: 190, r: 90, t: 90, b: 150};
@@ -74,6 +77,17 @@ export const Scatter: React.FC<ScatterProps> = (p) => {
             strokeDasharray={4000} strokeDashoffset={4000 * (1 - trendT)} opacity={0.9}
           />
         )}
+        {hp && p.expected !== undefined && (() => {
+          const t = ease(f, (p.expectedAt ?? 1.5) * fps, (p.expectedAt ?? 1.5) * fps + 24);
+          const ey = sy(p.expected), dy = sy(hp.y);
+          return (
+            <g opacity={t}>
+              <line x1={sx(hp.x)} x2={sx(hp.x)} y1={dy - 14} y2={dy - 14 - (dy - 14 - ey) * t} stroke={C.gold} strokeWidth={5} strokeDasharray="14 10" />
+              <circle cx={sx(hp.x)} cy={ey} r={16} fill="none" stroke={C.gold} strokeWidth={6} />
+              <text x={sx(hp.x) - 34} y={ey + 12} fill={C.gold} fontSize={40} fontFamily={body} fontWeight={800} textAnchor="end">expected</text>
+            </g>
+          );
+        })()}
         {hp && (
           <g>
             <circle cx={sx(hp.x)} cy={sy(hp.y)} r={11} fill={C.accent} opacity={interpolate(f, [hAt - 10, hAt], [0, 1], clamp)} />

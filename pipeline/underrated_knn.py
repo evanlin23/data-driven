@@ -61,5 +61,15 @@ df[["appid", "name", "n", "q", "expected_n", "gap"]].to_csv("data/derived/all_sc
 out = df[df.n >= MIN].sort_values("gap", ascending=False)
 out[["appid", "name", "developer", "publisher", "positive", "negative", "n", "q", "price_usd", "owners", "release_date",
      "era_source", "era_appid", "expected_n", "gap"]].to_csv("data/derived/underrated.csv", index=False)
+# Prediction curves (median reviews of the K most similar games, at each rating) for a grid of eras, so charts can
+# draw the model's actual expectation for a game's own launch period (not an average over years).
+qs = np.round(np.arange(0.55, 0.996, 0.01), 3)
+curves = {}
+for er in np.round(np.arange(0, 1.0001, 0.005), 3):
+    G = np.column_stack([np.log(qs / (1 - qs)) / RS, np.full(len(qs), er / ES)])
+    _, gi = nn.kneighbors(G, n_neighbors=K)
+    curves[f"{er:.3f}"] = [round(float(10 ** np.median(logn[ix])), 1) for ix in gi]
+json.dump({"q": qs.tolist(), "era_rank_step": 0.005, "curves": curves}, open("data/derived/model_curves.json", "w"))
+df[["appid", "era_rank"]].to_csv("data/derived/era_rank.csv", index=False)
 json.dump({"method": "knn-median", "K": K, "rating_scale_logit": RS, "era_scale_rank": ES, "typical_miss_x": round(10 ** err, 2),
            "prior_mean": round(float(m), 3)}, open("data/derived/model_info.json", "w"))

@@ -9,6 +9,7 @@ import {Leaderboard, LeaderboardProps} from './scenes/Leaderboard';
 import {TextBeat, TextBeatProps} from './scenes/TextBeat';
 import {ReviewQuote, ReviewQuoteProps} from './scenes/ReviewQuote';
 import {CompareBars, CompareBarsProps} from './scenes/CompareBars';
+import {GapBars, GapBarsProps} from './scenes/GapBars';
 import {C} from './theme';
 
 type Base = {from: number; dur: number};
@@ -22,6 +23,7 @@ export type Scene = Base & (
   | {type: 'textBeat'; props: TextBeatProps}
   | {type: 'reviewQuote'; props: ReviewQuoteProps}
   | {type: 'compareBars'; props: CompareBarsProps}
+  | {type: 'gapBars'; props: GapBarsProps}
 );
 
 export type EpisodeSpec = {fps: number; durationSec: number; audio?: string; music?: string; musicVolume?: number; scenes: Scene[]};
@@ -37,6 +39,7 @@ const render = (s: Scene) => {
     case 'textBeat': return <TextBeat {...s.props} />;
     case 'reviewQuote': return <ReviewQuote {...s.props} />;
     case 'compareBars': return <CompareBars {...s.props} />;
+    case 'gapBars': return <GapBars {...s.props} />;
   }
 };
 
