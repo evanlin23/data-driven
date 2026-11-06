@@ -11,10 +11,9 @@ import base64, json, os, re, sys, time, urllib.request, wave
 
 API = "https://generativelanguage.googleapis.com/v1beta"
 KEY = os.environ.get("GEMINI_API_KEY", "")
-# Short "Read aloud ...:" lead-in, like Google's own examples. A long paragraph of direction sometimes gets
-# read out as part of the script (Charon and Iapetus did this in the first audition).
-STYLE = os.environ.get("GEMINI_TTS_STYLE",
-    "Read aloud in a relaxed, conversational YouTube-narrator voice, dry and curious, never like a news anchor:")
+# No delivery direction by default: every voice we tried (Charon, Iapetus, and Puck too) sometimes reads the
+# direction aloud. The voice's own natural read is what the owner approved. Set GEMINI_TTS_STYLE to experiment.
+STYLE = os.environ.get("GEMINI_TTS_STYLE", "")
 if STYLE.strip().lower() == "none": STYLE = ""  # some voices (Charon, Iapetus) read any direction aloud
 CACHE = os.environ.get("TTS_CACHE", os.path.join(os.path.dirname(__file__), "..", ".tts-cache"))
 MIN_GAP = float(os.environ.get("GEMINI_TTS_GAP", "21"))  # seconds between calls (free tier ~3 RPM)
@@ -107,7 +106,7 @@ def say_script(lines, out_wav, gap=0.35, voice=None, synth_fn=None):
 
 def _say(lines, out_wav, gap, voice, synth_fn, model):
     import numpy as np
-    from align import transcribe_words, line_times
+    from align import transcribe_words, line_times, inserted_speech
     voice = voice or os.environ.get("GEMINI_TTS_VOICE", "Puck")
     clean = [re.sub(r"\s*\[pause(?: [\d.]+)?\]\s*", "... ", l).strip() for l in lines]
     synth_fn = synth_fn or (lambda text: np.frombuffer(synth(text, voice, model), np.int16).astype(np.float32) / 32768)
@@ -125,7 +124,12 @@ def _say(lines, out_wav, gap, voice, synth_fn, model):
             os.makedirs(CACHE, exist_ok=True); np.save(cpath, audio)
         dur = len(audio) / 24000
         a16 = np.interp(np.arange(0, len(audio), 1.5), np.arange(len(audio)), audio).astype(np.float32)
-        spans, anchored = line_times(chunk_lines, transcribe_words(a16), dur)
+        heard = transcribe_words(a16)
+        spans, anchored = line_times(chunk_lines, heard, dur)
+        ins = inserted_speech(chunk_lines, heard)
+        if ins:  # the model said something that isn't in the script (e.g. read a direction aloud)
+            os.remove(cpath) if os.path.exists(cpath) else None
+            raise SystemExit(f"narration contains speech that isn't in the script: \"{ins}\". Chunk discarded; re-run.")
         print(f"  chunk {len(timing) // 1}: {len(idx)} lines, {dur:.1f}s, anchored {anchored}/{len(idx)}", file=sys.stderr)
         if anchored < 0.7 * len(idx):  # long chunks can get cut off; never ship a video with missing narration
             os.remove(cpath) if os.path.exists(cpath) else None

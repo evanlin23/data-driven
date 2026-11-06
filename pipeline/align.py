@@ -54,3 +54,18 @@ def line_times(lines, words, chunk_dur):
     ends = [starts[i + 1] for i in range(len(lines) - 1)] + [chunk_dur]
     anchored = sum(f is not None for f in first)
     return list(zip(starts, ends)), anchored
+
+
+def inserted_speech(lines, words, min_run=6):
+    """Return text of the longest run (>= min_run words) heard in the audio that has no counterpart in the script,
+    e.g. a TTS model reading its delivery direction aloud. ASR slips rarely produce 6+ consecutive unmatched words."""
+    sc = [t for l in lines for t in _tok(l) if _keep_script(t)]
+    hw = [t for t, _, _ in words if _keep_heard(t)]
+    sm = difflib.SequenceMatcher(a=sc, b=hw, autojunk=False)
+    worst, pa, pb = [], 0, 0
+    for a, b, n in sm.get_matching_blocks():
+        gap_heard, gap_script = hw[pb:b], sc[pa:a]
+        if len(gap_heard) >= min_run and len(gap_script) < len(gap_heard) // 2 and len(gap_heard) > len(worst):
+            worst = gap_heard
+        pa, pb = a + n, b + n
+    return " ".join(worst)
