@@ -23,7 +23,7 @@ How it works
 • Model = for each game, the median review count of the 150 most similar games (rating + launch window). Typical miss on a single game: about 2.7x. Re-run 7 different ways; the same 7 games made the top 10 every time.
 • Rules: released 2014+, 200+ reviews, launched on Steam first (51 release histories checked by hand), no DLC/software, one game per studio.
 
-Games in this video: Gravity Ghost · Escape Goat 2 · Voidspire Tactics · Wand Wars · The Journey Down: Chapter Two · Nelly Cootalot: The Fowl Fleet · Stardust Galaxy Warriors: Stellar Climax · Blackwell Epiphany · Starlight Vega · I and Me
+Games in this video (A-Z, so the list doesn't spoil #1): Blackwell Epiphany · Escape Goat 2 · Gravity Ghost · I and Me · Nelly Cootalot: The Fowl Fleet · Starlight Vega · Stardust Galaxy Warriors: Stellar Climax · The Journey Down: Chapter Two · Voidspire Tactics · Wand Wars
 
 Data: Steam store & review data (Valve), SteamSpy (owner/review counts; owner figures are estimates). Not affiliated with or endorsed by Valve or any developer shown. Game art is used for commentary and identification.
 
@@ -43,7 +43,7 @@ Next video (Overrated) + subscribe. Last 20 s of narration is the hand-off line.
 ## Quality gate (human-feel-guide §7) — fill in before publishing
 - [ ] script_lint PASS (zero hard hits, soft penalty ≤ 5)
 - [ ] Every claim traceable to facts.json / robustness.json / data.json (see sources.md)
-- [ ] At least one genuine surprise the narrator reacts to (timing theory: no difference at all, 71% vs 72%)
+- [ ] At least one genuine surprise the narrator reacts to (timing theory: 66% vs 72%, if anything slightly fewer)
 - [ ] Structure differs from previous uploads (n/a: first upload)
 - [x] No single picture held > ~13 s; long explanations split into beats (audit 2026-11-06)
 - [ ] Thumbnail promise paid off (red dot = #1, revealed at the end)

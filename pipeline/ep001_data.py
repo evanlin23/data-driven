@@ -72,15 +72,15 @@ bym = {(dt.date.fromtimestamp(x["date"]).year, dt.date.fromtimestamp(x["date"]).
 (y0, m0), (y1, m1) = min(bym), max(bym)
 months = [(y, m) for y in range(y0, y1 + 1) for m in range(1, 13) if (y, m) >= (y0, m0) and (y, m) <= (y1, m1)]
 vals = [bym.get(k, 0) for k in months]
-D["hero_history"] = {"title": f"{short(hero['name'])}: English reviews per month", "values": vals, "yMax": max(vals) * 1.15,
+D["hero_history"] = {"title": f"{short(hero['name'])}: English reviews per month ({sum(vals)} of its {hero['reviews']})", "values": vals, "yMax": max(vals) * 1.15,
                      "xTicks": [{"i": i, "t": str(y)} for i, (y, mo) in enumerate(months) if mo == 1][::2],
                      "drawSeconds": 3, "color": "gold", "mark": {"i": 0, "text": "launch"}}
 # comparison charts straight from facts.json (never hand-typed in the script)
 G, Ca = F["genres"], F["categories"]
-D["genres_chart"] = {"title": "What kind of games get overlooked?", "aLabel": "100 most underrated-looking", "bLabel": "Popular Steam games (random sample)",
+D["genres_chart"] = {"title": "What kind of games look overlooked?", "aLabel": f"{G['underrated_n']} underrated-looking games", "bLabel": "Popular Steam games (random sample)",
     "rows": [{"label": k, "a": G[k][0], "b": G[k][1]} for k in ["Casual", "Strategy", "Simulation", "RPG"]],
-    "note": f"Steam store genres · 100 top-rated games furthest below expectations (known earlier releases left out) vs a random sample of {G['random_n']} games from 2014 on with 300+ reviews"}
-D["players_chart"] = {"title": "Who do you play it with?", "aLabel": "100 most underrated-looking", "bLabel": "Popular Steam games (random sample)",
+    "note": f"Steam store genres · {G['underrated_n']} games rated 93%+ with 1.5x+ fewer reviews than expected (one per studio, known earlier releases left out) vs a random sample of {G['random_n']} games from 2014 on with 300+ reviews · not matched on rating or year"}
+D["players_chart"] = {"title": "Who do you play it with?", "aLabel": f"{G['underrated_n']} underrated-looking games", "bLabel": "Popular Steam games (random sample)",
     "rows": [{"label": k.replace("Multi-player", "Multiplayer"), "a": Ca[k][0], "b": Ca[k][1]} for k in ["Single-player", "Multi-player", "Online PvP"]],
     "note": "Steam store categories · same samples"}
 json.dump(D, open(f"{EP}/data.json", "w"))

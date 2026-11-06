@@ -53,13 +53,14 @@ band = u[(u.q >= 0.95) & (u.q < 0.97) & u.rel.map(lambda d: d is not None and d.
 F["model_check"] = {"group": "released in 2015, rated 95-97% (adjusted), >=200 reviews, release date known",
                     "n_games": int(len(band)), "median_actual": int(band.n.median()), "median_expected": int(band.expected_n.median())}
 
-# Traits. Underrated-looking group: the 100 top-rated (>=93%) games furthest short of expectation that pass every rule
+# Traits. Underrated-looking group: top-rated (>=93%) games at least 1.5x short of expectation that pass the rules
 # the final list uses (2014+, no DLC/software/adult/re-releases) and are NOT known to have launched elsewhere first
 # (status "ok" = verified Steam-first, "unverified release history" = not checked yet). Comparison group: random sample
 # of Steam games with 300+ reviews, restricted to games released 2014 or later, so both groups cover the same years.
 f_all = pd.read_csv("data/derived/finalists.csv")
-basic = f_all[f_all.status.isin(["ok", "unverified release history"])]
-top100 = basic.sort_values("gap", ascending=False).head(100)
+# Only games really short of expectation (>= 1.5x; store data exists for all but one of them), one per developer.
+basic = f_all[f_all.status.isin(["ok", "unverified release history"]) & (f_all.gap >= 1.5)]
+top100 = basic.sort_values("gap", ascending=False).drop_duplicates("developer")
 F["traits_group"] = {"n": int(len(top100)), "verified_steam_first": int((top100.status == "ok").sum()),
                      "unverified": int((top100.status != "ok").sum())}
 sample_all = [int(l) for l in open("data/derived/sample_ids.txt")]

@@ -37,19 +37,26 @@ Every number in the script comes from `facts.json` (built by `pipeline/ep001_fac
 10. I and Me: 95.8% positive, 358 reviews, expected 934, 2.6x short (range 2.07-3.96x); I and Me: Steam May 2016, Switch 2017 (wikipedia)
 
 ## Comparisons (correlations, not causes)
-- Underrated-looking group: the 100 top-rated (93%+) games furthest below expectation that pass every rule of the final list,
-  leaving out games known to have launched elsewhere first (16 verified Steam-first, 84 not yet checked).
-- Popular Steam games: random sample of games released 2014 or later with 300+ reviews (n=141).
-- Timing: launched within 7 days of one of Steam's 400 most-reviewed games (a game never matches itself): 71.6% vs 71.0%.
-- Genres: Casual 42% vs 25%; Strategy 10% vs 31%; Simulation 13% vs 34%; RPG 15% vs 30%.
-- Online PvP 3% vs 23%. Price $20+: 4% vs 22%.
-- Owners per review for the top 10: median 128 (SteamSpy owner-range midpoints).
+- Underrated-looking group: 44 games rated 93%+ (adjusted) with at least 1.5x fewer reviews than expected, released 2014+,
+  no DLC/software/adult/re-releases, one per developer, leaving out games known to have launched elsewhere first
+  (15 verified Steam-first, 29 not checked). Store data exists for all but one game at 1.5x+.
+- Popular Steam games: random sample of games released 2014 or later with 300+ reviews (n=141). Not matched on rating
+  or release year (the underrated group skews 2014-16 and higher-rated), so differences may partly reflect era.
+- Timing: launched within 7 days (Steam store dates) of one of Steam's 400 most-reviewed games, never itself: 72% vs 66%.
+- Genres: Casual 41% vs 25%; Strategy 16% vs 31%; Simulation 14% vs 34%; RPG 14% vs 30%.
+- Online PvP (Steam store category) 4.5% vs 23%. Price $20+ (current SteamSpy list price): 1 of 44 (2%) vs 22%.
+- Owners per review for the top 10: median 129 (SteamSpy owner-range midpoints).
 - Displayed "expected" = reviews x consensus "times short" (geometric mean of the 7 runs). In the default run alone
   (K=150) Escape Goat 2 is #1 and Gravity Ghost #2; the video says the order is the average of all seven.
+- The 7-run stability check ranks the hand-verified Steam-first pool; in the default run no unverified game would
+  enter the top 10 (best 2.39x).
+- Ratings shown are the adjusted score (e.g. Gravity Ghost 96.3% adjusted; 96.7% of its reviews are positive).
 - Release dates are Steam store dates (e.g. Dying Light Jan 26, 2015 on Steam; Jan 27 in some regions).
+- Review-history chart: English-language reviews only (138 of Gravity Ghost's 302).
 
 ## Known limitations
 - Reviews are a proxy for players; the owners-per-review ratio varies widely.
 - Ranks 6-10 are about 3x short, close to the model's typical error ("probably overlooked").
 - Genre/price/timing comparisons are small samples and correlations.
+- Neighbours of a 96%+ game are necessarily games with ~30+ reviews (shrinkage), which partly builds in the rising trend at the top.
 - Sequels and later chapters (Escape Goat 2, Blackwell Epiphany, The Journey Down: Chapter Two) may get fewer reviews for structural reasons; the model compares them with all games.
