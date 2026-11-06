@@ -53,17 +53,22 @@ band = u[(u.q >= 0.95) & (u.q < 0.97) & u.rel.map(lambda d: d is not None and d.
 F["model_check"] = {"group": "released in 2015, rated 95-97% (adjusted), >=200 reviews, release date known",
                     "n_games": int(len(band)), "median_actual": int(band.n.median()), "median_expected": int(band.expected_n.median())}
 
-# Traits: top 100 most underrated (status ok, >=93%) vs comparison groups
+# Traits. Underrated-looking group: the 100 top-rated (>=93%) games furthest short of expectation that pass every rule
+# the final list uses (2014+, no DLC/software/adult/re-releases) and are NOT known to have launched elsewhere first
+# (status "ok" = verified Steam-first, "unverified release history" = not checked yet). Comparison group: random sample
+# of Steam games with 300+ reviews, restricted to games released 2014 or later, so both groups cover the same years.
 f_all = pd.read_csv("data/derived/finalists.csv")
-# comparison group: the 100 top-rated (>=93%) games most short of expectation that pass the basic rules
-# (2014+, no DLC/software/adult/classic re-releases), BEFORE the Steam-first check (which only gates the final list)
-basic = f_all[f_all.status.isin(["ok", "unverified release history"]) | f_all.status.str.startswith("released before Steam")]
+basic = f_all[f_all.status.isin(["ok", "unverified release history"])]
 top100 = basic.sort_values("gap", ascending=False).head(100)
-met = u[(u.q >= 0.93) & (u.gap <= 1)]
-F["price"] = {"top100_median": float(top100.price_usd.median()), "met_expectations_median": float(met.price_usd.median()),
+F["traits_group"] = {"n": int(len(top100)), "verified_steam_first": int((top100.status == "ok").sum()),
+                     "unverified": int((top100.status != "ok").sum())}
+sample_all = [int(l) for l in open("data/derived/sample_ids.txt")]
+sample = [a for a in sample_all if store(a).get("type") == "game" and (rdate(a) is not None and rdate(a).year >= 2014)]
+price = u.set_index("appid").price_usd
+sp = price.reindex(sample).dropna()
+F["price"] = {"top100_median": float(top100.price_usd.median()), "random_median": float(sp.median()),
               "top100_share_20plus": round(float((top100.price_usd >= 20).mean()), 3),
-              "met_share_20plus": round(float((met.price_usd >= 20).mean()), 3), "met_n": int(len(met))}
-sample = [int(l) for l in open("data/derived/sample_ids.txt")]
+              "random_share_20plus": round(float((sp >= 20).mean()), 3), "random_n": int(len(sp))}
 def prof(ids):
     g = {}; c = {}; n = 0
     for a in ids:
@@ -77,12 +82,15 @@ nt, gt, ct = prof(top100.appid); ns, gs, cs = prof(sample)
 keys_g = ["Casual", "Strategy", "Simulation", "RPG"]; keys_c = ["Single-player", "Multi-player", "Online PvP"]
 F["genres"] = {"underrated_n": nt, "random_n": ns, **{k: [gt.get(k, 0), gs.get(k, 0)] for k in keys_g}}
 F["categories"] = {k: [ct.get(k, 0), cs.get(k, 0)] for k in keys_c}
-mega = [int(l) for l in open("data/derived/mega_hits_ids.txt")]
-md = [d for d in (rdate(a) for a in mega) if d]
+mega = {int(l): rdate(int(l)) for l in open("data/derived/mega_hits_ids.txt")}
 def near(ids):
-    ds = [d for d in (rdate(a) for a in ids) if d and d.year >= 2014]
-    return len(ds), round(float(np.mean([any(abs((m - d).days) <= 7 for m in md) for d in ds])), 3)
-F["timing"] = {"definition": "launched within 7 days of one of the 400 most-reviewed Steam games",
+    out = []
+    for a in ids:
+        d = rdate(int(a))
+        if not d or d.year < 2014: continue
+        out.append(any(m and abs((m - d).days) <= 7 for k, m in mega.items() if k != int(a)))  # never match itself
+    return len(out), round(float(np.mean(out)), 3)
+F["timing"] = {"definition": "launched within 7 days of one of the 400 most-reviewed Steam games (other than itself)",
                "random": dict(zip(["n", "share"], near(sample))), "top100": dict(zip(["n", "share"], near(top100.appid)))}
 F["robustness"] = "see robustness.json (rank stability across K / rating-scale / era-scale settings)"
 # reviews per owner (SteamSpy owner-range midpoints) for the final top 10
@@ -99,6 +107,6 @@ F["release_history"] = {"checked": len(H), "prior_release": sum(v[0] == "PRIOR" 
 F["top_spot"] = {n: sum(1 for v in R["runs"].values() if v and v[0]["name"] == n) for n in [g["name"] for g in F["top10"][:2]]}
 F["settings_count"] = len(R["runs"])
 json.dump(F, open(f"{EP}/facts.json", "w"), indent=1, default=str)
-print(json.dumps({k: F[k] for k in ["games_scored", "candidates_min200", "model_check", "price", "genres", "categories", "timing", "highest_rated_in_top10"]}, indent=1))
+print(json.dumps({k: F[k] for k in ["games_scored", "candidates_min200", "model_check", "traits_group", "price", "genres", "categories", "timing", "highest_rated_in_top10"]}, indent=1))
 for g in F["top10"] + F["next5"]:
     print(f"#{g['rank']:>2} {g['name'][:30]:<30} {g['liked_adj']:.1%} rev {g['reviews']:>4} exp {g['expected']:>5} x{g['times_short']:<4} ${g['list_price_usd']:<5} mc={g['metacritic']} {g['release']} coll={[h['name'][:18]+' '+str(h['delta_days']) for h in g['collisions']]}")

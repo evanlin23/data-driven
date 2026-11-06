@@ -1,6 +1,6 @@
 # Renders an episode on GitHub's free runners (public repo), sharded like blocky-stories:
 #   plan     -> which episode, and how many frames once narrated
-#   voice    -> lint + Kokoro narration + timed render spec, made ONCE (every shard draws to the same timing)
+#   voice    -> lint + Gemini (Achird) narration + timed render spec, made ONCE (every shard draws to the same timing)
 #   draw     -> N parallel shards, each renders a silent frame range with Remotion
 #   assemble -> concat shards, mux narration, two-pass loudnorm to -14 LUFS, thumbnails
 # The film is kept as the run artifact `film-<episode>` (90 days); the upload workflow takes it from there.
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/cache@v4
         if: steps.ep.outputs.episode != ''
         with: {path: models, key: kokoro-v1.0}
-      - name: restore narration cache (Gemini free tier is ~15 requests/day; only changed chunks are re-voiced)
+      - name: restore narration cache (Gemini free tier is 10 requests per day per model, so only changed chunks are re-voiced)
         if: steps.ep.outputs.episode != ''
         uses: actions/cache/restore@v4
         with:
@@ -47,8 +47,12 @@ jobs:
             tts-
       - name: narrate (lint gate inside build_episode.py)
         if: steps.ep.outputs.episode != ''
-        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}", GEMINI_TTS_VOICE: Achird}
+        # model pinned: a newly listed TTS model would change the voice and miss every cached chunk
+        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}", GEMINI_TTS_VOICE: Achird, GEMINI_TTS_MODEL: gemini-3.8-flash-tts}
         run: |
+          # ffmpeg: pace correction (atempo) in voice_gemini.py; run 42221799895 died without it
+          for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq ffmpeg > /dev/null && break; echo "apt attempt $i failed, retrying"; sleep 10; done
+          ffmpeg -version | head -1
           pip install -q kokoro-onnx soundfile numpy faster-whisper
           mkdir -p models
           for f in kokoro-v1.0.onnx voices-v1.0.bin; do

@@ -10,7 +10,7 @@ Games like it usually ended up with about two thousand.
 @scene textBeat {"text": "Same launch day as one of|the *biggest* games of 2015.", "size": 84}
 Oh, and it launched on the exact same day as one of the biggest games of 2015. Hold that thought.
 
-@scene textBeat {"text": "51,897 games. One question.", "sub": "Given how good it is, how many people should have played it?"}
+@scene textBeat {"text": "51,897 games. One question."}
 I wanted to find the great games that got overlooked the worst. I scored fifty-one thousand, eight hundred and ninety-seven Steam games, all with one question. [pause 0.4]
 
 @scene textBeat {"text": "Given how good it is,|how many people *should* have played it?", "size": 80}
@@ -45,7 +45,7 @@ Here's the model. For every game, I find the hundred and fifty games most like i
 Whatever the typical one of those got, that's what I call expected.
 
 @scene scatter @ref:scatter_trend
-These are games from the red dot's launch window, early 2015. The gold line is what they usually got at each rating. Better games get more reviews. You'd hope so.
+These are games from the red dot's launch window, around the start of 2015. The gold line is what they usually got at each rating. Better games get more reviews. You'd hope so.
 
 @scene textBeat {"text": "expects 1,000 · has 100|= *10x* short"}
 Here's the number I rank by. Say a game's lookalikes usually got a thousand reviews, and it only has a hundred.
@@ -55,8 +55,8 @@ That's ten times short. The bigger that number, the harder a game got robbed.
 Is this perfect? No. On a typical game, the prediction is off by about two point seven times, one way or the other.
 So the further past that a game is, the more sure I am it really got robbed.
 
-@scene bigNumber {"value": 7, "kind": "int", "label": "versions of the model", "sub": "the same 7 games made the top 10 in every one", "color": "gold"}
-And to check I wasn't fooling myself, I ran the model seven different ways. The same seven games made the top ten every single time. The final order is the average.
+@scene bigNumber {"value": 7, "kind": "int", "label": "versions of the model", "sub": "same core of the top 10 in every version", "color": "gold"}
+And to check I wasn't fooling myself, I ran the model seven different ways. The same seven games made the top ten every single time. The final order, and every number from here on, is the average of all seven.
 
 @chapter The rules
 @scene textBeat {"text": "The rules", "sub": "released 2014 or later · 200+ reviews"}
@@ -65,8 +65,8 @@ A few rules. Only games released from 2014 on, because Steam reviews didn't exis
 @scene textBeat {"text": "No DLC|one game per *studio*", "size": 96}
 No DLC. And one game per studio, so no single developer hogs the list.
 
-@scene textBeat {"text": "It has to launch|on *Steam first*", "size": 96}
-And one more rule, which ended up mattering more than anything else. The game has to have launched on Steam first.
+@scene textBeat {"text": "It has to launch|on *Steam first*", "sub": "or the same day as everywhere else", "size": 96}
+And one more rule, which ended up mattering more than anything else. The game has to have launched on Steam first, or at least the same day.
 
 @scene bigNumber {"value": 34, "kind": "int", "label": "of the 51 games I checked had been released somewhere else first", "sub": "browser and Flash games, mobile, older PC versions, Japan", "color": "accent"}
 I checked fifty-one of the top candidates by hand. Thirty-four of them had already been out somewhere else. Free Flash games, phone games, games that came out years earlier in Japan.
@@ -101,31 +101,31 @@ Eighty-one on Metacritic, the best critic score on the list. Three point two tim
 @scene textBeat {"text": "So it's bad *timing*.|Right?", "size": 96}
 Before the top five, I want to test a theory. Remember that red dot launching next to a giant? Maybe that's the whole story. Good games, buried by bad timing.
 
-@scene bigNumber {"value": 0.74, "kind": "pct", "label": "of random Steam games launched within a week of a mega-hit", "sub": "mega-hit = one of Steam's 400 most-reviewed games · random sample of 141 games with 300+ reviews", "color": "text"}
+@scene bigNumber {"value": 0.716, "kind": "pct", "label": "of popular Steam games launched within a week of a mega-hit", "sub": "mega-hit = one of Steam's 400 most-reviewed games · random sample of 141 games from 2014 on with 300+ reviews", "color": "text"}
 So I took Steam's four hundred most-reviewed games, and checked launch dates against them.
-Almost three in four random Steam games launched within a week of one of those hits. There's always a giant nearby.
+Seven in ten popular Steam games launched within a week of one of those hits. There's always a giant nearby.
 
-@scene bigNumber {"value": 0.63, "kind": "pct", "label": "of the most underrated-looking games did", "sub": "95 games with known launch dates", "color": "accent"}
-The most underrated-looking games? A bit under two in three. If anything, slightly fewer.
+@scene bigNumber {"value": 0.71, "kind": "pct", "label": "of the 100 most underrated-looking games did", "sub": "top-rated games furthest below expectations · games known to have launched elsewhere first left out", "color": "accent"}
+Now the hundred most underrated-looking games, the top-rated ones that fell furthest short. Seven in ten. No difference at all.
 Bad timing makes a good story. But it isn't the pattern.
 
 @chapter What they have in common
 @scene compareBars @ref:genres_chart
-So what do they have in common? Genre, for one. Compared with Steam in general, casual games show up about twice as often.
-Strategy, RPGs and simulation games show up only about a third as often.
+So what do they have in common? Genre, for one. Compared with popular Steam games, casual games show up a lot more often. Forty-two percent, against twenty-five.
+Strategy, simulation and RPGs show up only a third to a half as often.
 
-@scene textBeat {"text": "My guess: those fans|go *digging* for new games", "size": 88}
-My guess? Those genres have fans who go digging for new games.
+@scene textBeat {"text": "Strategy, sim and RPG fans|go *digging* for new games", "size": 84, "sub": "a guess"}
+My guess? Strategy, sim and RPG fans go digging for new games, so fewer good ones slip through.
 
 @scene compareBars @ref:players_chart
-Almost all of them are single-player. But so are most Steam games. The real gap is online PvP.
-Three percent of the underrated-looking games have it. Twenty-one percent of Steam games in general do.
+Almost all of them are single-player. But so are most popular Steam games. The real gap is online PvP.
+Three percent of the underrated-looking games have it. Twenty-three percent of popular Steam games do.
 
 @scene textBeat {"text": "Nobody drags you into|a *puzzle game*.", "size": 96}
 My guess: multiplayer games spread because your friends drag you in. Nobody drags you into a puzzle game.
 
-@scene bigNumber {"value": 0.02, "kind": "pct", "label": "of them cost $20 or more", "sub": "vs 17% of top-rated games that got the reviews they should have", "color": "accent"}
-And they're rarely expensive. Only two percent cost twenty dollars or more. Among top-rated games that got the reviews they should have, it's seventeen percent.
+@scene bigNumber {"value": 0.04, "kind": "pct", "label": "of them cost $20 or more", "sub": "vs 22% of popular Steam games from the same years", "color": "accent"}
+And they're rarely expensive. Only four percent cost twenty dollars or more. Among popular Steam games from the same years, it's twenty-two percent.
 
 @scene textBeat {"text": "cheap often means a tiny team|with *no marketing budget*", "size": 80, "sub": "a guess, not something this data can prove"}
 I can't prove why from this data. My guess: cheap often means a tiny team with no marketing budget.
@@ -143,8 +143,8 @@ Number four. Wand Wars. According to its store page, you ride brooms, cast spell
 @scene gapBars @ref:gap_422110
 Ninety-six percent positive. About eleven hundred reviews expected. It has two hundred and eighteen. Five point two times short.
 
-@scene textBeat {"text": "couch multiplayer: friends *in the room*|no online PvP", "size": 80}
-And yes, it's multiplayer. But couch multiplayer: your friends have to be in the room. No online PvP.
+@scene textBeat {"text": "built for *couch play*|no online PvP", "size": 96}
+And yes, it's multiplayer. But it's built for couch play, with friends in the same room. No online PvP.
 
 @scene gameCard @ref:card_415920
 Number three. Voidspire Tactics, a turn-based tactics RPG where you build your own party.
@@ -152,8 +152,8 @@ Number three. Voidspire Tactics, a turn-based tactics RPG where you build your o
 @scene gapBars @ref:gap_415920
 Ninety-six percent positive. About fourteen hundred expected. Two hundred and sixty-eight reviews. Five point three times short.
 
-@scene launchCollision @ref:collision_415920 {"caption": "7 days later: Fallout 4"}
-It came out November 2nd, 2015. One week later, Fallout 4 launched. Bad luck? Sure. But remember, not the pattern.
+@scene launchCollision @ref:collision_415920 {"caption": "Within a week: Call of Duty and Fallout 4"}
+It came out on Steam November 2nd, 2015. Within a week, Call of Duty: Black Ops Three and Fallout 4 both launched. Bad luck? Sure. But remember, not the pattern.
 
 @scene gameCard @ref:card_255340
 Number two. Escape Goat 2. A puzzle platformer where you team up with a friendly mouse to get out of a dungeon.
@@ -174,10 +174,10 @@ It's Gravity Ghost, by Ivy Games. You run, jump and glide from planet to planet 
 Critics gave it a seventy-five.
 
 @scene launchCollision @ref:collision_251490 {"caption": "Same day: Dying Light"}
-And here's the launch day I told you to hold onto. January 26th, 2015. [pause 0.5]
+And here's the launch day I told you to hold onto. January 26th, 2015, on Steam. [pause 0.5]
 The same day as Dying Light. Dying Light has four hundred and fifty-seven thousand reviews.
 
-@scene textBeat {"text": "Same day: Dying Light|3 days later: *Life is Strange*", "size": 84}
+@scene textBeat {"text": "Same day: Dying Light|3 days later: *Life is Strange*", "size": 84, "sub": "Steam store release dates"}
 I know, I just told you timing isn't the pattern. But Dying Light the same day, and Life is Strange three days later? That week couldn't have helped.
 
 @scene lineChart @ref:hero_history

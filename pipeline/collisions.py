@@ -19,7 +19,7 @@ mega = [int(l) for l in open("data/derived/mega_hits_ids.txt")]
 mega_dates = {a: date(a) for a in mega}
 have = sum(1 for v in mega_dates.values() if v[0])
 print(f"mega-hits with dates: {have}/{len(mega)}")
-fin = pd.read_csv("data/derived/finalists_ok.csv").head(14)
+fin = pd.read_csv("data/derived/finalists_ok.csv")  # every finalist (the final order comes from robustness.json, not this file)
 out = {}
 for _, r in fin.iterrows():
     d0, _ = date(int(r.appid))

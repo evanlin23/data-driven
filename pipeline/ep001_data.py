@@ -62,10 +62,10 @@ def collision(g, label, nbig=1):
     start = min([d0] + ds) - dt.timedelta(days=3)
     return {"dateLabel": label, "daysInWindow": 21,
             "small": {"title": short(g["name"]), "image": img(g["appid"]), "day": (d0 - start).days + 1, "reviews": g["reviews"]},
-            "big": [{"title": h["name"], "image": img(h["appid"]), "day": (d1 - start).days + 1, "reviews": int(h["reviews"])} for h, d1 in zip(hs, ds)]}
+            "big": [{"title": h["name"].replace("®", "").replace("™", "").replace(" - Episode 1", ""), "image": img(h["appid"]), "day": (d1 - start).days + 1, "reviews": int(h["reviews"])} for h, d1 in zip(hs, ds)]}
 byname = {g["appid"]: g for g in top + nxt}
 for a, lab in [(415920, "November 2015"), (412670, "December 2015"), (251490, "January 2015")]:
-    if byname.get(a, {}).get("collisions"): D[f"collision_{a}"] = collision(byname[a], lab)
+    if byname.get(a, {}).get("collisions"): D[f"collision_{a}"] = collision(byname[a], lab, 2)  # both nearby giants (the script names both)
 
 ro = json.load(open(f"data/raw/histograms/{hero['appid']}.json"))["results"]["rollups"]
 bym = {(dt.date.fromtimestamp(x["date"]).year, dt.date.fromtimestamp(x["date"]).month): x["recommendations_up"] + x["recommendations_down"] for x in ro}
@@ -77,10 +77,10 @@ D["hero_history"] = {"title": f"{short(hero['name'])}: English reviews per month
                      "drawSeconds": 3, "color": "gold", "mark": {"i": 0, "text": "launch"}}
 # comparison charts straight from facts.json (never hand-typed in the script)
 G, Ca = F["genres"], F["categories"]
-D["genres_chart"] = {"title": "What kind of games get overlooked?", "aLabel": "100 most underrated-looking", "bLabel": "Steam in general (random sample)",
+D["genres_chart"] = {"title": "What kind of games get overlooked?", "aLabel": "100 most underrated-looking", "bLabel": "Popular Steam games (random sample)",
     "rows": [{"label": k, "a": G[k][0], "b": G[k][1]} for k in ["Casual", "Strategy", "Simulation", "RPG"]],
-    "note": f"Steam store genres · 100 top-rated games furthest below expectations vs a random sample of {G['random_n']} games with 300+ reviews"}
-D["players_chart"] = {"title": "Who do you play it with?", "aLabel": "100 most underrated-looking", "bLabel": "Steam in general (random sample)",
+    "note": f"Steam store genres · 100 top-rated games furthest below expectations (known earlier releases left out) vs a random sample of {G['random_n']} games from 2014 on with 300+ reviews"}
+D["players_chart"] = {"title": "Who do you play it with?", "aLabel": "100 most underrated-looking", "bLabel": "Popular Steam games (random sample)",
     "rows": [{"label": k.replace("Multi-player", "Multiplayer"), "a": Ca[k][0], "b": Ca[k][1]} for k in ["Single-player", "Multi-player", "Online PvP"]],
     "note": "Steam store categories · same samples"}
 json.dump(D, open(f"{EP}/data.json", "w"))

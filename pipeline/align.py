@@ -22,7 +22,8 @@ def transcribe_words(pcm_f32_16k):
     if _model[0] is None:
         from faster_whisper import WhisperModel
         _model[0] = WhisperModel("base.en", device="cpu", compute_type="int8")
-    segs, _ = _model[0].transcribe(pcm_f32_16k, beam_size=1, word_timestamps=True, condition_on_previous_text=False)  # avoids Whisper repetition loops
+    segs, _ = _model[0].transcribe(pcm_f32_16k, beam_size=1, word_timestamps=True, condition_on_previous_text=False,
+                                   vad_filter=True)  # avoids Whisper repetition loops
     out = []
     for s in segs:
         for w in s.words or []:
@@ -53,6 +54,7 @@ def line_times(lines, words, chunk_dur):
         starts[i] = max(starts[i], starts[i - 1] + 0.3)
     ends = [starts[i + 1] for i in range(len(lines) - 1)] + [chunk_dur]
     anchored = sum(f is not None for f in first)
+    line_times.flags = [f is not None for f in first]  # which lines were actually heard (read by the narration guard)
     return list(zip(starts, ends)), anchored
 
 
@@ -75,3 +77,23 @@ def novel_words(lines, text):
     """Words in `text` that appear nowhere in the script lines (improvised content), ignoring numbers."""
     vocab = {t for l in lines for t in _tok(l)}
     return [w for w in text.split() if w not in vocab and _keep_heard(w)]
+
+
+def repeat_seconds(lines, words, min_run=6):
+    """Seconds of audio taken by the longest run of heard words that the script doesn't account for, counting only time
+    that doesn't overlap words matched to the script. A real spoken repeat takes real time (several seconds); a Whisper
+    transcription loop usually re-emits text over audio that is already matched, so it adds ~0 s."""
+    sc = [t for l in lines for t in _tok(l) if _keep_script(t)]
+    hw = [(t, s, e) for t, s, e in words if _keep_heard(t)]
+    sm = difflib.SequenceMatcher(a=sc, b=[t for t, _, _ in hw], autojunk=False)
+    blocks = sm.get_matching_blocks()
+    matched = [(hw[b + k][1], hw[b + k][2]) for a, b, n in blocks for k in range(n)]
+    worst, pa, pb = [], 0, 0
+    for a, b, n in blocks:
+        gap = hw[pb:b]
+        if len(gap) >= min_run and (a - pa) < len(gap) // 2 and len(gap) > len(worst): worst = gap
+        pa, pb = a + n, b + n
+    if not worst: return 0.0
+    lo, hi = worst[0][1], worst[-1][2]
+    overlap = sum(max(0.0, min(hi, e) - max(lo, s)) for s, e in matched)
+    return max(0.0, (hi - lo) - overlap)

@@ -57,7 +57,8 @@ def synth(text, voice, model):
     body = {"contents": [{"parts": [{"text": prompt}]}],
             "generationConfig": {"responseModalities": ["AUDIO"],
                                  "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voice}}}}}
-    for attempt in range(5):
+    last_err = ""
+    for attempt in range(3):  # each attempt may count against the daily quota, so keep this small
         try:
             _last[0] = time.time()
             out = _req(f"models/{model}:generateContent", body)
@@ -78,10 +79,14 @@ def synth(text, voice, model):
                 raise SystemExit("Gemini API: prepaid balance is empty (HTTP 402). Buy credits in AI Studio -> Billing; "
                                  "Google Cloud / Developer Program credits only apply after a Prepay purchase.")
             if e.code == 429 and "PerDay" in raw:
-                raise DailyQuota(model)  # waiting won't help until the daily reset; caller tries the next model
-            if e.code in (429, 500, 503): time.sleep(30 * (attempt + 1)); continue
-            raise
-    raise DailyQuota(model)
+                raise DailyQuota(model)  # waiting won't help until the daily reset
+            if e.code not in (429, 500, 503): raise
+            last_err = f"HTTP {e.code}"
+        except (urllib.error.URLError, TimeoutError, OSError, KeyError, IndexError, ValueError) as e:
+            last_err = f"{type(e).__name__}: {e}"  # timeout, dropped connection, or a 200 with no audio in it
+            print(f"  {voice}: {last_err}", file=sys.stderr)
+        time.sleep(30 * (attempt + 1))
+    raise SystemExit(f"Gemini TTS failed 3 times in a row ({last_err}). Not a daily-quota problem; re-run later.")
 
 MAX_WPM = float(os.environ.get("NARRATION_MAX_WPM", "165"))
 TARGET_WPM = float(os.environ.get("NARRATION_TARGET_WPM", "155"))
@@ -123,55 +128,83 @@ def say_script(lines, out_wav, gap=0.35, voice=None, synth_fn=None):
         raise SystemExit(f"Gemini TTS daily free quota (10 requests/day for {model}) is used up. It resets at midnight "
                          "Pacific; voiced chunks are cached, so the next run only voices what's missing.")
 
+class BadChunk(Exception):
+    pass
+
+DAILY_REQUESTS = int(os.environ.get("GEMINI_TTS_DAILY", "10"))  # free tier, per model
+
+def _check(chunk_lines, text, audio, heard):
+    """Raise BadChunk if the narration isn't exactly the script. Returns (spans, anchored)."""
+    from align import line_times, inserted_speech, novel_words, repeat_seconds
+    dur = len(audio) / 24000
+    words = len(text.split())
+    spans, anchored = line_times(chunk_lines, heard, dur)
+    n = len(chunk_lines)
+    # 1) complete: every line but at most one heard, and the last line heard (a cut-off ends early)
+    if anchored < n - 1 or not line_times.flags[-1]:
+        raise BadChunk(f"incomplete: {anchored}/{n} lines heard")
+    if words / (dur / 60) > 210:
+        raise BadChunk(f"too short for its text ({words / (dur / 60):.0f} wpm): probably cut off")
+    # 2) nothing added: improvised words, or a passage spoken twice (measured in seconds of audio, not pace)
+    ins = inserted_speech(chunk_lines, heard)
+    if ins:
+        novel = novel_words(chunk_lines, ins)
+        if len(novel) >= 3:
+            raise BadChunk(f"words not in the script {novel[:12]}: \"{ins[:300]}\"")
+        rep = repeat_seconds(chunk_lines, heard)
+        if rep >= 1.5:
+            raise BadChunk(f"a passage is spoken twice ({rep:.1f}s): \"{ins[:300]}\"")
+        print(f"  note: transcript repeats words over already-matched audio ({rep:.1f}s): Whisper glitch, kept", file=sys.stderr)
+    return spans, anchored
+
 def _say(lines, out_wav, gap, voice, synth_fn, model):
-    import numpy as np
-    from align import transcribe_words, line_times, inserted_speech, novel_words
+    import numpy as np, hashlib
+    from align import transcribe_words
     voice = voice or os.environ.get("GEMINI_TTS_VOICE", "Achird")  # owner's pick (with the structured prompt)
     clean = [re.sub(r"\s*\[pause(?: [\d.]+)?\]\s*", "... ", l).strip() for l in lines]
+    real = synth_fn is None
     synth_fn = synth_fn or (lambda text: np.frombuffer(synth(text, voice, model), np.int16).astype(np.float32) / 32768)
+    chunks = list(_chunks(clean))
+    keyof = lambda text: hashlib.sha256(f"{voice}|{STYLE}|{model}|{text}".encode()).hexdigest()[:20]
+    todo = sum(not os.path.exists(os.path.join(CACHE, keyof("\n".join(clean[i] for i in idx)) + ".npy")) for idx in chunks)
+    spare = max(0, DAILY_REQUESTS - todo) if real else 3
+    print(f"narration: {len(chunks)} chunks, {todo} to voice, {spare} spare requests for re-takes", file=sys.stderr)
     parts, timing, t0 = [], [], 0.0
-    for idx in _chunks(clean):
+    for ci, idx in enumerate(chunks):
         chunk_lines = [clean[i] for i in idx]
         text = "\n".join(chunk_lines)
-        import hashlib
-        key = hashlib.sha256(f"{voice}|{STYLE}|{model}|{text}".encode()).hexdigest()[:20]
+        key = keyof(text)
         cpath = os.path.join(CACHE, f"{key}.npy")
-        if os.path.exists(cpath):
-            audio = np.load(cpath)
-        else:
-            audio = synth_fn(text)          # float32 @ 24 kHz
-            os.makedirs(CACHE, exist_ok=True); np.save(cpath, audio)
-        # Pace QA: words here are spelled out ("fifty-one thousand..."), so ~150-160 wpm sounds natural.
-        # If the model still rushes, slow the chunk with pitch-preserving time-stretch (at most 12%).
+        while True:
+            fresh = not os.path.exists(cpath)
+            audio = synth_fn(text) if fresh else np.load(cpath)  # float32 @ 24 kHz
+            a16 = np.interp(np.arange(0, len(audio), 1.5), np.arange(len(audio)), audio).astype(np.float32)
+            heard = transcribe_words(a16)
+            try:
+                spans, anchored = _check(chunk_lines, text, audio, heard)
+                break
+            except BadChunk as e:
+                if os.path.exists(cpath): os.remove(cpath)
+                print(f"  chunk {ci} [{key}] rejected: {e}", file=sys.stderr)
+                if spare <= 0:
+                    raise SystemExit(f"narration chunk {ci} rejected ({e}) and no requests are left today. Re-run after the reset.")
+                spare -= 1
+                print(f"  re-voicing chunk {ci} ({spare} spare left)", file=sys.stderr)
+        if fresh:
+            os.makedirs(CACHE, exist_ok=True); np.save(cpath, audio)  # only chunks that passed every check are cached
+        # Pace (after the completeness checks): numbers are spelled out, so ~150-160 wpm sounds natural.
         wpm = len(text.split()) / (len(audio) / 24000 / 60)
         if wpm > MAX_WPM:
             factor = max(0.88, TARGET_WPM / wpm)
             audio = _atempo(audio, factor)
+            spans = [(s0 / factor, s1 / factor) for s0, s1 in spans]
             print(f"  pace {wpm:.0f} wpm > {MAX_WPM:.0f}: slowed x{factor:.2f} -> {wpm * factor:.0f} wpm", file=sys.stderr)
         else:
             print(f"  pace {wpm:.0f} wpm (ok)", file=sys.stderr)
         dur = len(audio) / 24000
-        a16 = np.interp(np.arange(0, len(audio), 1.5), np.arange(len(audio)), audio).astype(np.float32)
-        heard = transcribe_words(a16)
-        spans, anchored = line_times(chunk_lines, heard, dur)
-        ins = inserted_speech(chunk_lines, heard)
-        if ins:
-            novel = novel_words(chunk_lines, ins)
-            spoken_wpm = len(text.split()) / (dur / 60)
-            if len(novel) >= 3:  # words that are nowhere in the script: improvised / directions read aloud
-                os.remove(cpath) if os.path.exists(cpath) else None
-                raise SystemExit(f"narration contains words that aren't in the script ({novel[:12]}): \"{ins[:300]}\". Chunk discarded; re-run.")
-            if spoken_wpm < 0.85 * TARGET_WPM:  # script words repeated AND the audio really is too long
-                os.remove(cpath) if os.path.exists(cpath) else None
-                raise SystemExit(f"narration repeats part of the script (pace {spoken_wpm:.0f} wpm): \"{ins[:300]}\". Chunk discarded; re-run.")
-            print(f"  note: transcript shows a repeat but pace is normal ({spoken_wpm:.0f} wpm): treating as a transcription glitch", file=sys.stderr)
-        print(f"  chunk {len(timing) // 1}: {len(idx)} lines, {dur:.1f}s, anchored {anchored}/{len(idx)}", file=sys.stderr)
-        if anchored < 0.7 * len(idx):  # long chunks can get cut off; never ship a video with missing narration
-            os.remove(cpath) if os.path.exists(cpath) else None
-            raise SystemExit(f"narration chunk looks incomplete ({anchored}/{len(idx)} lines heard). "
-                             "Lower GEMINI_TTS_CHUNK_WORDS and re-run.")
+        print(f"  chunk {ci} [{key}]: {len(idx)} lines, {dur:.1f}s, anchored {anchored}/{len(idx)}", file=sys.stderr)
         for i, (s0, s1) in zip(idx, spans):
-            timing.append({"text": re.sub(r"\[pause[^\]]*\]", "", lines[i]).strip(), "start": round(t0 + s0, 3), "end": round(t0 + s1, 3)})
+            timing.append({"text": re.sub(r"\[pause[^\]]*\]", "", lines[i]).strip(), "start": round(t0 + s0, 3), "end": round(t0 + min(s1, dur), 3)})
         parts += [audio, np.zeros(int(24000 * gap), np.float32)]
         t0 += dur + gap
     import soundfile as sf

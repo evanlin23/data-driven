@@ -30,7 +30,7 @@ def measure(path):
 li = measure(out)
 if abs(li + 14) > 0.5:
     tmp = out + ".tmp.mp4"
-    subprocess.run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", out, "-c:v", "copy", "-af", f"volume={-14 - li:.2f}dB",
+    subprocess.run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", out, "-c:v", "copy", "-af", f"volume={-14 - li:.2f}dB,alimiter=limit=0.89:level=false",  # gain up, but never past -1 dBFS
                     "-c:a", "aac", "-b:a", "192k", "-ar", "48000", tmp], check=True)
     os.replace(tmp, out)
     print(f"loudness corrected {li:.1f} -> {measure(out):.1f} LUFS")

@@ -37,12 +37,19 @@ Every number in the script comes from `facts.json` (built by `pipeline/ep001_fac
 10. I and Me: 95.8% positive, 358 reviews, expected 934, 2.6x short (range 2.07-3.96x); I and Me: Steam May 2016, Switch 2017 (wikipedia)
 
 ## Comparisons (correlations, not causes)
-- Timing: launched within 7 days of one of Steam's 400 most-reviewed games: random sample 74% (n=141) vs most underrated-looking 63% (n=95).
-- Genres/categories: 100 top-rated games furthest below expectations vs a random sample of 160 games with 300+ reviews.
-- Price $20+: 2% vs 17% of top-rated games that met expectations (n=2448).
+- Underrated-looking group: the 100 top-rated (93%+) games furthest below expectation that pass every rule of the final list,
+  leaving out games known to have launched elsewhere first (16 verified Steam-first, 84 not yet checked).
+- Popular Steam games: random sample of games released 2014 or later with 300+ reviews (n=141).
+- Timing: launched within 7 days of one of Steam's 400 most-reviewed games (a game never matches itself): 71.6% vs 71.0%.
+- Genres: Casual 42% vs 25%; Strategy 10% vs 31%; Simulation 13% vs 34%; RPG 15% vs 30%.
+- Online PvP 3% vs 23%. Price $20+: 4% vs 22%.
 - Owners per review for the top 10: median 128 (SteamSpy owner-range midpoints).
+- Displayed "expected" = reviews x consensus "times short" (geometric mean of the 7 runs). In the default run alone
+  (K=150) Escape Goat 2 is #1 and Gravity Ghost #2; the video says the order is the average of all seven.
+- Release dates are Steam store dates (e.g. Dying Light Jan 26, 2015 on Steam; Jan 27 in some regions).
 
 ## Known limitations
 - Reviews are a proxy for players; the owners-per-review ratio varies widely.
 - Ranks 6-10 are about 3x short, close to the model's typical error ("probably overlooked").
 - Genre/price/timing comparisons are small samples and correlations.
+- Sequels and later chapters (Escape Goat 2, Blackwell Epiphany, The Journey Down: Chapter Two) may get fewer reviews for structural reasons; the model compares them with all games.

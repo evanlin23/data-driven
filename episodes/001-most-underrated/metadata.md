@@ -3,9 +3,9 @@
 ## Titles (Test & Compare: upload all 3; YouTube picks by watch time)
 1. I Built a Model to Find the Most Underrated Game on Steam
 2. I Scored 51,897 Steam Games to Find the Most Underrated One
-3. This Game Launched the Same Day as Dying Light. It Got Buried.
+3. This Game Launched the Same Day as Dying Light
 
-(Playbook check: first person ✓, big exact number ✓ (#2), superlative ✓, no year, no parentheses, all ≤ 60 chars except #3 (61), so trim #3 if Studio truncates.)
+(Playbook check: first person ✓, big exact number ✓ (#2), superlative ✓, no year, no parentheses, all ≤ 60 chars. #3 deliberately makes no causal claim: the video finds timing isn't the pattern.)
 
 ## Thumbnails (render with `npx remotion still src/index.ts Thumbnail` + props in thumbnails/*.json)
 - **A `dot` (PRIMARY, owner pick)**: scatter cloud, one red-circled dot, arrow, "ROBBED." No game art (never spoil #1).
@@ -21,7 +21,7 @@ How it works
 • Popularity = Steam review count (Steam doesn't publish sales; SteamSpy owner estimates suggest roughly 1 review per 130 owners for the games in this video).
 • Rating = % positive, shrunk toward the Steam average so tiny games can't top the list on 20 reviews.
 • Model = for each game, the median review count of the 150 most similar games (rating + launch window). Typical miss on a single game: about 2.7x. Re-run 7 different ways; the same 7 games made the top 10 every time.
-• Rules: released 2014+, 200+ reviews, launched on Steam first (51 release histories checked by hand), no DLC/software, one game per studio. Full exclusion list in the sources link.
+• Rules: released 2014+, 200+ reviews, launched on Steam first (51 release histories checked by hand), no DLC/software, one game per studio.
 
 Games in this video: Gravity Ghost · Escape Goat 2 · Voidspire Tactics · Wand Wars · The Journey Down: Chapter Two · Nelly Cootalot: The Fowl Fleet · Stardust Galaxy Warriors: Stellar Climax · Blackwell Epiphany · Starlight Vega · I and Me
 
@@ -42,8 +42,8 @@ Next video (Overrated) + subscribe. Last 20 s of narration is the hand-off line.
 
 ## Quality gate (human-feel-guide §7) — fill in before publishing
 - [ ] script_lint PASS (zero hard hits, soft penalty ≤ 5)
-- [ ] Every claim traceable to facts.json / traits.json / data.json (see sources.md)
-- [ ] At least one genuine surprise the narrator reacts to (timing theory was wrong)
+- [ ] Every claim traceable to facts.json / robustness.json / data.json (see sources.md)
+- [ ] At least one genuine surprise the narrator reacts to (timing theory: no difference at all, 71% vs 72%)
 - [ ] Structure differs from previous uploads (n/a: first upload)
 - [x] No single picture held > ~13 s; long explanations split into beats (audit 2026-11-06)
 - [ ] Thumbnail promise paid off (red dot = #1, revealed at the end)

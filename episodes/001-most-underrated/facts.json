@@ -61,7 +61,15 @@
    "list_price_usd": 9.99,
    "metacritic": 76,
    "short_description": "Escape Goat 2 is a puzzle platformer game where you use machinery, the environment, and a friendly mouse to progress through a dungeon.",
-   "collisions": [],
+   "collisions": [
+    {
+     "appid": 265930,
+     "name": "Goat Simulator",
+     "date": "2014-04-01",
+     "delta_days": 8,
+     "reviews": 68580
+    }
+   ],
    "times_short_range": [
     5.68,
     7.61
@@ -116,7 +124,22 @@
    "list_price_usd": 11.99,
    "metacritic": null,
    "short_description": "Ride brooms, cast spells and transform your enemies into chickens in this intense magical sport",
-   "collisions": [],
+   "collisions": [
+    {
+     "appid": 322330,
+     "name": "Don't Starve Together",
+     "date": "2016-04-21",
+     "delta_days": 8,
+     "reviews": 499061
+    },
+    {
+     "appid": 374320,
+     "name": "DARK SOULS\u2122 III",
+     "date": "2016-04-11",
+     "delta_days": -2,
+     "reviews": 413775
+    }
+   ],
    "times_short_range": [
     3.97,
     6.7
@@ -136,7 +159,22 @@
    "list_price_usd": 14.99,
    "metacritic": 78,
    "short_description": "Chapter Two of The Journey Down, a classic point-and-click saga with an Afro-Caribbean vibe. Get ready to embark on an epic journey of brain-teasing adventure!",
-   "collisions": [],
+   "collisions": [
+    {
+     "appid": 286690,
+     "name": "METRO 2033 Redux",
+     "date": "2014-08-25",
+     "delta_days": 0,
+     "reviews": 110967
+    },
+    {
+     "appid": 287390,
+     "name": "METRO Last Light Redux",
+     "date": "2014-08-25",
+     "delta_days": 0,
+     "reviews": 70096
+    }
+   ],
    "times_short_range": [
     3.36,
     5.0
@@ -176,7 +214,22 @@
    "list_price_usd": 9.99,
    "metacritic": null,
    "short_description": "Stardust Galaxy Warriors: Stellar Climax is a fast-paced couch co-op action shooter with SHMUP/Brawler gameplay and RPG elements. Choose your mechs, weapons &amp; upgrades then soar through space, defeat evil &amp; save the future... from itself!",
-   "collisions": [],
+   "collisions": [
+    {
+     "appid": 377160,
+     "name": "Fallout 4",
+     "date": "2015-11-09",
+     "delta_days": -1,
+     "reviews": 392287
+    },
+    {
+     "appid": 311210,
+     "name": "Call of Duty\u00ae: Black Ops III",
+     "date": "2015-11-05",
+     "delta_days": -5,
+     "reviews": 215026
+    }
+   ],
    "times_short_range": [
     2.64,
     3.71
@@ -216,7 +269,22 @@
    "list_price_usd": 6.99,
    "metacritic": null,
    "short_description": "Play as Aria and romance the two sultry demon girls, Lyria and Scherza, or your best friend Melody in this yuri (girl x girl) visual novel where your choices will ultimately decide the fate of this spellbound girl.",
-   "collisions": [],
+   "collisions": [
+    {
+     "appid": 322330,
+     "name": "Don't Starve Together",
+     "date": "2016-04-21",
+     "delta_days": 7,
+     "reviews": 499061
+    },
+    {
+     "appid": 374320,
+     "name": "DARK SOULS\u2122 III",
+     "date": "2016-04-11",
+     "delta_days": -3,
+     "reviews": 413775
+    }
+   ],
    "times_short_range": [
     2.56,
     3.12
@@ -236,7 +304,22 @@
    "list_price_usd": 9.99,
    "metacritic": null,
    "short_description": "If there were another me, Observing myself from the perspective of a spectator, How would I regard another me?",
-   "collisions": [],
+   "collisions": [
+    {
+     "appid": 379720,
+     "name": "DOOM",
+     "date": "2016-05-12",
+     "delta_days": 8,
+     "reviews": 207279
+    },
+    {
+     "appid": 281990,
+     "name": "Stellaris",
+     "date": "2016-05-10",
+     "delta_days": 6,
+     "reviews": 185433
+    }
+   ],
    "times_short_range": [
     2.07,
     3.96
@@ -258,7 +341,15 @@
    "list_price_usd": 7.99,
    "metacritic": null,
    "short_description": "Fort Meow is a pillow fort physics-based puzzle adventure involving cats, destruction and a dusty old manor. Build a protective fort out of furniture to keep the cats at bay, while deciphering the mysterious tales hidden within the journal.",
-   "collisions": [],
+   "collisions": [
+    {
+     "appid": 208650,
+     "name": "Batman\u2122: Arkham Knight",
+     "date": "2015-06-23",
+     "delta_days": -1,
+     "reviews": 140048
+    }
+   ],
    "times_short_range": [
     2.04,
     2.79
@@ -298,7 +389,22 @@
    "list_price_usd": 4.99,
    "metacritic": null,
    "short_description": "Why Am I Dead At Sea is an adventure game where you solve the mystery of your own murder. As a ghost, you will have to possess people and use them to investigate your surroundings. But in this place no one is who they seem...and everyone has a secret.",
-   "collisions": [],
+   "collisions": [
+    {
+     "appid": 292030,
+     "name": "The Witcher 3: Wild Hunt \u2014 Remastered",
+     "date": "2015-05-18",
+     "delta_days": 7,
+     "reviews": 835349
+    },
+    {
+     "appid": 363970,
+     "name": "Clicker Heroes",
+     "date": "2015-05-13",
+     "delta_days": 2,
+     "reviews": 61304
+    }
+   ],
    "times_short_range": [
     1.74,
     2.8
@@ -318,7 +424,15 @@
    "list_price_usd": 5.99,
    "metacritic": null,
    "short_description": "New Game in the Coloring Game Collection. If you\u2019re among those who don\u2019t like coloring large images, then this is the game for you. 60 smaller images are sure to attract your attention for 12-14 hours.",
-   "collisions": [],
+   "collisions": [
+    {
+     "appid": 632470,
+     "name": "Disco Elysium - The Final Cut",
+     "date": "2019-10-15",
+     "delta_days": -10,
+     "reviews": 111712
+    }
+   ],
    "times_short_range": [
     1.5,
     3.16
@@ -338,7 +452,22 @@
    "list_price_usd": 14.99,
    "metacritic": null,
    "short_description": "Take control of the skies like never before in a full Virtual Reality world! Airplanes on fire, commuter aircraft low on fuel, mid-air collisions, emergency helicopter rescues, military exercises and so much more!",
-   "collisions": [],
+   "collisions": [
+    {
+     "appid": 374320,
+     "name": "DARK SOULS\u2122 III",
+     "date": "2016-04-11",
+     "delta_days": 7,
+     "reviews": 413775
+    },
+    {
+     "appid": 311690,
+     "name": "Enter the Gungeon",
+     "date": "2016-04-05",
+     "delta_days": 1,
+     "reviews": 85562
+    }
+   ],
    "times_short_range": [
     1.96,
     2.29
@@ -352,56 +481,61 @@
   "median_actual": 8200,
   "median_expected": 1658
  },
+ "traits_group": {
+  "n": 100,
+  "verified_steam_first": 16,
+  "unverified": 84
+ },
  "price": {
-  "top100_median": 8.49,
-  "met_expectations_median": 11.99,
-  "top100_share_20plus": 0.02,
-  "met_share_20plus": 0.168,
-  "met_n": 2448
+  "top100_median": 9.49,
+  "random_median": 11.99,
+  "top100_share_20plus": 0.04,
+  "random_share_20plus": 0.223,
+  "random_n": 139
  },
  "genres": {
   "underrated_n": 100,
-  "random_n": 160,
+  "random_n": 141,
   "Casual": [
-   0.49,
-   0.225
+   0.42,
+   0.248
   ],
   "Strategy": [
-   0.11,
-   0.306
-  ],
-  "Simulation": [
-   0.09,
+   0.1,
    0.312
   ],
+  "Simulation": [
+   0.13,
+   0.34
+  ],
   "RPG": [
-   0.12,
-   0.294
+   0.15,
+   0.298
   ]
  },
  "categories": {
   "Single-player": [
-   0.98,
-   0.906
+   0.99,
+   0.894
   ],
   "Multi-player": [
-   0.2,
+   0.19,
    0.362
   ],
   "Online PvP": [
    0.03,
-   0.212
+   0.227
   ]
  },
  "timing": {
-  "definition": "launched within 7 days of one of the 400 most-reviewed Steam games",
+  "definition": "launched within 7 days of one of the 400 most-reviewed Steam games (other than itself)",
   "random": {
    "n": 141,
-   "share": 0.738
+   "share": 0.716
   },
   "top100": {
-   "n": 95,
-   "share": 0.632
+   "n": 100,
+   "share": 0.71
   }
  },
  "robustness": "see robustness.json (rank stability across K / rating-scale / era-scale settings)",

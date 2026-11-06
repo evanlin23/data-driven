@@ -1,126 +1,34 @@
 {
- "570490": {
-  "name": "SHENZHEN SOLITAIRE",
-  "date": "2016-12-15",
-  "hits": []
- },
- "496350": {
-  "name": "Supipara - Chapter 1 Spring Has Come!",
-  "date": "2016-07-29",
+ "255340": {
+  "name": "Escape Goat 2",
+  "date": "2014-03-24",
   "hits": [
    {
-    "appid": 477160,
-    "name": "Human Fall Flat",
-    "date": "2016-07-22",
-    "delta_days": -7,
-    "reviews": 213640
-   },
-   {
-    "appid": 211820,
-    "name": "Starbound",
-    "date": "2016-07-22",
-    "delta_days": -7,
-    "reviews": 164906
+    "appid": 265930,
+    "name": "Goat Simulator",
+    "date": "2014-04-01",
+    "delta_days": 8,
+    "reviews": 68580
    }
   ]
  },
- "333260": {
-  "name": "Marvin's Mittens",
-  "date": "2014-12-17",
+ "251490": {
+  "name": "Gravity Ghost",
+  "date": "2015-01-26",
   "hits": [
    {
-    "appid": 322170,
-    "name": "Geometry Dash",
-    "date": "2014-12-22",
-    "delta_days": 5,
-    "reviews": 429921
+    "appid": 239140,
+    "name": "Dying Light",
+    "date": "2015-01-26",
+    "delta_days": 0,
+    "reviews": 457632
    },
    {
-    "appid": 244210,
-    "name": "Assetto Corsa",
-    "date": "2014-12-19",
-    "delta_days": 2,
-    "reviews": 151391
-   }
-  ]
- },
- "344480": {
-  "name": "Quell",
-  "date": "2015-05-14",
-  "hits": [
-   {
-    "appid": 292030,
-    "name": "The Witcher 3: Wild Hunt \u2014 Remastered",
-    "date": "2015-05-18",
-    "delta_days": 4,
-    "reviews": 835349
-   },
-   {
-    "appid": 363970,
-    "name": "Clicker Heroes",
-    "date": "2015-05-13",
-    "delta_days": -1,
-    "reviews": 61304
-   }
-  ]
- },
- "385250": {
-  "name": "Paint it Back",
-  "date": "2015-10-14",
-  "hits": [
-   {
-    "appid": 233450,
-    "name": "Prison Architect",
-    "date": "2015-10-06",
-    "delta_days": -8,
-    "reviews": 72330
-   }
-  ]
- },
- "412670": {
-  "name": "Bullet Heaven 2",
-  "date": "2015-12-07",
-  "hits": [
-   {
-    "appid": 359550,
-    "name": "Tom Clancy's Rainbow Six Siege",
-    "date": "2015-12-01",
-    "delta_days": -6,
-    "reviews": 1398584
-   },
-   {
-    "appid": 225540,
-    "name": "Just Cause\u2122 3",
-    "date": "2015-11-30",
-    "delta_days": -7,
-    "reviews": 122161
-   },
-   {
-    "appid": 376210,
-    "name": "The Isle",
-    "date": "2015-12-01",
-    "delta_days": -6,
-    "reviews": 94804
-   }
-  ]
- },
- "259810": {
-  "name": "Home Sheep Home: Farmageddon Party Edition",
-  "date": "2014-02-17",
-  "hits": [
-   {
-    "appid": 254700,
-    "name": "Resident Evil 4 (2005)",
-    "date": "2014-02-27",
-    "delta_days": 10,
-    "reviews": 82434
-   },
-   {
-    "appid": 39210,
-    "name": "FINAL FANTASY XIV Online",
-    "date": "2014-02-18",
-    "delta_days": 1,
-    "reviews": 80036
+    "appid": 319630,
+    "name": "Life is Strange - Episode 1",
+    "date": "2015-01-29",
+    "delta_days": 3,
+    "reviews": 169201
    }
   ]
  },
@@ -151,16 +59,212 @@
    }
   ]
  },
- "344860": {
-  "name": "Crystal Story II",
-  "date": "2015-02-06",
+ "422110": {
+  "name": "Wand Wars",
+  "date": "2016-04-13",
   "hits": [
    {
-    "appid": 319630,
-    "name": "Life is Strange - Episode 1",
-    "date": "2015-01-29",
+    "appid": 322330,
+    "name": "Don't Starve Together",
+    "date": "2016-04-21",
+    "delta_days": 8,
+    "reviews": 499061
+   },
+   {
+    "appid": 374320,
+    "name": "DARK SOULS\u2122 III",
+    "date": "2016-04-11",
+    "delta_days": -2,
+    "reviews": 413775
+   },
+   {
+    "appid": 311690,
+    "name": "Enter the Gungeon",
+    "date": "2016-04-05",
     "delta_days": -8,
-    "reviews": 169201
+    "reviews": 85562
+   }
+  ]
+ },
+ "262850": {
+  "name": "The Journey Down: Chapter Two",
+  "date": "2014-08-25",
+  "hits": [
+   {
+    "appid": 286690,
+    "name": "METRO 2033 Redux",
+    "date": "2014-08-25",
+    "delta_days": 0,
+    "reviews": 110967
+   },
+   {
+    "appid": 287390,
+    "name": "METRO Last Light Redux",
+    "date": "2014-08-25",
+    "delta_days": 0,
+    "reviews": 70096
+   }
+  ]
+ },
+ "317320": {
+  "name": "Nelly Cootalot: The Fowl Fleet",
+  "date": "2016-03-22",
+  "hits": []
+ },
+ "389650": {
+  "name": "Stardust Galaxy Warriors: Stellar Climax",
+  "date": "2015-11-10",
+  "hits": [
+   {
+    "appid": 377160,
+    "name": "Fallout 4",
+    "date": "2015-11-09",
+    "delta_days": -1,
+    "reviews": 392287
+   },
+   {
+    "appid": 311210,
+    "name": "Call of Duty\u00ae: Black Ops III",
+    "date": "2015-11-05",
+    "delta_days": -5,
+    "reviews": 215026
+   },
+   {
+    "appid": 388520,
+    "name": "Call of Duty\u00ae: Black Ops III",
+    "date": "2015-11-05",
+    "delta_days": -5,
+    "reviews": 62347
+   }
+  ]
+ },
+ "236930": {
+  "name": "Blackwell Epiphany",
+  "date": "2014-04-24",
+  "hits": []
+ },
+ "377690": {
+  "name": "Starlight Vega",
+  "date": "2016-04-14",
+  "hits": [
+   {
+    "appid": 322330,
+    "name": "Don't Starve Together",
+    "date": "2016-04-21",
+    "delta_days": 7,
+    "reviews": 499061
+   },
+   {
+    "appid": 374320,
+    "name": "DARK SOULS\u2122 III",
+    "date": "2016-04-11",
+    "delta_days": -3,
+    "reviews": 413775
+   },
+   {
+    "appid": 311690,
+    "name": "Enter the Gungeon",
+    "date": "2016-04-05",
+    "delta_days": -9,
+    "reviews": 85562
+   }
+  ]
+ },
+ "399600": {
+  "name": "I and Me",
+  "date": "2016-05-04",
+  "hits": [
+   {
+    "appid": 379720,
+    "name": "DOOM",
+    "date": "2016-05-12",
+    "delta_days": 8,
+    "reviews": 207279
+   },
+   {
+    "appid": 281990,
+    "name": "Stellaris",
+    "date": "2016-05-10",
+    "delta_days": 6,
+    "reviews": 185433
+   },
+   {
+    "appid": 387290,
+    "name": "Ori and the Blind Forest: Definitive Edition",
+    "date": "2016-04-27",
+    "delta_days": -7,
+    "reviews": 66979
+   }
+  ]
+ },
+ "352070": {
+  "name": "Fort Meow",
+  "date": "2015-06-24",
+  "hits": [
+   {
+    "appid": 208650,
+    "name": "Batman\u2122: Arkham Knight",
+    "date": "2015-06-23",
+    "delta_days": -1,
+    "reviews": 140048
+   }
+  ]
+ },
+ "359400": {
+  "name": "Why Am I Dead At Sea",
+  "date": "2015-05-11",
+  "hits": [
+   {
+    "appid": 292030,
+    "name": "The Witcher 3: Wild Hunt \u2014 Remastered",
+    "date": "2015-05-18",
+    "delta_days": 7,
+    "reviews": 835349
+   },
+   {
+    "appid": 363970,
+    "name": "Clicker Heroes",
+    "date": "2015-05-13",
+    "delta_days": 2,
+    "reviews": 61304
+   }
+  ]
+ },
+ "303430": {
+  "name": "Roundabout",
+  "date": "2014-09-18",
+  "hits": []
+ },
+ "380670": {
+  "name": "Final Approach",
+  "date": "2016-04-04",
+  "hits": [
+   {
+    "appid": 374320,
+    "name": "DARK SOULS\u2122 III",
+    "date": "2016-04-11",
+    "delta_days": 7,
+    "reviews": 413775
+   },
+   {
+    "appid": 311690,
+    "name": "Enter the Gungeon",
+    "date": "2016-04-05",
+    "delta_days": 1,
+    "reviews": 85562
+   }
+  ]
+ },
+ "1173830": {
+  "name": "Coloring Game: Pixel",
+  "date": "2019-10-25",
+  "hits": [
+   {
+    "appid": 632470,
+    "name": "Disco Elysium - The Final Cut",
+    "date": "2019-10-15",
+    "delta_days": -10,
+    "reviews": 111712
    }
   ]
  },
@@ -174,49 +278,6 @@
     "date": "2017-01-23",
     "delta_days": 7,
     "reviews": 97846
-   }
-  ]
- },
- "337720": {
-  "name": "The Lands of Dream",
-  "date": "2016-03-24",
-  "hits": []
- },
- "251490": {
-  "name": "Gravity Ghost",
-  "date": "2015-01-26",
-  "hits": [
-   {
-    "appid": 239140,
-    "name": "Dying Light",
-    "date": "2015-01-26",
-    "delta_days": 0,
-    "reviews": 457632
-   },
-   {
-    "appid": 319630,
-    "name": "Life is Strange - Episode 1",
-    "date": "2015-01-29",
-    "delta_days": 3,
-    "reviews": 169201
-   }
-  ]
- },
- "368160": {
-  "name": "WORLD END ECONOMiCA episode.02",
-  "date": "2015-07-21",
-  "hits": []
- },
- "284790": {
-  "name": "Nightmares from the Deep 2: The Siren`s Call",
-  "date": "2014-05-15",
-  "hits": [
-   {
-    "appid": 238460,
-    "name": "BattleBlock Theater\u00ae",
-    "date": "2014-05-15",
-    "delta_days": 0,
-    "reviews": 71614
    }
   ]
  }
