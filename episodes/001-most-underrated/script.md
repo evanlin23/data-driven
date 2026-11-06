@@ -53,10 +53,15 @@ That's ten times short. The bigger that number, the harder a game got robbed.
 
 @scene bigNumber {"value": 2.7, "kind": "x1", "label": "typical miss, across all 51,897 games", "sub": "fewer than 1% of games with 200+ reviews are this far short", "color": "text"}
 Is this perfect? No. Across all fifty-one thousand games, the prediction is typically off by about two point seven times, one way or the other.
+
+@scene textBeat {"text": "games with 200+ reviews:|fewer than *1 in 100* are this far short", "size": 80, "sub": "for games this size the model usually guesses low"}
 But for games with two hundred or more reviews it usually guesses low, and fewer than one in a hundred of them is even that far short. So the further past that a game is, the more sure I am it really got robbed.
 
 @scene bigNumber {"value": 7, "kind": "int", "label": "versions of the model", "sub": "same 7 in the top 10 every time · among the 16 games that passed every check", "color": "gold"}
-And to check I wasn't fooling myself, I ran the model seven different ways. Of the sixteen games that passed every check, the same seven made the top ten every single time. The final order, and every times-short number from here on, is the average of all seven.
+And to check I wasn't fooling myself, I ran the model seven different ways. Of the sixteen games that passed every check, the same seven made the top ten every single time.
+
+@scene textBeat {"text": "final order = the *average*|of all 7 versions", "size": 88}
+The final order, and every times-short number from here on, is the average of all seven.
 
 @chapter The rules
 @scene textBeat {"text": "The rules", "sub": "released 2014 or later · 200+ reviews"}
@@ -86,7 +91,10 @@ Number nine. Starlight Vega, a visual novel. Ninety-four percent positive, and a
 
 @scene gapBars @ref:gap_236930
 Number eight. Blackwell Epiphany, the final game in Wadjet Eye's Blackwell series.
-Ninety-eight percent positive, the highest rating in the whole top ten, and still about three times short. One caveat. It's a sequel, like three others on this list, and my guess is that sequels reach fewer players than the first game. So take those with a pinch of salt.
+Ninety-eight percent positive, the highest rating in the whole top ten, and still about three times short.
+
+@scene textBeat {"text": "sequels reach *fewer players*?", "sub": "my guess · 4 of the top 10 are sequels", "size": 88}
+One caveat. It's a sequel, like three others on this list, and my guess is that sequels reach fewer players than the first game. So take those with a pinch of salt.
 
 @scene gapBars @ref:gap_389650
 Number seven. Stardust Galaxy Warriors, a couch co-op space shooter. Two hundred and twenty-six reviews, against about seven hundred expected. About three times short.
@@ -111,8 +119,11 @@ Bad timing makes a good story. But it isn't the pattern.
 
 @chapter What they have in common
 @scene compareBars @ref:genres_chart
-So what do they have in common? Genre, for one. Compared with popular Steam games, casual games show up more often. Forty-seven percent, against twenty-five, though about half of these games I haven't checked by hand.
+So what do they have in common? Genre, for one. Compared with popular Steam games, casual games show up more often. Forty-seven percent, against twenty-five.
 Strategy and simulation games show up half as often or less, and RPGs a lot less often too.
+
+@scene textBeat {"text": "about half of these games|*not checked* by hand yet", "size": 88, "sub": "19 of 34 not checked for earlier releases"}
+One caveat: about half of these games I haven't checked by hand yet.
 
 @scene textBeat {"text": "Strategy, sim and RPG fans|go *digging* for new games", "size": 84, "sub": "a guess"}
 My guess? Strategy, sim and RPG fans go digging for new games, so fewer good ones slip through.
