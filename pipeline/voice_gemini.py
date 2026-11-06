@@ -18,7 +18,7 @@ STYLE = os.environ.get("GEMINI_TTS_STYLE", """# AUDIO PROFILE: narrator of a You
 
 ## DIRECTOR'S NOTES
 Style: curious, confident, a little dry and amused, like a friend who just found something surprising in the data; a real lift on each reveal. American accent.
-Pace: natural conversational YouTube pace, brisk but not rushed; a short beat after big numbers and before reveals.
+Pace: unhurried and relaxed, like explaining something interesting to a friend, about 150 words per minute. Let every number land with a short pause after it, and pause before each reveal. Never rush through numbers.
 Do not read these notes aloud. Speak only the transcript below, exactly as written, in order.""")
 if STYLE.strip().lower() == "none": STYLE = ""  # some voices (Charon, Iapetus) read any direction aloud
 CACHE = os.environ.get("TTS_CACHE", os.path.join(os.path.dirname(__file__), "..", ".tts-cache"))
@@ -82,6 +82,17 @@ def synth(text, voice, model):
             raise
     raise DailyQuota(model)
 
+MAX_WPM = float(os.environ.get("NARRATION_MAX_WPM", "165"))
+TARGET_WPM = float(os.environ.get("NARRATION_TARGET_WPM", "155"))
+
+def _atempo(audio, factor):
+    """Pitch-preserving tempo change via ffmpeg (factor < 1 = slower). float32 mono 24 kHz in/out."""
+    import subprocess, numpy as np
+    p = subprocess.run(["ffmpeg", "-loglevel", "error", "-f", "f32le", "-ar", "24000", "-ac", "1", "-i", "-",
+                        "-af", f"atempo={factor:.4f}", "-f", "f32le", "-ar", "24000", "-ac", "1", "-"],
+                       input=audio.astype(np.float32).tobytes(), capture_output=True, check=True)
+    return np.frombuffer(p.stdout, np.float32).copy()
+
 def write_wav(pcm, path, sr=24000):
     with wave.open(path, "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr); w.writeframes(pcm)
@@ -129,6 +140,15 @@ def _say(lines, out_wav, gap, voice, synth_fn, model):
         else:
             audio = synth_fn(text)          # float32 @ 24 kHz
             os.makedirs(CACHE, exist_ok=True); np.save(cpath, audio)
+        # Pace QA: words here are spelled out ("fifty-one thousand..."), so ~150-160 wpm sounds natural.
+        # If the model still rushes, slow the chunk with pitch-preserving time-stretch (at most 12%).
+        wpm = len(text.split()) / (len(audio) / 24000 / 60)
+        if wpm > MAX_WPM:
+            factor = max(0.88, TARGET_WPM / wpm)
+            audio = _atempo(audio, factor)
+            print(f"  pace {wpm:.0f} wpm > {MAX_WPM:.0f}: slowed x{factor:.2f} -> {wpm * factor:.0f} wpm", file=sys.stderr)
+        else:
+            print(f"  pace {wpm:.0f} wpm (ok)", file=sys.stderr)
         dur = len(audio) / 24000
         a16 = np.interp(np.arange(0, len(audio), 1.5), np.arange(len(audio)), audio).astype(np.float32)
         heard = transcribe_words(a16)
