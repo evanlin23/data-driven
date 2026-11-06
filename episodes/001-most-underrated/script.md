@@ -8,7 +8,7 @@ It costs ten dollars... and it has three hundred and two reviews. [pause 0.5]
 Games like it usually ended up with about two thousand.
 
 @scene textBeat {"text": "Same launch day as one of|the *biggest* games of 2015.", "sub": "Steam store release dates", "size": 84}
-Oh, and it launched on Steam the exact same day as one of the biggest games of 2015. Hold that thought.
+Oh, and it launched on Steam the exact same day as one of the biggest games of twenty fifteen. Hold that thought.
 
 @scene textBeat {"text": "51,897 games. One question."}
 I wanted to find the great games that got overlooked the worst. I scored fifty-one thousand, eight hundred and ninety-seven Steam games, all with one question. [pause 0.4]
@@ -45,7 +45,7 @@ Here's the model. For every game, I find the hundred and fifty games most like i
 Whatever the typical one of those got, that's what I call expected.
 
 @scene scatter @ref:scatter_trend
-These are games from the red dot's launch window, around the start of 2015. The gold line is what they usually got at each rating. Near the top, better games get more reviews. You'd hope so.
+These are games from the red dot's launch window, around the start of twenty fifteen. The gold line is what they usually got at each rating. Near the top, the line climbs.
 
 @scene textBeat {"text": "expects 1,000 · has 100|= *10x* short"}
 Here's the number I rank by. Say a game's lookalikes usually got a thousand reviews, and it only has a hundred.
@@ -53,14 +53,14 @@ That's ten times short. The bigger that number, the harder a game got robbed.
 
 @scene bigNumber {"value": 2.7, "kind": "x1", "label": "typical miss, across all 51,897 games", "sub": "fewer than 1% of games with 200+ reviews are this far short", "color": "text"}
 Is this perfect? No. Across all fifty-one thousand games, the prediction is typically off by about two point seven times, one way or the other.
-But among games with two hundred or more reviews, fewer than one in a hundred is even that far short. So the further past that a game is, the more sure I am it really got robbed.
+But for games with two hundred or more reviews it usually guesses low, and fewer than one in a hundred of them is even that far short. So the further past that a game is, the more sure I am it really got robbed.
 
 @scene bigNumber {"value": 7, "kind": "int", "label": "versions of the model", "sub": "same 7 in the top 10 every time · among the 16 games that passed every check", "color": "gold"}
 And to check I wasn't fooling myself, I ran the model seven different ways. Of the sixteen games that passed every check, the same seven made the top ten every single time. The final order, and every times-short number from here on, is the average of all seven.
 
 @chapter The rules
 @scene textBeat {"text": "The rules", "sub": "released 2014 or later · 200+ reviews"}
-A few rules. Only games released from 2014 on, because Steam reviews didn't exist until late 2013. At least two hundred reviews, so a handful of fans can't fake it.
+A few rules. Only games released from twenty fourteen on, because Steam reviews didn't exist until late twenty thirteen. At least two hundred reviews, so a handful of fans can't fake it.
 
 @scene textBeat {"text": "No DLC|one game per *studio*", "size": 96}
 No DLC. And one game per studio, so no single developer hogs the list.
@@ -95,7 +95,7 @@ Number seven. Stardust Galaxy Warriors, a couch co-op space shooter. Two hundred
 Number six. Nelly Cootalot: The Fowl Fleet. A pirate point-and-click adventure, and its store page says Tom Baker is in the cast.
 
 @scene gapBars @ref:gap_317320
-Eighty-one on Metacritic, the highest Metacritic score in the top ten. Three point two times short.
+Eighty-one on Metacritic. Three point two times short.
 
 @chapter Was it bad timing?
 @scene textBeat {"text": "So it's bad *timing*.|Right?", "size": 96}
@@ -111,15 +111,15 @@ Bad timing makes a good story. But it isn't the pattern.
 
 @chapter What they have in common
 @scene compareBars @ref:genres_chart
-So what do they have in common? Genre, for one. Compared with popular Steam games, casual games show up almost twice as often. Forty-seven percent, against twenty-five.
-Strategy, simulation and RPGs show up half as often, or less.
+So what do they have in common? Genre, for one. Compared with popular Steam games, casual games show up more often. Forty-seven percent, against twenty-five, though about half of these games I haven't checked by hand.
+Strategy and simulation games show up half as often or less, and RPGs a lot less often too.
 
 @scene textBeat {"text": "Strategy, sim and RPG fans|go *digging* for new games", "size": 84, "sub": "a guess"}
 My guess? Strategy, sim and RPG fans go digging for new games, so fewer good ones slip through.
 
 @scene compareBars @ref:players_chart
 All of them are single-player. But so are most popular Steam games. The real gap is online player-versus-player.
-Just one of the thirty-four has it. Almost one in four popular Steam games do.
+Just one of the thirty-four has it. More than one in five popular Steam games do.
 
 @scene textBeat {"text": "Nobody drags you into|a *puzzle game*.", "size": 96}
 My guess: multiplayer games spread because your friends drag you in. Nobody drags you into a puzzle game.
@@ -153,7 +153,7 @@ Number three. Voidspire Tactics, a turn-based tactics RPG where you build your o
 Ninety-seven percent positive. About fourteen hundred expected. Two hundred and sixty-eight reviews. Five point three times short.
 
 @scene launchCollision @ref:collision_415920 {"caption": "Within a week on Steam: Call of Duty, Fallout 4"}
-It came out on Steam November 2nd, 2015. Within about a week, Call of Duty: Black Ops Three and Fallout 4 both launched. Bad luck? Sure. But remember, not the pattern.
+It came out on Steam on November second, twenty fifteen. Within about a week, Call of Duty: Black Ops Three and Fallout 4 both launched. Bad luck? Sure. But remember, not the pattern.
 
 @scene gameCard @ref:card_255340
 Number two. Escape Goat 2. A puzzle platformer where you team up with a friendly mouse to get out of a dungeon.
@@ -174,7 +174,7 @@ It's Gravity Ghost, by Ivy Games. You run, jump and glide from planet to planet 
 Critics gave it a seventy-five.
 
 @scene launchCollision @ref:collision_251490 {"caption": "Same day: Dying Light"}
-And here's the launch day I told you to hold onto. January 26th, 2015, on Steam. [pause 0.5]
+And here's the launch day I told you to hold onto. January twenty-sixth, twenty fifteen, on Steam. [pause 0.5]
 The same day as Dying Light. Dying Light has four hundred and fifty-eight thousand reviews.
 
 @scene textBeat {"text": "Same day: Dying Light|3 days later: *Life is Strange*", "size": 84, "sub": "Steam store release dates"}

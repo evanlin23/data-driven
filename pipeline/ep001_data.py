@@ -79,7 +79,7 @@ D["hero_history"] = {"title": f"{short(hero['name'])}: English reviews per month
 G, Ca = F["genres"], F["categories"]
 D["genres_chart"] = {"title": "What kind of games look overlooked?", "aLabel": f"{G['underrated_n']} underrated-looking games", "bLabel": "Popular Steam games (random sample)",
     "rows": [{"label": k, "a": G[k][0], "b": G[k][1]} for k in ["Casual", "Strategy", "Simulation", "RPG"]],
-    "note": f"Steam store genres · {G['underrated_n']} games from 2014 on with 200+ reviews, rated 93%+ (two-thirds or less of expected reviews, one per studio, known earlier releases left out, small sample) vs a random sample of {G['random_n']} games from 2014 on with 300+ reviews · not matched on rating or year"}
+    "note": f"Steam store genres · {G['underrated_n']} games from 2014 on with 200+ reviews, rated 93%+ (two-thirds or less of expected reviews, one per studio, known earlier releases left out, {F['traits_group']['unverified']} of {F['traits_group']['n']} not release-checked, small sample) vs a random sample of {G['random_n']} games from 2014 on with 300+ reviews · not matched on rating or year"}
 D["players_chart"] = {"title": "Who do you play it with?", "aLabel": f"{G['underrated_n']} underrated-looking games", "bLabel": "Popular Steam games (random sample)",
     "rows": [{"label": k.replace("Multi-player", "Multiplayer"), "a": Ca[k][0], "b": Ca[k][1]} for k in ["Single-player", "Multi-player", "Online PvP"]],
     "note": "Steam store categories · same samples"}
