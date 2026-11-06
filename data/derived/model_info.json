@@ -1,1 +1,1 @@
-{"method": "knn-median", "K": 150, "rating_scale_logit": 0.15, "era_scale_rank": 0.01, "typical_miss_x": 2.67, "prior_mean": 0.8}
+{"method": "knn-median", "K": 150, "rating_scale_logit": 0.15, "era_scale_rank": 0.01, "typical_miss_x": 2.68, "prior_mean": 0.8}

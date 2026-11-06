@@ -20,7 +20,10 @@ def rdate(a):
 F = {}
 F["games_scored"] = int(len(allg))
 F["candidates_min200"] = int(len(u))
-F["prior_mean_positive"] = round(float((u.positive / u.n).mean()), 3)
+MI = json.load(open("data/derived/model_info.json"))
+F["model"] = MI  # method, K, scales, typical_miss_x, prior_mean
+F["prior_mean_positive"] = MI["prior_mean"]
+F["model_typical_miss_x"] = MI["typical_miss_x"]
 
 def game(r, rank):
     d = store(int(r.appid))
@@ -42,8 +45,10 @@ F["model_check"] = {"group": "released in 2015, rated 95-97% (adjusted), >=200 r
 
 # Traits: top 100 most underrated (status ok, >=93%) vs comparison groups
 f_all = pd.read_csv("data/derived/finalists.csv")
-ok_all = f_all[f_all.status == "ok"].sort_values("gap", ascending=False)
-top100 = ok_all.head(100)
+# comparison group: the 100 top-rated (>=93%) games most short of expectation that pass the basic rules
+# (2014+, no DLC/software/adult/classic re-releases), BEFORE the Steam-first check (which only gates the final list)
+basic = f_all[f_all.status.isin(["ok", "unverified release history"]) | f_all.status.str.startswith("released before Steam")]
+top100 = basic.sort_values("gap", ascending=False).head(100)
 met = u[(u.q >= 0.93) & (u.gap <= 1)]
 F["price"] = {"top100_median": float(top100.price_usd.median()), "met_expectations_median": float(met.price_usd.median()),
               "top100_share_20plus": round(float((top100.price_usd >= 20).mean()), 3),
@@ -69,7 +74,7 @@ def near(ids):
     return len(ds), round(float(np.mean([any(abs((m - d).days) <= 7 for m in md) for d in ds])), 3)
 F["timing"] = {"definition": "launched within 7 days of one of the 400 most-reviewed Steam games",
                "random": dict(zip(["n", "share"], near(sample))), "top100": dict(zip(["n", "share"], near(top100.appid)))}
-F["robustness"] = "Top 3 identical with era cutoff at 70th/80th/90th percentile; ranks 4-10 shuffle (ERA_Q env in underrated.py)"
+F["robustness"] = "see robustness.json (rank stability across K / rating-scale / era-scale settings)"
 json.dump(F, open(f"{EP}/facts.json", "w"), indent=1, default=str)
 print(json.dumps({k: F[k] for k in ["games_scored", "candidates_min200", "model_check", "price", "genres", "categories", "timing", "highest_rated_in_top10"]}, indent=1))
 for g in F["top10"] + F["next5"]:
