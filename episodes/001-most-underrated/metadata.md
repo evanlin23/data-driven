@@ -13,7 +13,7 @@
 - C `versus` (test variant): "?" card vs Dying Light art, "SAME DAY." The mystery game is never shown.
 
 ## Description
-I scored 51,897 Steam games to find the ones that got robbed: games players loved that almost nobody showed up for. The model predicts how many reviews a game *should* have from its rating and release year, then ranks games by how far short they landed.
+I scored 51,897 Steam games to find the great ones that got overlooked. For every game, the model looks at the 150 most similar games (same rating, same launch window) and asks how many reviews it should have had. Only games that launched on Steam first count.
 
 {{CHAPTERS}}
 
@@ -23,7 +23,7 @@ How it works
 • Model = gradient-boosted median regression on rating + release era, trained on every game with 10+ reviews (out-of-fold predictions).
 • Rules: released 2014+, no re-releases of older games, no DLC/software, one game per studio. Full exclusion list in the sources link.
 
-Games in this video: Gravity Ghost · SHENZHEN SOLITAIRE · Blackwell Epiphany · Supipara - Chapter 1 · Escape Goat 2 · Marvin's Mittens · Copy Kitty · Paint it Back · Bullet Heaven 2 · Quell · Tadpole Treble · Voidspire Tactics · The Lands of Dream · The Journey Down: Chapter Two · Home Sheep Home: Farmageddon Party Edition
+Games in this video: Gravity Ghost · Escape Goat 2 · Voidspire Tactics · Wand Wars · The Journey Down: Chapter Two · Nelly Cootalot: The Fowl Fleet · Stardust Galaxy Warriors: Stellar Climax · Blackwell Epiphany · Starlight Vega · I and Me
 
 Data: Steam store & review data (Valve), SteamSpy (owner/review counts; owner figures are estimates). Not affiliated with or endorsed by Valve or any developer shown. Game art is used for commentary and identification.
 

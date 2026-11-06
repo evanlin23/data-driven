@@ -11,7 +11,7 @@ hero = top[0]
 short = lambda n: n.split(" - ")[0].replace(": Farmageddon Party Edition", "").replace(": The Siren`s Call", "")
 
 def pts(df): return [{"x": round(float(q), 4), "y": int(n)} for q, n in zip(df.q, df.n)]
-axes = {"xLabel": "players who liked it (adjusted % positive)", "yLabel": "Steam reviews", "yLog": True,
+axes = {"xLabel": "positive reviews (adjusted %)", "yLabel": "Steam reviews", "yLog": True,
         "xDomain": [0.35, 1.0], "yDomain": [10, 3000000],
         "xTicks": [{"v": v / 100, "t": f"{v}%"} for v in range(40, 101, 10)],
         "yTicks": [{"v": v, "t": t} for v, t in [(10, "10"), (100, "100"), (1000, "1K"), (10000, "10K"), (100000, "100K"), (1000000, "1M")]]}
@@ -30,13 +30,13 @@ trend = [{"x": q, "y": v} for q, v in zip(C["q"], C["curves"][key]) if q >= 0.6]
 D["scatter_trend"] = {**axes, "points": era_pts, "revealSeconds": 0.6, "trend": trend, "trendAt": 0.8}
 hp = {"x": round(hero["liked_adj"], 4), "y": hero["reviews"]}
 D["scatter_hero"] = {**axes, "points": era_pts + [hp], "highlight": len(era_pts), "highlightAt": 1.2, "revealSeconds": 0.5,
-                     "callout": f"{round(hero['liked_adj'] * 100)}% liked it. {hero['reviews']} reviews."}
+                     "callout": f"{round(hero['liked_adj'] * 100)}% positive. {hero['reviews']} reviews."}
 D["scatter_hero_trend"] = {**D["scatter_hero"], "trend": trend, "trendAt": 0.3, "highlightAt": 0.4,
                            "expected": hero["expected"], "expectedAt": 1.4,
                            "callout": f"{hero['times_short']:.1f}x short"}
 for g in top + nxt:
     D[f"card_{g['appid']}"] = {"rank": g["rank"], "title": short(g["name"]), "image": img(g["appid"]), "year": int(g["release"][-4:]),
-        "stats": [{"label": "Players who liked it", "value": round(g["liked_adj"], 3), "kind": "pct", "color": "good"},
+        "stats": [{"label": "Positive reviews", "value": round(g["liked_adj"], 3), "kind": "pct", "color": "good"},
                   {"label": "Model expected", "value": g["expected"], "color": "gold"},
                   {"label": "Steam reviews", "value": g["reviews"]},
                   {"label": "Times short", "value": g["times_short"], "kind": "x1", "color": "accent"}]}
@@ -67,9 +67,17 @@ bym = {(dt.date.fromtimestamp(x["date"]).year, dt.date.fromtimestamp(x["date"]).
 (y0, m0), (y1, m1) = min(bym), max(bym)
 months = [(y, m) for y in range(y0, y1 + 1) for m in range(1, 13) if (y, m) >= (y0, m0) and (y, m) <= (y1, m1)]
 vals = [bym.get(k, 0) for k in months]
-D["hero_history"] = {"title": f"{short(hero['name'])}: English-language reviews per month", "values": vals, "yMax": max(vals) * 1.15,
+D["hero_history"] = {"title": f"{short(hero['name'])}: English reviews per month", "values": vals, "yMax": max(vals) * 1.15,
                      "xTicks": [{"i": i, "t": str(y)} for i, (y, mo) in enumerate(months) if mo == 1][::2],
                      "drawSeconds": 3, "color": "gold", "mark": {"i": 0, "text": "launch"}}
+# comparison charts straight from facts.json (never hand-typed in the script)
+G, Ca = F["genres"], F["categories"]
+D["genres_chart"] = {"title": "What kind of games get overlooked?", "aLabel": "100 most underrated-looking", "bLabel": "Steam in general (random sample)",
+    "rows": [{"label": k, "a": G[k][0], "b": G[k][1]} for k in ["Casual", "Strategy", "Simulation", "RPG"]],
+    "note": f"Steam store genres · 100 top-rated games furthest below expectations vs a random sample of {G['random_n']} games with 300+ reviews"}
+D["players_chart"] = {"title": "Who do you play it with?", "aLabel": "100 most underrated-looking", "bLabel": "Steam in general (random sample)",
+    "rows": [{"label": k.replace("Multi-player", "Multiplayer"), "a": Ca[k][0], "b": Ca[k][1]} for k in ["Single-player", "Multi-player", "Online PvP"]],
+    "note": "Steam store categories · same samples"}
 json.dump(D, open(f"{EP}/data.json", "w"))
 ids = sorted({g["appid"] for g in top + nxt} | {h["appid"] for g in top + nxt for h in g["collisions"]})
 open(f"{EP}/art_ids.txt", "w").write("\n".join(map(str, ids)) + "\n")

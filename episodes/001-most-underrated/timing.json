@@ -1,367 +1,342 @@
 [
  {
-  "text": "See that red dot? That's a game. Ninety-seven percent of its players liked it.",
+  "text": "See that red dot? That's a game. Ninety-six percent of its players liked it.",
   "start": 0.0,
-  "end": 4.309
+  "end": 4.181
  },
  {
-  "text": "It costs three dollars... and it has two hundred and eight reviews.",
-  "start": 4.589,
-  "end": 8.716
+  "text": "It costs ten dollars... and it has three hundred and two reviews.",
+  "start": 4.461,
+  "end": 8.609
  },
  {
-  "text": "Games that well liked usually get thousands.",
-  "start": 8.996,
-  "end": 11.556
+  "text": "Games like it usually ended up with about two thousand.",
+  "start": 8.889,
+  "end": 12.025
  },
  {
-  "text": "I'm not telling you what it is yet. But it's not the kind of game you'd guess.",
-  "start": 11.836,
-  "end": 15.591
+  "text": "Oh, and it launched on the exact same day as one of the biggest games of that year. Hold that thought.",
+  "start": 12.305,
+  "end": 17.489
  },
  {
-  "text": "I wanted to know how often this happens. I scored fifty-one thousand, eight hundred and ninety-seven Steam games, all with one question.",
-  "start": 15.871,
-  "end": 23.865
+  "text": "I wanted to find the games this happened to the worst. I scored fifty-one thousand, eight hundred and ninety-seven Steam games, all with one question.",
+  "start": 17.769,
+  "end": 26.191
  },
  {
   "text": "Given how good a game is, how many people should have played it? And which games got robbed the hardest?",
-  "start": 24.145,
-  "end": 29.436
+  "start": 26.471,
+  "end": 31.761
  },
  {
   "text": "That red dot is on my list. You'll see where at the end.",
-  "start": 29.716,
-  "end": 32.724
+  "start": 32.041,
+  "end": 35.049
  },
  {
   "text": "Here's a sample of those games. Left to right is how much players liked it. Bottom to top is how many reviews it has.",
-  "start": 33.004,
-  "end": 39.447
+  "start": 35.329,
+  "end": 41.772
  },
  {
-  "text": "Steam doesn't publish sales, so I'm using reviews instead.",
-  "start": 39.727,
-  "end": 43.161
+  "text": "Steam doesn't publish sales, so I'm using reviews instead. For the games on my list, there's roughly one review for every hundred and thirty owners.",
+  "start": 42.052,
+  "end": 49.967
  },
  {
-  "text": "For the games on my list, SteamSpy's estimates work out to roughly one review for every fifty owners.",
-  "start": 43.441,
-  "end": 49.095
- },
- {
-  "text": "Reviews aren't players. But more reviews means more players, and that's all I need.",
-  "start": 49.375,
-  "end": 53.791
+  "text": "Reviews aren't players, and that ratio moves around a lot. But more reviews generally means more players, so it's the best yardstick I've got.",
+  "start": 50.247,
+  "end": 58.097
  },
  {
   "text": "Now, ratings. You can't just sort by percent positive.",
-  "start": 54.071,
-  "end": 57.292
+  "start": 58.377,
+  "end": 61.599
  },
  {
   "text": "A game with twenty reviews, all positive, isn't better than a game with nine thousand eight hundred out of ten thousand.",
-  "start": 57.572,
-  "end": 63.588
+  "start": 61.879,
+  "end": 67.895
  },
  {
   "text": "So I pull every score toward the Steam average, which is eighty percent. The fewer reviews a game has, the harder it gets pulled.",
-  "start": 63.868,
-  "end": 70.759
+  "start": 68.175,
+  "end": 75.065
  },
  {
-  "text": "Better games get more reviews. You'd hope so. That gold line is my model.",
-  "start": 71.039,
-  "end": 75.52
+  "text": "Here's the model. For every game, I find the hundred and fifty games most like it. Released around the same time, with almost the same rating.",
+  "start": 75.345,
+  "end": 82.833
  },
  {
-  "text": "Give it a game's rating and when it came out, and it tells you how many reviews a game like that usually ends up with.",
-  "start": 75.8,
-  "end": 81.688
+  "text": "Whatever the typical one of those got, that's what I call expected.",
+  "start": 83.113,
+  "end": 86.74
  },
  {
-  "text": "I trained it on every game with at least ten reviews, so it knows what normal looks like, not just what hits look like.",
-  "start": 81.968,
-  "end": 88.389
+  "text": "That gold line is what games from early 2015 usually got, at every rating. Better games get more reviews. You'd hope so.",
+  "start": 87.02,
+  "end": 94.572
  },
  {
-  "text": "Here's the number I rank by. Say the model expects a thousand reviews, and a game only has a hundred.",
-  "start": 88.669,
-  "end": 94.28
+  "text": "Here's the number I rank by. Say a game's lookalikes usually got a thousand reviews, and it only has a hundred.",
+  "start": 94.852,
+  "end": 101.124
  },
  {
   "text": "That's ten times short. The bigger that number, the harder a game got robbed.",
-  "start": 94.56,
-  "end": 98.699
+  "start": 101.404,
+  "end": 105.543
  },
  {
-  "text": "Is the model perfect? No. On a typical game, it's off by about two point seven times, one way or the other.",
-  "start": 98.979,
-  "end": 105.123
+  "text": "Is this perfect? No. On a typical game, the prediction is off by about two point seven times, one way or the other.",
+  "start": 105.823,
+  "end": 112.116
  },
  {
-  "text": "That's why a game only counts as robbed when it's way past that. Everything on my list is at least five times short.",
-  "start": 105.403,
-  "end": 111.568
+  "text": "So a game only counts as robbed when it's well past that.",
+  "start": 112.396,
+  "end": 115.489
  },
  {
-  "text": "A few rules. Only games released from 2014 on, because Steam reviews didn't exist until late 2013.",
-  "start": 111.848,
-  "end": 119.229
+  "text": "A few rules. Only games released from 2014 on, because Steam reviews didn't exist until late 2013. At least two hundred reviews, so a handful of fans can't fake it.",
+  "start": 115.769,
+  "end": 126.5
  },
  {
-  "text": "No re-releases of older games, and no DLC.",
-  "start": 119.509,
-  "end": 122.581
+  "text": "No DLC. And one game per studio, so no single developer hogs the list.",
+  "start": 126.78,
+  "end": 131.452
  },
  {
-  "text": "To make the list, a game needs at least two hundred reviews, so a handful of fans can't fake it. About fifteen thousand games qualify.",
-  "start": 122.861,
-  "end": 130.221
+  "text": "And one more rule, which ended up mattering more than anything else. The game has to have launched on Steam first.",
+  "start": 131.732,
+  "end": 137.492
  },
  {
-  "text": "And one game per studio, or a single developer would take three spots.",
-  "start": 130.501,
-  "end": 134.363
+  "text": "I checked fifty-one of the top candidates by hand. Thirty-four of them had already been out somewhere else. Free Flash games, phone games, games that came out years earlier in Japan.",
+  "start": 137.772,
+  "end": 147.415
  },
  {
-  "text": "One more thing. I tuned the model a few different ways. The top three never moved. Below that, it's a closer race, so treat the exact order loosely.",
-  "start": 134.643,
-  "end": 142.557
+  "text": "Those aren't overlooked. Their fans just played them somewhere else first. So they're out.",
+  "start": 147.695,
+  "end": 151.919
  },
  {
-  "text": "These ten got robbed the worst. Let's count down.",
-  "start": 142.837,
-  "end": 145.824
+  "text": "Last thing. I ran the model seven different ways. The same seven games made the top ten every single time. The final order is the average.",
+  "start": 152.199,
+  "end": 160.241
  },
  {
-  "text": "Number ten. Pinkman. A platformer about a man with pink skin and, according to its own store page, an incredible skill to fart.",
-  "start": 146.104,
-  "end": 152.781
+  "text": "Numbers ten to six are closer calls, about three times short, which isn't far past the model's normal error. Call them probably overlooked.",
+  "start": 160.521,
+  "end": 167.924
  },
  {
-  "text": "It costs ninety-nine cents. Ninety-eight percent positive. The model expected about thirty-seven hundred reviews. It has six hundred and sixty-seven.",
-  "start": 153.061,
-  "end": 161.701
+  "text": "Number ten. I and Me. Ninety-six percent positive. Games like it usually got about nine hundred reviews. It has three hundred and fifty-eight.",
+  "start": 168.204,
+  "end": 176.247
  },
  {
-  "text": "Number nine. Crystal Story Two. A turn-based RPG about a young dragon trying to stop an evil witch.",
-  "start": 161.981,
-  "end": 168.275
+  "text": "Number nine. Starlight Vega, a visual novel. Ninety-three percent positive, and about two point eight times short.",
+  "start": 176.527,
+  "end": 182.905
  },
  {
-  "text": "Ninety-four percent positive, three dollars. The model expected around eighteen hundred reviews. It has three hundred and twenty-five.",
-  "start": 168.555,
-  "end": 175.957
+  "text": "Number eight. Blackwell Epiphany, the final game in Wadjet Eye's Blackwell series.",
+  "start": 183.185,
+  "end": 187.687
  },
  {
-  "text": "Number eight. Voidspire Tactics, a tactics RPG with a party you build yourself.",
-  "start": 176.237,
-  "end": 181.101
+  "text": "Ninety-eight percent positive. That's the highest rating in the whole top ten.",
+  "start": 187.967,
+  "end": 192.255
  },
  {
-  "text": "Ninety-six percent positive. The model expected about eighteen hundred reviews. It has two hundred and sixty-eight.",
-  "start": 181.381,
-  "end": 187.76
+  "text": "Number seven. Stardust Galaxy Warriors, a couch co-op space shooter. Two hundred and twenty-six reviews, against about seven hundred expected.",
+  "start": 192.535,
+  "end": 200.577
  },
  {
-  "text": "It came out November 2nd, 2015. One week later, Fallout 4 launched.",
-  "start": 188.04,
-  "end": 192.819
+  "text": "Number six. Nelly Cootalot: The Fowl Fleet. A pirate point-and-click adventure, and its store page says Tom Baker is in the cast.",
+  "start": 200.857,
+  "end": 208.303
  },
  {
-  "text": "Number seven. Home Sheep Home: Farmageddon Party Edition. Yes, it's a Shaun the Sheep game.",
-  "start": 193.099,
-  "end": 198.539
+  "text": "Eighty-one on Metacritic, the best critic score on the list. Three point two times short.",
+  "start": 208.583,
+  "end": 213.425
  },
  {
-  "text": "Ninety-six percent positive. The model expected over five thousand reviews. It has seven hundred and fifty-seven.",
-  "start": 198.819,
-  "end": 205.56
+  "text": "Before the top five, I want to test a theory. Remember that red dot launching next to a giant? Maybe that's the whole story. Good games, buried by bad timing.",
+  "start": 213.705,
+  "end": 222.495
  },
  {
-  "text": "Number six. Bullet Heaven 2. A bullet-hell shooter where you dodge hundreds of bullets a second.",
-  "start": 205.84,
-  "end": 211.003
- },
- {
-  "text": "Ninety-eight percent positive. The model expected almost thirty-eight hundred reviews. It has four hundred and ninety-three.",
-  "start": 211.283,
-  "end": 218.045
- },
- {
-  "text": "It came out December 7th, 2015. Six days earlier, Rainbow Six Siege launched. Siege has over a million reviews today.",
-  "start": 218.325,
-  "end": 226.133
- },
- {
-  "text": "At this point I had a theory. These games launched right next to giants, and got buried.",
-  "start": 226.413,
-  "end": 231.192
- },
- {
-  "text": "It's a great story. So I checked it.",
-  "start": 231.472,
-  "end": 233.52
- },
- {
-  "text": "I took Steam's four hundred most-reviewed games, and checked launch dates against them.",
-  "start": 233.8,
-  "end": 238.259
+  "text": "So I took Steam's four hundred most-reviewed games, and checked launch dates against them.",
+  "start": 222.775,
+  "end": 227.447
  },
  {
   "text": "Almost three in four random Steam games launched within a week of one of those hits. There's always a giant nearby.",
-  "start": 238.539,
-  "end": 244.555
+  "start": 227.727,
+  "end": 233.743
  },
  {
-  "text": "The hundred most underrated? About two in three. If anything, slightly fewer.",
-  "start": 244.835,
-  "end": 249.144
+  "text": "The most underrated-looking games? A bit under two in three. If anything, slightly fewer.",
+  "start": 234.023,
+  "end": 238.759
  },
  {
   "text": "Bad timing makes a good story. But it isn't the pattern.",
-  "start": 249.424,
-  "end": 252.517
+  "start": 239.039,
+  "end": 242.132
  },
  {
-  "text": "So what do they have in common? I looked at genres first. Casual games show up more often on the underrated list than on Steam in general.",
-  "start": 252.797,
-  "end": 260.115
+  "text": "So what do they have in common? Genre, for one. Casual games show up about twice as often on the underrated side.",
+  "start": 242.412,
+  "end": 248.663
  },
  {
-  "text": "Strategy, simulation and RPGs show up a third as often, or less. My guess? Those genres have fans who go digging for new games.",
-  "start": 260.395,
-  "end": 268.181
+  "text": "Strategy and RPGs show up about a third as often, and simulation about a quarter. My guess? Those genres have fans who go digging for new games.",
+  "start": 248.943,
+  "end": 257.604
  },
  {
   "text": "Almost all of them are single-player. But so are most Steam games. The real gap is online PvP.",
-  "start": 268.461,
-  "end": 274.328
+  "start": 257.884,
+  "end": 263.751
  },
  {
-  "text": "Two percent of the underrated games have it. Twenty-one percent of random Steam games do.",
-  "start": 274.608,
-  "end": 279.643
+  "text": "Three percent of the underrated-looking games have it. Twenty-one percent of random Steam games do.",
+  "start": 264.031,
+  "end": 269.513
  },
  {
-  "text": "Multiplayer games spread because your friends drag you in. Nobody drags you into a puzzle game.",
-  "start": 279.923,
-  "end": 284.915
+  "text": "My guess: multiplayer games spread because your friends drag you in. Nobody drags you into a puzzle game.",
+  "start": 269.793,
+  "end": 275.255
  },
  {
-  "text": "And they're cheap. Only five percent of them cost twenty dollars or more. Among top-rated games that hit their expectations, it's seventeen percent.",
-  "start": 285.195,
-  "end": 293.237
+  "text": "And they're rarely expensive. Only two percent cost twenty dollars or more. Among top-rated games that got the reviews they should have, it's seventeen percent.",
+  "start": 275.535,
+  "end": 284.004
  },
  {
   "text": "I can't prove why from this data. My guess: cheap often means a tiny team with no marketing budget.",
-  "start": 293.517,
-  "end": 299.299
+  "start": 284.284,
+  "end": 290.065
  },
  {
-  "text": "Before the top five, a few that just missed the top ten. The Lands of Dream. World End Economica. Nightmares from the Deep. Tin Star.",
-  "start": 299.579,
-  "end": 307.344
+  "text": "The top five. Number five. The Journey Down, Chapter Two. A point-and-click adventure, and seventy-eight on Metacritic.",
+  "start": 290.345,
+  "end": 297.001
  },
  {
-  "text": "And number twelve, Gravity Ghost, which launched on the exact same day as Dying Light. Dying Light has four hundred and fifty-seven thousand reviews. Gravity Ghost has three hundred and two.",
-  "start": 307.624,
-  "end": 317.608
+  "text": "Ninety-five percent positive. Games like it usually got about twenty-three hundred reviews. It has five hundred and thirty-seven. Four point three times short.",
+  "start": 297.281,
+  "end": 306.028
  },
  {
-  "text": "The top five. Number five. Paint it Back. You solve logic puzzles to restore pixel art.",
-  "start": 317.888,
-  "end": 323.285
+  "text": "Number four. Wand Wars. According to its store page, you ride brooms, cast spells, and turn your enemies into chickens.",
+  "start": 306.308,
+  "end": 312.58
  },
  {
-  "text": "Ninety-eight percent positive. The model expected over four thousand reviews. It has five hundred and forty-two. Eight times short.",
-  "start": 323.565,
-  "end": 331.075
+  "text": "Ninety-six percent positive. About eleven hundred reviews expected. It has two hundred and eighteen. Five point two times short.",
+  "start": 312.86,
+  "end": 320.305
  },
  {
-  "text": "Number four. Quell. A calm logic puzzle game for four dollars.",
-  "start": 331.355,
-  "end": 335.323
+  "text": "And yes, it's multiplayer. But couch multiplayer: your friends have to be in the room. No online PvP.",
+  "start": 320.585,
+  "end": 326.537
  },
  {
-  "text": "Ninety-seven percent positive. The model expected about thirty-five hundred reviews. It has four hundred and thirty-eight.",
-  "start": 335.603,
-  "end": 342.429
+  "text": "Number three. Voidspire Tactics, a turn-based tactics RPG where you build your own party.",
+  "start": 326.817,
+  "end": 332.193
  },
  {
-  "text": "It came out four days before The Witcher 3. Good story. But remember, not the pattern.",
-  "start": 342.709,
-  "end": 347.637
+  "text": "Ninety-six percent positive. About fourteen hundred expected. Two hundred and sixty-eight reviews. Five point three times short.",
+  "start": 332.473,
+  "end": 339.94
  },
  {
-  "text": "Number three. Marvin's Mittens. No enemies, no danger. You just explore.",
-  "start": 347.917,
-  "end": 352.099
+  "text": "It came out November 2nd, 2015. One week later, Fallout 4 launched. Bad luck? Sure. But remember, not the pattern.",
+  "start": 340.22,
+  "end": 347.751
  },
  {
-  "text": "Ninety-five percent positive. The model expected almost eighteen hundred reviews. It has two hundred and five. Eight point six times short.",
-  "start": 352.379,
-  "end": 360.336
+  "text": "Number two. Escape Goat 2. A puzzle platformer where you team up with a friendly mouse to get out of a dungeon.",
+  "start": 348.031,
+  "end": 353.897
  },
  {
-  "text": "Number two is a visual novel. Supipara, Chapter One. Ninety-eight percent positive. That's the highest rating in the top ten.",
-  "start": 360.616,
-  "end": 367.955
+  "text": "Ninety-five percent positive. Almost twenty-nine hundred reviews expected. It has four hundred and forty-one. Six point five times short.",
+  "start": 354.177,
+  "end": 362.135
  },
  {
-  "text": "The model expected about twenty-seven hundred reviews. It has two hundred and fifty-five. Ten point six times short.",
-  "start": 368.235,
-  "end": 374.933
+  "text": "And honestly? Number one and number two are neck and neck. In three of my seven versions of the model, this was number one.",
+  "start": 362.415,
+  "end": 368.964
  },
  {
-  "text": "And here's the strange part. A third of its English reviews came in the last two years. People are still finding it, ten years later.",
-  "start": 375.213,
-  "end": 382.104
+  "text": "But in the other four, it was this. Remember the red dot? Ninety-six percent liked it. Three hundred and two reviews.",
+  "start": 369.244,
+  "end": 375.473
  },
  {
-  "text": "Number one. Remember the red dot from the start? Ninety-seven percent liked it. Two hundred and eight reviews.",
-  "start": 382.384,
-  "end": 388.4
+  "text": "Games like it usually got about two thousand. That's six point six times short.",
+  "start": 375.753,
+  "end": 380.191
  },
  {
-  "text": "My model expected about twenty-five hundred. That's twelve point three times short. The biggest gap on the list.",
-  "start": 388.68,
-  "end": 394.739
+  "text": "It's Gravity Ghost, by Ivy Games. You run, jump, and glide around tiny planets, using gravity to rescue survivors across a shattered galaxy.",
+  "start": 380.471,
+  "end": 388.812
  },
  {
-  "text": "And it's a solitaire game.",
-  "start": 395.019,
-  "end": 397.161
+  "text": "Players gave it ninety-six percent. Critics gave it a seventy-five.",
+  "start": 389.092,
+  "end": 393.081
  },
  {
-  "text": "SHENZHEN SOLITAIRE, by Zachtronics. It started as a mini-game inside another Zachtronics game, SHENZHEN I/O, then got released on its own for three dollars.",
-  "start": 397.441,
-  "end": 406.807
+  "text": "And here's the launch day I told you to hold onto. January 26th, 2015.",
+  "start": 393.361,
+  "end": 399.024
  },
  {
-  "text": "Its store page calls it simple, challenging, and oddly addictive. Ninety-seven percent of players agree.",
-  "start": 407.087,
-  "end": 412.74
+  "text": "The same day as Dying Light. Dying Light has four hundred and fifty-seven thousand reviews. Gravity Ghost has three hundred and two.",
+  "start": 399.304,
+  "end": 406.749
  },
  {
-  "text": "This is every month of its life on Steam. It never really spiked. A few English reviews a month, for years.",
-  "start": 413.02,
-  "end": 419.015
+  "text": "I know, I just told you timing isn't the pattern. But for this one, that week? It can't have helped.",
+  "start": 407.029,
+  "end": 412.043
  },
  {
-  "text": "Should have: about twenty-five hundred reviews. Got: two hundred and eight.",
-  "start": 419.295,
-  "end": 423.391
+  "text": "This is its whole life on Steam, month by month. A small bump at launch, then a trickle that never quite stopped.",
+  "start": 412.323,
+  "end": 418.232
+ },
+ {
+  "text": "Should have: about two thousand reviews. Got: three hundred and two.",
+  "start": 418.512,
+  "end": 422.267
  },
  {
   "text": "That's the list. Your favourite hidden gem probably isn't on it. Tell me which game my model missed.",
-  "start": 423.671,
-  "end": 428.62
+  "start": 422.547,
+  "end": 427.496
  },
  {
   "text": "Next time I'm flipping the model around: the most overrated game on Steam. That one's going to start some fights.",
-  "start": 428.9,
-  "end": 435.001
+  "start": 427.776,
+  "end": 433.877
  }
 ]

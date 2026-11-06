@@ -99,7 +99,7 @@ export const Scatter: React.FC<ScatterProps> = (p) => {
       </svg>
       {hp && p.callout && (
         <div style={{
-          position: 'absolute', left: Math.min(sx(hp.x) + 70, width - 700), top: Math.max(sy(hp.y) - 150, 40),
+          position: 'absolute', left: p.expected !== undefined ? Math.min(sx(hp.x) - 420, width - 700) : Math.min(sx(hp.x) + 70, width - 700), top: p.expected !== undefined ? sy(hp.y) + 40 : Math.max(sy(hp.y) - 150, 40),
           fontFamily: hand, fontSize: 64, color: C.accent, opacity: ease(f, hAt + 15, hAt + 30), transform: 'rotate(-4deg)',
         }}>
           {p.callout}

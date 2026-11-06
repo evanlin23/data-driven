@@ -31,7 +31,7 @@ export const GapBars: React.FC<GapBarsProps> = ({title, image, expected, actual,
         {image && <Img src={staticFile(image)} style={{height: 110, borderRadius: 10}} />}
         <div>
           <div style={{fontFamily: display, fontSize: 64, color: C.text}}>{title}</div>
-          {liked !== undefined && <div style={{fontFamily: body, fontSize: 38, color: C.good}}>{Math.round(liked * 100)}% of players liked it</div>}
+          {liked !== undefined && <div style={{fontFamily: body, fontSize: 38, color: C.good}}>{Math.round(liked * 100)}% positive reviews</div>}
         </div>
       </div>
       {bar('expected', expected, te, C.gold, 360)}
