@@ -24,29 +24,30 @@ Every number in the script comes from `facts.json` (built by `pipeline/ep001_fac
   34 had been released elsewhere first (browser/Flash, mobile, older PC versions, Japan), 1 is delisted.
   Verdicts and source URLs: `release_history.json`.
 
-## Final list
-1. Gravity Ghost: 96.3% positive, 302 reviews, expected 2,005, 6.6x short (range 5.17-7.99x); Gravity Ghost: first released 2015-01-26 on PC (wikipedia Gravity_Ghost)
-2. Escape Goat 2: 95.5% positive, 441 reviews, expected 2,889, 6.5x short (range 5.68-7.61x); Escape Goat 2: same-day Steam/GOG/Humble 2014-03-24 (engadget)
-3. Voidspire Tactics: 96.2% positive, 268 reviews, expected 1,426, 5.3x short (range 3.66-6.29x); Voidspire Tactics: launched Nov 2015 on Steam and direct same day (indierpgs.com)
-4. Wand Wars: 95.8% positive, 218 reviews, expected 1,134, 5.2x short (range 3.97-6.7x); Wand Wars: PC 2016-04-13, consoles later (dekudeals)
-5. The Journey Down: Chapter Two: 95.2% positive, 537 reviews, expected 2,314, 4.3x short (range 3.36-5.0x); The Journey Down Ch.2: launched 2014-08-25 Steam+Humble same day (gamingonlinux)
-6. Nelly Cootalot: The Fowl Fleet: 94.5% positive, 291 reviews, expected 928, 3.2x short (range 2.42-3.7x); Nelly Cootalot: The Fowl Fleet: Steam + direct same day 2016-03-22 (gamingonlinux)
-7. Stardust Galaxy Warriors: Stellar Climax: 93.4% positive, 226 reviews, expected 696, 3.1x short (range 2.64-3.71x); Stardust Galaxy Warriors: Steam 2015-11-10 first (steamdb)
-8. Blackwell Epiphany: 97.6% positive, 934 reviews, expected 2,737, 2.9x short (range 2.56-3.4x); Blackwell Epiphany: same-day Steam/GOG/site 2014-04-24 (gogdb, pcgamer)
-9. Starlight Vega: 93.4% positive, 255 reviews, expected 724, 2.8x short (range 2.56-3.12x); Starlight Vega: Steam+itch.io 2016-04-14, demos only before (opencritic)
-10. I and Me: 95.8% positive, 358 reviews, expected 934, 2.6x short (range 2.07-3.96x); I and Me: Steam May 2016, Switch 2017 (wikipedia)
+## Final list (from facts.json; % = real share of positive reviews)
+1. Gravity Ghost: 96.7% positive, 302 reviews, expected 2,006, 6.6x short (range 5.17-7.99x); Gravity Ghost: first released 2015-01-26 on PC (wikipedia Gravity_Ghost)
+2. Escape Goat 2: 95.7% positive, 441 reviews, expected 2,890, 6.6x short (range 5.68-7.61x); Escape Goat 2: same-day Steam/GOG/Humble 2014-03-24 (engadget)
+3. Voidspire Tactics: 96.6% positive, 268 reviews, expected 1,426, 5.3x short (range 3.66-6.29x); Voidspire Tactics: launched Nov 2015 on Steam and direct same day (indierpgs.com)
+4. Wand Wars: 96.3% positive, 218 reviews, expected 1,133, 5.2x short (range 3.97-6.7x); Wand Wars: PC 2016-04-13, consoles later (dekudeals)
+5. The Journey Down: Chapter Two: 95.3% positive, 537 reviews, expected 2,314, 4.3x short (range 3.36-5.0x); The Journey Down Ch.2: launched 2014-08-25 Steam+Humble same day (gamingonlinux)
+6. Nelly Cootalot: The Fowl Fleet: 94.8% positive, 291 reviews, expected 928, 3.2x short (range 2.42-3.7x); Nelly Cootalot: The Fowl Fleet: Steam + direct same day 2016-03-22 (gamingonlinux)
+7. Stardust Galaxy Warriors: Stellar Climax: 93.8% positive, 226 reviews, expected 696, 3.1x short (range 2.64-3.71x); Stardust Galaxy Warriors: Steam 2015-11-10 first (steamdb)
+8. Blackwell Epiphany: 97.8% positive, 934 reviews, expected 2,735, 2.9x short (range 2.56-3.4x); Blackwell Epiphany: same-day Steam/GOG/site 2014-04-24 (gogdb, pcgamer)
+9. Starlight Vega: 93.7% positive, 255 reviews, expected 725, 2.8x short (range 2.56-3.12x); Starlight Vega: Steam+itch.io 2016-04-14, demos only before (opencritic)
+10. I and Me: 96.1% positive, 358 reviews, expected 935, 2.6x short (range 2.07-3.96x); I and Me: Steam May 2016, Switch 2017 (wikipedia)
 
 ## Comparisons (correlations, not causes)
-- Underrated-looking group: 44 games rated 93%+ (adjusted) with at least 1.5x fewer reviews than expected, released 2014+,
-  no DLC/software/adult/re-releases, one per developer, leaving out games known to have launched elsewhere first
-  (15 verified Steam-first, 29 not checked). Store data exists for all but one game at 1.5x+.
+- Underrated-looking group: 34 games rated 93%+ (adjusted) with two-thirds or less of the expected reviews
+  (default run gap >= 1.5x), released 2014+, no DLC/software/adult, known re-releases and earlier releases left out
+  (exclusions.json), one per developer: 15 verified Steam-first, 19 not checked. Small sample.
 - Popular Steam games: random sample of games released 2014 or later with 300+ reviews (n=141). Not matched on rating
   or release year (the underrated group skews 2014-16 and higher-rated), so differences may partly reflect era.
-- Timing: launched within 7 days (Steam store dates) of one of Steam's 400 most-reviewed games, never itself: 72% vs 66%.
-  Restricted to 2014-16 launches: 63% (n=27) vs 64% (n=33), i.e. about the same. Roughly 60% of all days 2014-2026
-  fall within a week of one of those 400 games, so a nearby giant is the norm.
-- Genres: Casual 41% vs 25%; Strategy 16% vs 31%; Simulation 14% vs 34%; RPG 14% vs 30%.
-- Online PvP (Steam store category) 4.5% vs 23%. Price $20+ (current SteamSpy list price): 1 of 44 (2%) vs 22%.
+- Timing: launched within 7 days (Steam store dates) of one of Steam's 400 most-reviewed games, never itself:
+  71.6% vs 67.6%. 63% of all calendar days 2014-2025 fall within a week of one of those 400 games.
+- Genres: Casual 47% vs 25%; Strategy 15% vs 31%; Simulation 12% vs 34%; RPG 18% vs 30%.
+- Online PvP (Steam store category) 2.9% vs 22.7%. Price $20+ (current SteamSpy list price): 2.9% vs 22.3%.
+- Model error: typical miss 2.68x across all 51,897 scored games; among games with 200+ reviews
+  only 0.9% are that far short (the model underpredicts most 200+ games, since lookalikes include tiny games).
 - Owners per review for the top 10: median 129 (shown as 130) (SteamSpy owner-range midpoints).
 - Displayed "expected" = reviews x consensus "times short" (geometric mean of the 7 runs). In the default run alone
   (K=150) Escape Goat 2 is #1 and Gravity Ghost #2; the video says the order is the average of all seven.
@@ -63,4 +64,4 @@ Every number in the script comes from `facts.json` (built by `pipeline/ep001_fac
 - Ranks 6-10 are about 3x short, close to the model's typical error ("probably overlooked").
 - Genre/price/timing comparisons are small samples and correlations.
 - Neighbours of a 96%+ game are necessarily games with ~30+ reviews (shrinkage), which partly builds in the rising trend at the top.
-- Sequels and later chapters (Escape Goat 2, Blackwell Epiphany, The Journey Down: Chapter Two) may get fewer reviews for structural reasons; the model compares them with all games.
+- Sequels and later chapters (Escape Goat 2, Blackwell Epiphany, The Journey Down: Chapter Two, Nelly Cootalot: The Fowl Fleet, a sequel to the 2007 freeware Spoonbeaks Ahoy!) may get fewer reviews for structural reasons; the model compares them with all games.

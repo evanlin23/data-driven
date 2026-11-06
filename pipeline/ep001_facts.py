@@ -40,8 +40,11 @@ byname = {r["name"]: r for _, r in fin.iterrows()}
 ordered = [c for c in R["consensus"] if c["name"] in byname]
 def cgame(c, rank):
     g = game(byname[c["name"]], rank)
-    g["times_short"] = round(c["consensus_gap"], 1); g["times_short_range"] = [c["min"], c["max"]]
-    g["expected"] = int(round(g["reviews"] * c["consensus_gap"]))
+    # recompute the geometric mean unrounded (robustness.json stores 2 decimals; 6.55 -> round(.,1) gave 6.5, not 6.6)
+    gs = [x["gap"] for v in R["runs"].values() for x in v if x["name"] == c["name"]]
+    gm = float(np.exp(np.mean(np.log(gs))))
+    g["times_short"] = round(gm + 1e-9, 1); g["times_short_range"] = [c["min"], c["max"]]
+    g["expected"] = int(round(g["reviews"] * gm))
     return g
 F["top10"] = [cgame(c, i + 1) for i, c in enumerate(ordered[:10])]
 F["next5"] = [cgame(c, i + 11) for i, c in enumerate(ordered[10:15])]
@@ -107,6 +110,8 @@ F["release_history"] = {"checked": len(H), "prior_release": sum(v[0] == "PRIOR" 
 # how often each of the top two came out #1 across settings
 F["top_spot"] = {n: sum(1 for v in R["runs"].values() if v and v[0]["name"] == n) for n in [g["name"] for g in F["top10"][:2]]}
 F["settings_count"] = len(R["runs"])
+F["verified_pool"] = int(len(fin))
+F["share_200plus_at_typical_miss"] = round(float((u.gap >= MI["typical_miss_x"]).mean()), 4)  # games with 200+ reviews this far short
 json.dump(F, open(f"{EP}/facts.json", "w"), indent=1, default=str)
 print(json.dumps({k: F[k] for k in ["games_scored", "candidates_min200", "model_check", "traits_group", "price", "genres", "categories", "timing", "highest_rated_in_top10"]}, indent=1))
 for g in F["top10"] + F["next5"]:

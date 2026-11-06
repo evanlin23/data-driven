@@ -9,7 +9,7 @@
 
 ## Thumbnails (render with `npx remotion still src/index.ts Thumbnail` + props in thumbnails/*.json)
 - **A `dot` (PRIMARY, owner pick)**: scatter cloud, one red-circled dot, arrow, "ROBBED." No game art (never spoil #1).
-- B `number` (test variant): "302" huge + "REVIEWS. 97% LOVED IT." + the red dot.
+- B `number` (test variant): "302" huge + "REVIEWS. 97% POSITIVE." + the red dot.
 - C `versus` (test variant): "?" card vs Dying Light art, "SAME DAY." The mystery game is never shown.
 
 ## Description
@@ -20,10 +20,10 @@ I scored 51,897 Steam games to find the great ones that got overlooked. For ever
 How it works
 • Popularity = Steam review count (Steam doesn't publish sales; SteamSpy owner estimates suggest roughly 1 review per 130 owners for the games in this video).
 • Rating = % positive, shrunk toward the Steam average so tiny games can't top the list on 20 reviews.
-• Model = for each game, the median review count of the 150 most similar games (rating + launch window). Typical miss on a single game: about 2.7x. Re-run 7 different ways; the same 7 games made the top 10 every time.
+• Model = for each game, the median review count of the 150 most similar games (rating + launch window). Typical miss across all games: about 2.7x; fewer than 1% of games with 200+ reviews are that far short. Re-run 7 different ways; among the 16 games that passed every check, the same 7 made the top 10 every time.
 • Rules: released 2014+, 200+ reviews, launched on Steam first (51 release histories checked by hand), no DLC/software, one game per studio.
 
-Games in this video (A-Z, so the list doesn't spoil #1): Blackwell Epiphany · Escape Goat 2 · Gravity Ghost · I and Me · Nelly Cootalot: The Fowl Fleet · Starlight Vega · Stardust Galaxy Warriors: Stellar Climax · The Journey Down: Chapter Two · Voidspire Tactics · Wand Wars
+Games in this video (A-Z, so the list doesn't spoil #1): Blackwell Epiphany · Escape Goat 2 · Gravity Ghost · I and Me · Nelly Cootalot: The Fowl Fleet · Stardust Galaxy Warriors: Stellar Climax · Starlight Vega · The Journey Down: Chapter Two · Voidspire Tactics · Wand Wars
 
 Data: Steam store & review data (Valve), SteamSpy (owner/review counts; owner figures are estimates). Not affiliated with or endorsed by Valve or any developer shown. Game art is used for commentary and identification.
 
@@ -43,7 +43,7 @@ Next video (Overrated) + subscribe. Last 20 s of narration is the hand-off line.
 ## Quality gate (human-feel-guide §7) — fill in before publishing
 - [ ] script_lint PASS (zero hard hits, soft penalty ≤ 5)
 - [ ] Every claim traceable to facts.json / robustness.json / data.json (see sources.md)
-- [ ] At least one genuine surprise the narrator reacts to (timing theory: 66% vs 72%, if anything slightly fewer)
+- [ ] At least one genuine surprise the narrator reacts to (timing theory: 68% vs 72%, about the same)
 - [ ] Structure differs from previous uploads (n/a: first upload)
 - [x] No single picture held > ~13 s; long explanations split into beats (audit 2026-11-06)
 - [ ] Thumbnail promise paid off (red dot = #1, revealed at the end)

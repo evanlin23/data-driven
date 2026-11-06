@@ -51,12 +51,12 @@ These are games from the red dot's launch window, around the start of 2015. The 
 Here's the number I rank by. Say a game's lookalikes usually got a thousand reviews, and it only has a hundred.
 That's ten times short. The bigger that number, the harder a game got robbed.
 
-@scene bigNumber {"value": 2.7, "kind": "x1", "label": "how far off the model is on a typical game", "sub": "the further past this, the more confident", "color": "text"}
-Is this perfect? No. On a typical game, the prediction is off by about two point seven times, one way or the other.
-So the further past that a game is, the more sure I am it really got robbed.
+@scene bigNumber {"value": 2.7, "kind": "x1", "label": "typical miss, across all 51,897 games", "sub": "fewer than 1% of games with 200+ reviews are this far short", "color": "text"}
+Is this perfect? No. Across all fifty-one thousand games, the prediction is typically off by about two point seven times, one way or the other.
+But among games with two hundred or more reviews, fewer than one in a hundred is even that far short. So the further past that a game is, the more sure I am it really got robbed.
 
-@scene bigNumber {"value": 7, "kind": "int", "label": "versions of the model", "sub": "same core of the top 10 in every version · ranked among games whose release history I checked", "color": "gold"}
-And to check I wasn't fooling myself, I ran the model seven different ways, and the same seven of my finalists made the top ten every single time. The final order, and every times-short number from here on, is the average of all seven.
+@scene bigNumber {"value": 7, "kind": "int", "label": "versions of the model", "sub": "same 7 in the top 10 every time · among the 16 games that passed every check", "color": "gold"}
+And to check I wasn't fooling myself, I ran the model seven different ways. Of the sixteen games that passed every check, the same seven made the top ten every single time. The final order, and every times-short number from here on, is the average of all seven.
 
 @chapter The rules
 @scene textBeat {"text": "The rules", "sub": "released 2014 or later · 200+ reviews"}
@@ -76,17 +76,17 @@ Those aren't overlooked. Their fans just played them somewhere else first. So th
 
 @chapter #10 to #6
 @scene leaderboard @ref:board_10
-Numbers ten to six are closer calls. They're about three times short, right around the model's normal error. Call them probably overlooked.
+Numbers ten to six are closer calls. They're about three times short, just past the model's typical miss. Call them probably overlooked.
 
 @scene gapBars @ref:gap_399600
-Number ten. A game called I and Me. Ninety-six percent positive. Games like it usually got about nine hundred reviews. It has three hundred and fifty-eight. Two point six times short.
+Number ten. A game called "I and Me." Ninety-six percent positive. Games like it usually got about nine hundred reviews. It has three hundred and fifty-eight. Two point six times short.
 
 @scene gapBars @ref:gap_377690
 Number nine. Starlight Vega, a visual novel. Ninety-four percent positive, and about two point eight times short.
 
 @scene gapBars @ref:gap_236930
 Number eight. Blackwell Epiphany, the final game in Wadjet Eye's Blackwell series.
-Ninety-eight percent positive, the highest rating in the whole top ten, and still about three times short. One caveat. It's a sequel, like two others on this list, and my guess is that sequels reach fewer players than the first game. So take those with a pinch of salt.
+Ninety-eight percent positive, the highest rating in the whole top ten, and still about three times short. One caveat. It's a sequel, like three others on this list, and my guess is that sequels reach fewer players than the first game. So take those with a pinch of salt.
 
 @scene gapBars @ref:gap_389650
 Number seven. Stardust Galaxy Warriors, a couch co-op space shooter. Two hundred and twenty-six reviews, against about seven hundred expected. About three times short.
@@ -105,27 +105,27 @@ Before the top five, I want to test a theory. Remember that red dot launching ne
 So I took Steam's four hundred most-reviewed games, and checked launch dates against them.
 Seven in ten popular Steam games launched within a week of one of those hits. There's almost always a giant nearby.
 
-@scene bigNumber {"value": 0.659, "kind": "pct", "label": "of the underrated-looking games did", "sub": "44 games rated 93%+ with 1.5x+ fewer reviews than expected · one per studio · known earlier releases left out · not matched on year", "color": "accent"}
-Now the underrated-looking games: forty-four top-rated games that got two-thirds or less of the reviews they should have. Two in three. About the same.
+@scene bigNumber {"value": 0.676, "kind": "pct", "label": "of the underrated-looking games did", "sub": "34 games rated 93%+ with two-thirds or less of expected reviews · one per studio · known earlier releases left out · small sample, not matched on year", "color": "accent"}
+Now the underrated-looking games: thirty-four top-rated games that got two-thirds or less of the reviews they should have. Two in three. About the same.
 Bad timing makes a good story. But it isn't the pattern.
 
 @chapter What they have in common
 @scene compareBars @ref:genres_chart
-So what do they have in common? Genre, for one. Compared with popular Steam games, casual games show up a lot more often. Forty-one percent, against twenty-five.
-Strategy, simulation and RPGs show up half as often, or less.
+So what do they have in common? Genre, for one. Compared with popular Steam games, casual games show up almost twice as often. Forty-seven percent, against twenty-five.
+Strategy, simulation and RPGs show up much less often, roughly half as often.
 
 @scene textBeat {"text": "Strategy, sim and RPG fans|go *digging* for new games", "size": 84, "sub": "a guess"}
 My guess? Strategy, sim and RPG fans go digging for new games, so fewer good ones slip through.
 
 @scene compareBars @ref:players_chart
-Almost all of them are single-player. But so are most popular Steam games. The real gap is online player-versus-player.
-About one in twenty of the underrated-looking games have it. Almost one in four popular Steam games do.
+All of them are single-player. But so are most popular Steam games. The real gap is online player-versus-player.
+Just one of the thirty-four has it. Almost one in four popular Steam games do.
 
 @scene textBeat {"text": "Nobody drags you into|a *puzzle game*.", "size": 96}
 My guess: multiplayer games spread because your friends drag you in. Nobody drags you into a puzzle game.
 
-@scene bigNumber {"value": 0.023, "kind": "pct", "label": "of the underrated-looking games cost $20 or more", "sub": "1 of 44 · vs 22% of popular Steam games · current list prices · groups not matched on rating or year", "color": "accent"}
-And they're rarely expensive. Just one of the forty-four costs twenty dollars or more. Among popular Steam games, it's more than one in five.
+@scene bigNumber {"value": 0.029, "kind": "pct", "label": "of the underrated-looking games cost $20 or more", "sub": "1 of 34 · vs 22% of popular Steam games · current list prices · groups not matched on rating or year", "color": "accent"}
+And they're rarely expensive. Just one of the thirty-four costs twenty dollars or more. Among popular Steam games, it's more than one in five.
 
 @scene textBeat {"text": "cheap often means a tiny team|with *no marketing budget*", "size": 80, "sub": "a guess, not something this data can prove"}
 I can't prove why from this data. My guess: cheap often means a tiny team with no marketing budget.
@@ -159,7 +159,7 @@ It came out on Steam November 2nd, 2015. Within about a week, Call of Duty: Blac
 Number two. Escape Goat 2. A puzzle platformer where you team up with a friendly mouse to get out of a dungeon.
 
 @scene gapBars @ref:gap_255340
-Ninety-six percent positive. Almost twenty-nine hundred reviews expected. It has four hundred and forty-one. Six point five times short.
+Ninety-six percent positive. Almost twenty-nine hundred reviews expected. It has four hundred and forty-one. Six point six times short.
 
 @scene textBeat {"text": "#1 vs #2: *neck and neck*", "sub": "Escape Goat 2 was #1 in 3 of 7 versions of the model", "size": 96}
 And honestly? Number one and number two are neck and neck. In three of my seven versions of the model, Escape Goat 2 was number one.
