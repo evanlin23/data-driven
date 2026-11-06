@@ -41,18 +41,19 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: .tts-cache
-          key: tts-${{ steps.ep.outputs.episode }}-${{ github.run_id }}
+          key: tts-${{ steps.ep.outputs.episode }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             tts-${{ steps.ep.outputs.episode }}-
             tts-
       - name: narrate (lint gate inside build_episode.py)
         if: steps.ep.outputs.episode != ''
         # model pinned: a newly listed TTS model would change the voice and miss every cached chunk
-        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}", GEMINI_TTS_VOICE: Achird, GEMINI_TTS_MODEL: gemini-3.8-flash-tts}
+        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}", GEMINI_TTS_VOICE: Achird, GEMINI_TTS_MODEL: gemini-3.8-flash-tts, VOICE_ENGINE: gemini}
         run: |
           # ffmpeg: pace correction (atempo) in voice_gemini.py; run 42221799895 died without it
           for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq ffmpeg > /dev/null && break; echo "apt attempt $i failed, retrying"; sleep 10; done
-          ffmpeg -version | head -1
+          command -v ffmpeg > /dev/null || { echo "ffmpeg missing"; exit 1; }
+          [ -n "$GEMINI_API_KEY" ] || { echo "GEMINI_API_KEY secret is missing (no fallback voice)"; exit 1; }
           pip install -q kokoro-onnx soundfile numpy faster-whisper
           mkdir -p models
           for f in kokoro-v1.0.onnx voices-v1.0.bin; do
@@ -64,7 +65,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .tts-cache
-          key: tts-${{ steps.ep.outputs.episode }}-${{ github.run_id }}
+          key: tts-${{ steps.ep.outputs.episode }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: shard list
         id: shards
         if: steps.ep.outputs.episode != ''
@@ -138,7 +139,7 @@ jobs:
         run: |
           # apt mirrors occasionally stall (run 42187057484 hung 30 min here): bound it and retry
           for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq ffmpeg > /dev/null && break; echo "apt attempt $i failed, retrying"; sleep 10; done
-          ffmpeg -version | head -1
+          command -v ffmpeg > /dev/null || { echo "ffmpeg missing"; exit 1; }
           mkdir -p dist
           python pipeline/assemble.py segs "video/public/episodes/$EP/narration.wav" "dist/$EP.mp4"
           ids=$(grep -ohE 'games/[0-9]+_header' episodes/$EP/thumbnails/*.json 2>/dev/null | grep -oE '[0-9]+' | sort -u)

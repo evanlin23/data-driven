@@ -63,7 +63,9 @@ def synth(text, voice, model):
             _last[0] = time.time()
             out = _req(f"models/{model}:generateContent", body)
             part = out["candidates"][0]["content"]["parts"][0]["inlineData"]
-            return base64.b64decode(part["data"])  # raw PCM s16le 24 kHz mono
+            pcm = base64.b64decode(part["data"])  # raw PCM s16le 24 kHz mono
+            if len(pcm) < 48000: raise ValueError(f"only {len(pcm)} bytes of audio")
+            return pcm
         except urllib.error.HTTPError as e:
             raw = e.read().decode()
             try:
@@ -89,6 +91,7 @@ def synth(text, voice, model):
     raise SystemExit(f"Gemini TTS failed 3 times in a row ({last_err}). Not a daily-quota problem; re-run later.")
 
 MAX_WPM = float(os.environ.get("NARRATION_MAX_WPM", "165"))
+MIN_WPM = float(os.environ.get("NARRATION_MIN_WPM", "125"))
 TARGET_WPM = float(os.environ.get("NARRATION_TARGET_WPM", "155"))
 
 def _atempo(audio, factor):
@@ -114,7 +117,7 @@ def _chunks(lines, max_words=int(os.environ.get("GEMINI_TTS_CHUNK_WORDS", "250")
 
 def say_script(lines, out_wav, gap=0.35, voice=None, synth_fn=None):
     """Same contract as voice.say_script: returns [{text, start, end}] per line and writes out_wav (24 kHz).
-    Lines are synthesized in ~600-word chunks (free tier: ~10 requests/day per model), then each line is located
+    Lines are synthesized in ~250-word chunks (free tier: ~10 requests/day per model), then each line is located
     in its chunk with Whisper word timestamps (pipeline/align.py). Always the best TTS model; if its daily quota
     runs out the build stops (cached chunks are reused on the next run)."""
     if synth_fn:
@@ -140,11 +143,23 @@ def _check(chunk_lines, text, audio, heard):
     words = len(text.split())
     spans, anchored = line_times(chunk_lines, heard, dur)
     n = len(chunk_lines)
-    # 1) complete: every line but at most one heard, and the last line heard (a cut-off ends early)
-    if anchored < n - 1 or not line_times.flags[-1]:
-        raise BadChunk(f"incomplete: {anchored}/{n} lines heard")
+    # 1) complete, measured in script words heard (a line counts as heard from a single word, so lines alone miss cuts)
+    cover = line_times.cover
+    got, tot = sum(h for h, _ in cover), sum(t for _, t in cover)
+    if tot and got / tot < 0.85:
+        raise BadChunk(f"incomplete: only {got}/{tot} script words heard")
+    # a line with any anchor words must be heard; longer lines must be mostly heard (Whisper on clean TTS is accurate)
+    thin = [i for i, (h, t) in enumerate(cover) if (t >= 1 and h == 0) or (t >= 6 and h / t < 0.67)]
+    if thin:
+        raise BadChunk(f"incomplete: line(s) {thin} mostly missing ({[cover[i] for i in thin]})")
+    if not line_times.tail_ok:
+        raise BadChunk("cut off: the last words of the chunk weren't heard")
     if words / (dur / 60) > 210:
         raise BadChunk(f"too short for its text ({words / (dur / 60):.0f} wpm): probably cut off")
+    # 1b) far too slow for the text = something extra was spoken that Whisper collapsed (seen at 122-132 wpm)
+    pauses = text.count("...") * 0.6
+    if words / ((dur - pauses) / 60) < MIN_WPM:
+        raise BadChunk(f"too long for its text ({words / (dur / 60):.0f} wpm): suspected repeat or insertion")
     # 2) nothing added: improvised words, or a passage spoken twice (measured in seconds of audio, not pace)
     ins = inserted_speech(chunk_lines, heard)
     if ins:
@@ -169,7 +184,7 @@ def _say(lines, out_wav, gap, voice, synth_fn, model):
     todo = sum(not os.path.exists(os.path.join(CACHE, keyof("\n".join(clean[i] for i in idx)) + ".npy")) for idx in chunks)
     spare = max(0, DAILY_REQUESTS - todo) if real else 3
     print(f"narration: {len(chunks)} chunks, {todo} to voice, {spare} spare requests for re-takes", file=sys.stderr)
-    parts, timing, t0 = [], [], 0.0
+    parts, timing, t0, failed = [], [], 0.0, []
     for ci, idx in enumerate(chunks):
         chunk_lines = [clean[i] for i in idx]
         text = "\n".join(chunk_lines)
@@ -187,9 +202,10 @@ def _say(lines, out_wav, gap, voice, synth_fn, model):
                 if os.path.exists(cpath): os.remove(cpath)
                 print(f"  chunk {ci} [{key}] rejected: {e}", file=sys.stderr)
                 if spare <= 0:
-                    raise SystemExit(f"narration chunk {ci} rejected ({e}) and no requests are left today. Re-run after the reset.")
+                    failed.append(ci); audio = None; break  # keep voicing the other chunks (already budgeted), fail at the end
                 spare -= 1
                 print(f"  re-voicing chunk {ci} ({spare} spare left)", file=sys.stderr)
+        if audio is None: continue
         if fresh:
             os.makedirs(CACHE, exist_ok=True); np.save(cpath, audio)  # only chunks that passed every check are cached
         # Pace (after the completeness checks): numbers are spelled out, so ~150-160 wpm sounds natural.
@@ -207,6 +223,9 @@ def _say(lines, out_wav, gap, voice, synth_fn, model):
             timing.append({"text": re.sub(r"\[pause[^\]]*\]", "", lines[i]).strip(), "start": round(t0 + s0, 3), "end": round(t0 + min(s1, dur), 3)})
         parts += [audio, np.zeros(int(24000 * gap), np.float32)]
         t0 += dur + gap
+    if failed:
+        raise SystemExit(f"narration chunk(s) {failed} kept failing the checks and today's requests ran out. "
+                         "Every chunk that passed is cached; re-run after the reset to voice only these.")
     import soundfile as sf
     sf.write(out_wav, np.concatenate(parts), 24000)
     return timing

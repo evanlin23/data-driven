@@ -32,7 +32,9 @@ def transcribe_words(pcm_f32_16k):
     return out
 
 def line_times(lines, words, chunk_dur):
-    """lines: script lines in this chunk. words: [(token, start, end)]. Returns [(start, end)] per line (seconds)."""
+    """lines: script lines in this chunk. words: [(token, start, end)]. Returns [(start, end)] per line (seconds), anchored.
+    Also sets line_times.cover = [(matched, total) anchor tokens per line] and line_times.tail_ok (2 of the last 4 anchors heard),
+    read by the narration guard straight after the call."""
     sc = []  # (token, line_index) for anchor-able script tokens
     for li, l in enumerate(lines):
         for t in _tok(l):
@@ -40,11 +42,21 @@ def line_times(lines, words, chunk_dur):
     hw = [(t, s, e) for t, s, e in words if _keep_heard(t)]
     sm = difflib.SequenceMatcher(a=[t for t, _ in sc], b=[t for t, _, _ in hw], autojunk=False)
     first = [None] * len(lines); last = [None] * len(lines)
+    hit = [0] * len(lines); matched_sc = set()
     for a, b, n in sm.get_matching_blocks():
         for k in range(n):
             li = sc[a + k][1]; s, e = hw[b + k][1], hw[b + k][2]
+            hit[li] += 1; matched_sc.add(a + k)
             if first[li] is None or s < first[li]: first[li] = s
             if last[li] is None or e > last[li]: last[li] = e
+    # A line starts at its first anchor, but leading numbers / "and" / "a" aren't anchors ("Ninety-six percent...").
+    # Pull the start back to the first heard word (of any kind) after the previous line's last matched word.
+    prev_end = 0.0
+    for i in range(len(lines)):
+        if first[i] is not None:
+            earlier = [s for t, s, e in words if prev_end - 0.05 <= s < first[i]]
+            if earlier: first[i] = min(earlier)
+        if last[i] is not None: prev_end = last[i]
     # fill gaps by interpolation on cumulative character share
     lens = np.cumsum([0] + [len(l) for l in lines]); tot = lens[-1] or 1
     est = [chunk_dur * lens[i] / tot for i in range(len(lines))]
@@ -54,7 +66,10 @@ def line_times(lines, words, chunk_dur):
         starts[i] = max(starts[i], starts[i - 1] + 0.3)
     ends = [starts[i + 1] for i in range(len(lines) - 1)] + [chunk_dur]
     anchored = sum(f is not None for f in first)
-    line_times.flags = [f is not None for f in first]  # which lines were actually heard (read by the narration guard)
+    line_times.flags = [f is not None for f in first]
+    totals = [sum(1 for _, li in sc if li == i) for i in range(len(lines))]
+    line_times.cover = list(zip(hit, totals))
+    line_times.tail_ok = sum(j in matched_sc for j in range(max(0, len(sc) - 4), len(sc))) >= min(2, len(sc))  # 2 of the last 4 anchors
     return list(zip(starts, ends)), anchored
 
 
