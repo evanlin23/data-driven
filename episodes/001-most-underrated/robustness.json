@@ -1,0 +1,739 @@
+{
+ "settings": [
+  [
+   "150",
+   "0.15",
+   "0.01"
+  ],
+  [
+   "100",
+   "0.15",
+   "0.01"
+  ],
+  [
+   "300",
+   "0.15",
+   "0.01"
+  ],
+  [
+   "150",
+   "0.10",
+   "0.01"
+  ],
+  [
+   "150",
+   "0.25",
+   "0.01"
+  ],
+  [
+   "150",
+   "0.15",
+   "0.005"
+  ],
+  [
+   "150",
+   "0.15",
+   "0.02"
+  ]
+ ],
+ "runs": {
+  "150/0.15/0.01": [
+   {
+    "name": "Escape Goat 2",
+    "gap": 7.61
+   },
+   {
+    "name": "Gravity Ghost",
+    "gap": 6.93
+   },
+   {
+    "name": "Voidspire Tactics",
+    "gap": 5.76
+   },
+   {
+    "name": "Wand Wars",
+    "gap": 4.83
+   },
+   {
+    "name": "The Journey Down: Chapter Two",
+    "gap": 4.66
+   },
+   {
+    "name": "Nelly Cootalot: The Fowl Fleet",
+    "gap": 3.7
+   },
+   {
+    "name": "Stardust Galaxy Warriors: Stellar Climax",
+    "gap": 2.92
+   },
+   {
+    "name": "Blackwell Epiphany",
+    "gap": 2.87
+   },
+   {
+    "name": "Starlight Vega",
+    "gap": 2.86
+   },
+   {
+    "name": "I and Me",
+    "gap": 2.63
+   },
+   {
+    "name": "Fort Meow",
+    "gap": 2.59
+   },
+   {
+    "name": "Why Am I Dead At Sea",
+    "gap": 2.53
+   },
+   {
+    "name": "Roundabout",
+    "gap": 2.42
+   },
+   {
+    "name": "Final Approach",
+    "gap": 2.28
+   },
+   {
+    "name": "Coloring Game: Pixel",
+    "gap": 2.25
+   }
+  ],
+  "100/0.15/0.01": [
+   {
+    "name": "Gravity Ghost",
+    "gap": 7.52
+   },
+   {
+    "name": "Wand Wars",
+    "gap": 6.7
+   },
+   {
+    "name": "Escape Goat 2",
+    "gap": 6.65
+   },
+   {
+    "name": "Voidspire Tactics",
+    "gap": 6.29
+   },
+   {
+    "name": "The Journey Down: Chapter Two",
+    "gap": 4.24
+   },
+   {
+    "name": "I and Me",
+    "gap": 3.96
+   },
+   {
+    "name": "Stardust Galaxy Warriors: Stellar Climax",
+    "gap": 3.71
+   },
+   {
+    "name": "Nelly Cootalot: The Fowl Fleet",
+    "gap": 3.7
+   },
+   {
+    "name": "Starlight Vega",
+    "gap": 3.12
+   },
+   {
+    "name": "Fort Meow",
+    "gap": 2.77
+   },
+   {
+    "name": "Coloring Game: Pixel",
+    "gap": 2.75
+   },
+   {
+    "name": "Roundabout",
+    "gap": 2.62
+   },
+   {
+    "name": "Blackwell Epiphany",
+    "gap": 2.56
+   },
+   {
+    "name": "Why Am I Dead At Sea",
+    "gap": 2.29
+   },
+   {
+    "name": "Final Approach",
+    "gap": 2.04
+   }
+  ],
+  "300/0.15/0.01": [
+   {
+    "name": "Escape Goat 2",
+    "gap": 6.33
+   },
+   {
+    "name": "Gravity Ghost",
+    "gap": 5.81
+   },
+   {
+    "name": "The Journey Down: Chapter Two",
+    "gap": 4.4
+   },
+   {
+    "name": "Wand Wars",
+    "gap": 3.97
+   },
+   {
+    "name": "Voidspire Tactics",
+    "gap": 3.66
+   },
+   {
+    "name": "Blackwell Epiphany",
+    "gap": 3.1
+   },
+   {
+    "name": "Fort Meow",
+    "gap": 2.76
+   },
+   {
+    "name": "Stardust Galaxy Warriors: Stellar Climax",
+    "gap": 2.64
+   },
+   {
+    "name": "Starlight Vega",
+    "gap": 2.56
+   },
+   {
+    "name": "Nelly Cootalot: The Fowl Fleet",
+    "gap": 2.42
+   },
+   {
+    "name": "Roundabout",
+    "gap": 2.4
+   },
+   {
+    "name": "I and Me",
+    "gap": 2.34
+   },
+   {
+    "name": "Why Am I Dead At Sea",
+    "gap": 2.26
+   },
+   {
+    "name": "Final Approach",
+    "gap": 1.96
+   },
+   {
+    "name": "Coloring Game: Pixel",
+    "gap": 1.76
+   }
+  ],
+  "150/0.10/0.01": [
+   {
+    "name": "Gravity Ghost",
+    "gap": 7.99
+   },
+   {
+    "name": "Escape Goat 2",
+    "gap": 7.61
+   },
+   {
+    "name": "Wand Wars",
+    "gap": 5.49
+   },
+   {
+    "name": "Voidspire Tactics",
+    "gap": 5.32
+   },
+   {
+    "name": "The Journey Down: Chapter Two",
+    "gap": 5.0
+   },
+   {
+    "name": "Nelly Cootalot: The Fowl Fleet",
+    "gap": 3.28
+   },
+   {
+    "name": "Stardust Galaxy Warriors: Stellar Climax",
+    "gap": 3.25
+   },
+   {
+    "name": "I and Me",
+    "gap": 2.94
+   },
+   {
+    "name": "Blackwell Epiphany",
+    "gap": 2.87
+   },
+   {
+    "name": "Why Am I Dead At Sea",
+    "gap": 2.8
+   },
+   {
+    "name": "Fort Meow",
+    "gap": 2.79
+   },
+   {
+    "name": "Coloring Game: Pixel",
+    "gap": 2.78
+   },
+   {
+    "name": "Starlight Vega",
+    "gap": 2.65
+   },
+   {
+    "name": "Roundabout",
+    "gap": 2.64
+   },
+   {
+    "name": "Final Approach",
+    "gap": 2.29
+   }
+  ],
+  "150/0.25/0.01": [
+   {
+    "name": "Gravity Ghost",
+    "gap": 5.76
+   },
+   {
+    "name": "Escape Goat 2",
+    "gap": 5.68
+   },
+   {
+    "name": "Voidspire Tactics",
+    "gap": 5.55
+   },
+   {
+    "name": "Wand Wars",
+    "gap": 4.94
+   },
+   {
+    "name": "The Journey Down: Chapter Two",
+    "gap": 3.78
+   },
+   {
+    "name": "Nelly Cootalot: The Fowl Fleet",
+    "gap": 3.28
+   },
+   {
+    "name": "Stardust Galaxy Warriors: Stellar Climax",
+    "gap": 3.21
+   },
+   {
+    "name": "Blackwell Epiphany",
+    "gap": 3.01
+   },
+   {
+    "name": "Starlight Vega",
+    "gap": 2.89
+   },
+   {
+    "name": "Roundabout",
+    "gap": 2.4
+   },
+   {
+    "name": "Final Approach",
+    "gap": 2.18
+   },
+   {
+    "name": "Why Am I Dead At Sea",
+    "gap": 2.08
+   },
+   {
+    "name": "I and Me",
+    "gap": 2.07
+   },
+   {
+    "name": "Fort Meow",
+    "gap": 2.04
+   },
+   {
+    "name": "Coloring Game: Pixel",
+    "gap": 1.81
+   }
+  ],
+  "150/0.15/0.005": [
+   {
+    "name": "Escape Goat 2",
+    "gap": 5.68
+   },
+   {
+    "name": "Voidspire Tactics",
+    "gap": 5.55
+   },
+   {
+    "name": "Wand Wars",
+    "gap": 5.37
+   },
+   {
+    "name": "Gravity Ghost",
+    "gap": 5.17
+   },
+   {
+    "name": "Blackwell Epiphany",
+    "gap": 3.4
+   },
+   {
+    "name": "The Journey Down: Chapter Two",
+    "gap": 3.36
+   },
+   {
+    "name": "Stardust Galaxy Warriors: Stellar Climax",
+    "gap": 3.12
+   },
+   {
+    "name": "Starlight Vega",
+    "gap": 3.01
+   },
+   {
+    "name": "Nelly Cootalot: The Fowl Fleet",
+    "gap": 2.98
+   },
+   {
+    "name": "Roundabout",
+    "gap": 2.4
+   },
+   {
+    "name": "Fort Meow",
+    "gap": 2.35
+   },
+   {
+    "name": "Final Approach",
+    "gap": 2.19
+   },
+   {
+    "name": "I and Me",
+    "gap": 2.13
+   },
+   {
+    "name": "Why Am I Dead At Sea",
+    "gap": 1.74
+   },
+   {
+    "name": "Coloring Game: Pixel",
+    "gap": 1.5
+   }
+  ],
+  "150/0.15/0.02": [
+   {
+    "name": "Gravity Ghost",
+    "gap": 7.92
+   },
+   {
+    "name": "Escape Goat 2",
+    "gap": 6.6
+   },
+   {
+    "name": "Voidspire Tactics",
+    "gap": 5.56
+   },
+   {
+    "name": "Wand Wars",
+    "gap": 5.49
+   },
+   {
+    "name": "The Journey Down: Chapter Two",
+    "gap": 5.0
+   },
+   {
+    "name": "Coloring Game: Pixel",
+    "gap": 3.16
+   },
+   {
+    "name": "Nelly Cootalot: The Fowl Fleet",
+    "gap": 3.15
+   },
+   {
+    "name": "Starlight Vega",
+    "gap": 2.84
+   },
+   {
+    "name": "Stardust Galaxy Warriors: Stellar Climax",
+    "gap": 2.83
+   },
+   {
+    "name": "Blackwell Epiphany",
+    "gap": 2.76
+   },
+   {
+    "name": "Fort Meow",
+    "gap": 2.76
+   },
+   {
+    "name": "Why Am I Dead At Sea",
+    "gap": 2.66
+   },
+   {
+    "name": "Roundabout",
+    "gap": 2.64
+   },
+   {
+    "name": "I and Me",
+    "gap": 2.63
+   },
+   {
+    "name": "Final Approach",
+    "gap": 2.07
+   }
+  ]
+ },
+ "default_top10": {
+  "Escape Goat 2": {
+   "ranks": [
+    1,
+    3,
+    1,
+    2,
+    2,
+    1,
+    2
+   ],
+   "best": 1,
+   "worst": 3,
+   "in_top10_all": true
+  },
+  "Gravity Ghost": {
+   "ranks": [
+    2,
+    1,
+    2,
+    1,
+    1,
+    4,
+    1
+   ],
+   "best": 1,
+   "worst": 4,
+   "in_top10_all": true
+  },
+  "Voidspire Tactics": {
+   "ranks": [
+    3,
+    4,
+    5,
+    4,
+    3,
+    2,
+    3
+   ],
+   "best": 2,
+   "worst": 5,
+   "in_top10_all": true
+  },
+  "Wand Wars": {
+   "ranks": [
+    4,
+    2,
+    4,
+    3,
+    4,
+    3,
+    4
+   ],
+   "best": 2,
+   "worst": 4,
+   "in_top10_all": true
+  },
+  "The Journey Down: Chapter Two": {
+   "ranks": [
+    5,
+    5,
+    3,
+    5,
+    5,
+    6,
+    5
+   ],
+   "best": 3,
+   "worst": 6,
+   "in_top10_all": true
+  },
+  "Nelly Cootalot: The Fowl Fleet": {
+   "ranks": [
+    6,
+    8,
+    10,
+    6,
+    6,
+    9,
+    7
+   ],
+   "best": 6,
+   "worst": 10,
+   "in_top10_all": true
+  },
+  "Stardust Galaxy Warriors: Stellar Climax": {
+   "ranks": [
+    7,
+    7,
+    8,
+    7,
+    7,
+    7,
+    9
+   ],
+   "best": 7,
+   "worst": 9,
+   "in_top10_all": true
+  },
+  "Blackwell Epiphany": {
+   "ranks": [
+    8,
+    13,
+    6,
+    9,
+    8,
+    5,
+    10
+   ],
+   "best": 5,
+   "worst": 13,
+   "in_top10_all": false
+  },
+  "Starlight Vega": {
+   "ranks": [
+    9,
+    9,
+    9,
+    13,
+    9,
+    8,
+    8
+   ],
+   "best": 8,
+   "worst": 13,
+   "in_top10_all": false
+  },
+  "I and Me": {
+   "ranks": [
+    10,
+    6,
+    12,
+    8,
+    13,
+    13,
+    14
+   ],
+   "best": 6,
+   "worst": 14,
+   "in_top10_all": false
+  }
+ },
+ "consensus": [
+  {
+   "rank": 1,
+   "name": "Gravity Ghost",
+   "consensus_gap": 6.64,
+   "min": 5.17,
+   "max": 7.99,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 2,
+   "name": "Escape Goat 2",
+   "consensus_gap": 6.55,
+   "min": 5.68,
+   "max": 7.61,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 3,
+   "name": "Voidspire Tactics",
+   "consensus_gap": 5.32,
+   "min": 3.66,
+   "max": 6.29,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 4,
+   "name": "Wand Wars",
+   "consensus_gap": 5.2,
+   "min": 3.97,
+   "max": 6.7,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 5,
+   "name": "The Journey Down: Chapter Two",
+   "consensus_gap": 4.31,
+   "min": 3.36,
+   "max": 5.0,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 6,
+   "name": "Nelly Cootalot: The Fowl Fleet",
+   "consensus_gap": 3.19,
+   "min": 2.42,
+   "max": 3.7,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 7,
+   "name": "Stardust Galaxy Warriors: Stellar Climax",
+   "consensus_gap": 3.08,
+   "min": 2.64,
+   "max": 3.71,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 8,
+   "name": "Blackwell Epiphany",
+   "consensus_gap": 2.93,
+   "min": 2.56,
+   "max": 3.4,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 9,
+   "name": "Starlight Vega",
+   "consensus_gap": 2.84,
+   "min": 2.56,
+   "max": 3.12,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 10,
+   "name": "I and Me",
+   "consensus_gap": 2.61,
+   "min": 2.07,
+   "max": 3.96,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 11,
+   "name": "Fort Meow",
+   "consensus_gap": 2.57,
+   "min": 2.04,
+   "max": 2.79,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 12,
+   "name": "Roundabout",
+   "consensus_gap": 2.5,
+   "min": 2.4,
+   "max": 2.64,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 13,
+   "name": "Why Am I Dead At Sea",
+   "consensus_gap": 2.31,
+   "min": 1.74,
+   "max": 2.8,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 14,
+   "name": "Coloring Game: Pixel",
+   "consensus_gap": 2.21,
+   "min": 1.5,
+   "max": 3.16,
+   "settings_in_top15": 7
+  },
+  {
+   "rank": 15,
+   "name": "Final Approach",
+   "consensus_gap": 2.14,
+   "min": 1.96,
+   "max": 2.29,
+   "settings_in_top15": 7
+  }
+ ]
+}

@@ -1,17 +1,17 @@
-# Episode 001: I Built a Model to Find the Most Underrated Game on Steam (v3, after full QA)
-# Every number comes from facts.json (pipeline/ep001_facts.py). Rounded only for speech. '|' in textBeat = line break.
+# Episode 001: I Built a Model to Find the Most Underrated Game on Steam (v4: KNN model, Steam-first verified, consensus order)
+# Every number comes from facts.json (pipeline/ep001_facts.py) or robustness.json. Rounded only for speech. '|' = line break.
 
 @chapter The red dot
 @scene scatter @ref:scatter_hero {"highlightAt": 2.0}
-See that red dot? That's a game. Ninety-seven percent of its players liked it.
-It costs three dollars... and it has two hundred and eight reviews. [pause 0.5]
-Games that well liked usually get thousands.
+See that red dot? That's a game. Ninety-six percent of its players liked it.
+It costs ten dollars... and it has three hundred and two reviews. [pause 0.5]
+Games like it usually ended up with about two thousand.
 
-@scene textBeat {"text": "What is it?|*Not* what you'd guess.", "size": 96}
-I'm not telling you what it is yet. But it's not the kind of game you'd guess.
+@scene textBeat {"text": "Same launch day as one of|the *biggest* games of 2015.", "size": 84}
+Oh, and it launched on the exact same day as one of the biggest games of that year. Hold that thought.
 
 @scene textBeat {"text": "51,897 games. One question.", "sub": "Given how good it is, how many people should have played it?"}
-I wanted to know how often this happens. I scored fifty-one thousand, eight hundred and ninety-seven Steam games, all with one question. [pause 0.4]
+I wanted to find the games this happened to the worst. I scored fifty-one thousand, eight hundred and ninety-seven Steam games, all with one question. [pause 0.4]
 Given how good a game is, how many people should have played it? And which games got robbed the hardest?
 That red dot is on my list. You'll see where at the end.
 
@@ -19,141 +19,137 @@ That red dot is on my list. You'll see where at the end.
 @scene scatter @ref:scatter_cloud
 Here's a sample of those games. Left to right is how much players liked it. Bottom to top is how many reviews it has.
 
-@scene bigNumber {"value": 0.02, "kind": "pct", "label": "of owners leave a review", "sub": "about 1 in 50 for the games in this video", "color": "gold"}
-Steam doesn't publish sales, so I'm using reviews instead.
-For the games on my list, SteamSpy's estimates work out to roughly one review for every fifty owners.
-Reviews aren't players. But more reviews means more players, and that's all I need.
+@scene bigNumber {"value": 130, "kind": "int", "label": "owners for every review", "sub": "typical for the games in this video (SteamSpy estimates)", "color": "gold"}
+Steam doesn't publish sales, so I'm using reviews instead. For the games on my list, there's roughly one review for every hundred and thirty owners.
+Reviews aren't players, and that ratio moves around a lot. But more reviews generally means more players, so it's the best yardstick I've got.
 
 @scene textBeat {"text": "20 out of 20 is *not* better|than 9,800 out of 10,000."}
 Now, ratings. You can't just sort by percent positive.
 A game with twenty reviews, all positive, isn't better than a game with nine thousand eight hundred out of ten thousand.
 So I pull every score toward the Steam average, which is eighty percent. The fewer reviews a game has, the harder it gets pulled.
 
-@scene scatter @ref:scatter_trend
-Better games get more reviews. You'd hope so. That gold line is my model. [pause 0.3]
-Give it a game's rating and when it came out, and it tells you how many reviews a game like that usually ends up with.
-I trained it on every game with at least ten reviews, so it knows what normal looks like, not just what hits look like.
+@scene textBeat {"text": "150 games just like it:|same rating, same launch window.", "size": 80}
+Here's the model. For every game, I find the hundred and fifty games most like it. Released around the same time, with almost the same rating.
+Whatever the typical one of those got, that's what I call expected.
 
-@scene textBeat {"text": "model expects 1,000 reviews|game has 100|= *10x* short"}
-Here's the number I rank by. Say the model expects a thousand reviews, and a game only has a hundred.
+@scene scatter @ref:scatter_trend
+That gold line is what games from early 2015 usually got, at every rating. Better games get more reviews. You'd hope so.
+
+@scene textBeat {"text": "expects 1,000 · has 100|= *10x* short"}
+Here's the number I rank by. Say a game's lookalikes usually got a thousand reviews, and it only has a hundred.
 That's ten times short. The bigger that number, the harder a game got robbed.
 
-@scene bigNumber {"value": 2.7, "kind": "x1", "label": "how far off the model is on a typical game", "sub": "so a game only counts as robbed when it's way past that", "color": "text"}
-Is the model perfect? No. On a typical game, it's off by about two point seven times, one way or the other.
-That's why a game only counts as robbed when it's way past that. Everything on my list is at least five times short.
+@scene bigNumber {"value": 2.7, "kind": "x1", "label": "how far off the model is on a typical game", "sub": "so a game only counts as robbed when it's well past that", "color": "text"}
+Is this perfect? No. On a typical game, the prediction is off by about two point seven times, one way or the other.
+So a game only counts as robbed when it's well past that.
 
 @chapter The rules
-@scene textBeat {"text": "The rules", "sub": "Released 2014 or later · no re-releases · no DLC · 200+ reviews · one game per studio"}
-A few rules. Only games released from 2014 on, because Steam reviews didn't exist until late 2013.
-No re-releases of older games, and no DLC.
+@scene textBeat {"text": "The rules", "sub": "released 2014 or later · 200+ reviews · no DLC · one game per studio"}
+A few rules. Only games released from 2014 on, because Steam reviews didn't exist until late 2013. At least two hundred reviews, so a handful of fans can't fake it.
+No DLC. And one game per studio, so no single developer hogs the list.
 
-@scene textBeat {"text": "200+ reviews.|One game per studio.", "size": 88}
-To make the list, a game needs at least two hundred reviews, so a handful of fans can't fake it. About fifteen thousand games qualify.
-And one game per studio, or a single developer would take three spots.
+@scene bigNumber {"value": 34, "kind": "int", "label": "of the 51 games I checked had been released somewhere else first", "sub": "browser and Flash games, mobile, older PC versions, Japan", "color": "accent"}
+And one more rule, which ended up mattering more than anything else. The game has to have launched on Steam first.
+I checked fifty-one of the top candidates by hand. Thirty-four of them had already been out somewhere else. Free Flash games, phone games, games that came out years earlier in Japan.
+Those aren't overlooked. Their fans just played them somewhere else first. So they're out.
 
-@scene textBeat {"text": "Top 3: rock solid.|4 to 10: *a close race*.", "size": 84}
-One more thing. I tuned the model a few different ways. The top three never moved. Below that, it's a closer race, so treat the exact order loosely.
+@scene textBeat {"text": "7 versions of the model.|Same *top seven* every time.", "size": 84}
+Last thing. I ran the model seven different ways. The same seven games made the top ten every single time. The final order is the average.
 
 @chapter #10 to #6
 @scene leaderboard @ref:board_10
-These ten got robbed the worst. Let's count down.
+Numbers ten to six are closer calls, about three times short, which isn't far past the model's normal error. Call them probably overlooked.
 
-@scene gameCard @ref:card_516480
-Number ten. Pinkman. A platformer about a man with pink skin and, according to its own store page, an incredible skill to fart.
-It costs ninety-nine cents. Ninety-eight percent positive. The model expected about thirty-seven hundred reviews. It has six hundred and sixty-seven.
+@scene gapBars @ref:gap_399600
+Number ten. I and Me. Ninety-six percent positive. Games like it usually got about nine hundred reviews. It has three hundred and fifty-eight.
 
-@scene gameCard @ref:card_344860
-Number nine. Crystal Story Two. A turn-based RPG about a young dragon trying to stop an evil witch.
-Ninety-four percent positive, three dollars. The model expected around eighteen hundred reviews. It has three hundred and twenty-five.
+@scene gapBars @ref:gap_377690
+Number nine. Starlight Vega, a visual novel. Ninety-three percent positive, and about two point eight times short.
 
-@scene gameCard @ref:card_415920
-Number eight. Voidspire Tactics, a tactics RPG with a party you build yourself.
-Ninety-six percent positive. The model expected about eighteen hundred reviews. It has two hundred and sixty-eight.
+@scene gapBars @ref:gap_236930
+Number eight. Blackwell Epiphany, the final game in Wadjet Eye's Blackwell series.
+Ninety-eight percent positive. That's the highest rating in the whole top ten.
 
-@scene launchCollision @ref:collision_415920 {"caption": "7 days later: Fallout 4"}
-It came out November 2nd, 2015. One week later, Fallout 4 launched.
+@scene gapBars @ref:gap_389650
+Number seven. Stardust Galaxy Warriors, a couch co-op space shooter. Two hundred and twenty-six reviews, against about seven hundred expected.
 
-@scene gameCard @ref:card_259810
-Number seven. Home Sheep Home: Farmageddon Party Edition. Yes, it's a Shaun the Sheep game.
-Ninety-six percent positive. The model expected over five thousand reviews. It has seven hundred and fifty-seven.
-
-@scene gameCard @ref:card_412670
-Number six. Bullet Heaven 2. A bullet-hell shooter where you dodge hundreds of bullets a second.
-Ninety-eight percent positive. The model expected almost thirty-eight hundred reviews. It has four hundred and ninety-three.
-
-@scene launchCollision @ref:collision_412670 {"caption": "6 days earlier: Rainbow Six Siege"}
-It came out December 7th, 2015. Six days earlier, Rainbow Six Siege launched. Siege has over a million reviews today.
+@scene gameCard @ref:card_317320
+Number six. Nelly Cootalot: The Fowl Fleet. A pirate point-and-click adventure, and its store page says Tom Baker is in the cast.
+Eighty-one on Metacritic, the best critic score on the list. Three point two times short.
 
 @chapter Was it bad timing?
 @scene textBeat {"text": "So it's bad *timing*.|Right?", "size": 96}
-At this point I had a theory. These games launched right next to giants, and got buried.
-It's a great story. So I checked it.
+Before the top five, I want to test a theory. Remember that red dot launching next to a giant? Maybe that's the whole story. Good games, buried by bad timing.
 
-@scene bigNumber {"value": 0.74, "kind": "pct", "label": "of random Steam games launched within a week of a mega-hit", "sub": "mega-hit = one of Steam's 400 most-reviewed games · sample of 141 games", "color": "text"}
-I took Steam's four hundred most-reviewed games, and checked launch dates against them.
+@scene bigNumber {"value": 0.74, "kind": "pct", "label": "of random Steam games launched within a week of a mega-hit", "sub": "mega-hit = one of Steam's 400 most-reviewed games · sample of 141 established games", "color": "text"}
+So I took Steam's four hundred most-reviewed games, and checked launch dates against them.
 Almost three in four random Steam games launched within a week of one of those hits. There's always a giant nearby.
 
-@scene bigNumber {"value": 0.65, "kind": "pct", "label": "of the 100 most underrated did", "color": "accent"}
-The hundred most underrated? About two in three. If anything, slightly fewer.
+@scene bigNumber {"value": 0.63, "kind": "pct", "label": "of the most underrated-looking games did", "sub": "95 games with known launch dates", "color": "accent"}
+The most underrated-looking games? A bit under two in three. If anything, slightly fewer.
 Bad timing makes a good story. But it isn't the pattern.
 
-@chapter What underrated games have in common
-@scene compareBars {"title": "What kind of games get overlooked?", "aLabel": "100 most underrated", "bLabel": "random Steam games", "rows": [{"label": "Casual", "a": 0.35, "b": 0.225}, {"label": "Strategy", "a": 0.10, "b": 0.306}, {"label": "Simulation", "a": 0.06, "b": 0.312}, {"label": "RPG", "a": 0.11, "b": 0.294}], "note": "Steam store genres · 100 most-underrated games vs a random sample of 160"}
-So what do they have in common? I looked at genres first. Casual games show up more often on the underrated list than on Steam in general.
-Strategy, simulation and RPGs show up a third as often, or less. My guess? Those genres have fans who go digging for new games.
+@chapter What they have in common
+@scene compareBars {"title": "What kind of games get overlooked?", "aLabel": "100 most underrated-looking", "bLabel": "random Steam games", "rows": [{"label": "Casual", "a": 0.48, "b": 0.225}, {"label": "Strategy", "a": 0.11, "b": 0.306}, {"label": "Simulation", "a": 0.08, "b": 0.312}, {"label": "RPG", "a": 0.12, "b": 0.294}], "note": "Steam store genres · 100 top-rated games furthest below expectations vs a random sample of 160 established games"}
+So what do they have in common? Genre, for one. Casual games show up about twice as often on the underrated side.
+Strategy and RPGs show up about a third as often, and simulation about a quarter. My guess? Those genres have fans who go digging for new games.
 
-@scene compareBars {"title": "Who do you play it with?", "aLabel": "100 most underrated", "bLabel": "random Steam games", "rows": [{"label": "Single-player", "a": 0.97, "b": 0.906}, {"label": "Multiplayer", "a": 0.19, "b": 0.362}, {"label": "Online PvP", "a": 0.02, "b": 0.212}], "note": "Steam store categories · same samples"}
+@scene compareBars {"title": "Who do you play it with?", "aLabel": "100 most underrated-looking", "bLabel": "random Steam games", "rows": [{"label": "Single-player", "a": 0.98, "b": 0.906}, {"label": "Multiplayer", "a": 0.20, "b": 0.362}, {"label": "Online PvP", "a": 0.03, "b": 0.212}], "note": "Steam store categories · same samples"}
 Almost all of them are single-player. But so are most Steam games. The real gap is online PvP.
-Two percent of the underrated games have it. Twenty-one percent of random Steam games do.
-Multiplayer games spread because your friends drag you in. Nobody drags you into a puzzle game.
+Three percent of the underrated-looking games have it. Twenty-one percent of random Steam games do.
+My guess: multiplayer games spread because your friends drag you in. Nobody drags you into a puzzle game.
 
-@scene bigNumber {"value": 0.05, "kind": "pct", "label": "of the 100 most underrated cost $20 or more", "sub": "vs 17% of top-rated games that hit their expected reviews", "color": "accent"}
-And they're cheap. Only five percent of them cost twenty dollars or more. Among top-rated games that hit their expectations, it's seventeen percent.
+@scene bigNumber {"value": 0.02, "kind": "pct", "label": "of them cost $20 or more", "sub": "vs 17% of top-rated games that got the reviews they should have", "color": "accent"}
+And they're rarely expensive. Only two percent cost twenty dollars or more. Among top-rated games that got the reviews they should have, it's seventeen percent.
 I can't prove why from this data. My guess: cheap often means a tiny team with no marketing budget.
 
-@chapter Honorable mentions
-@scene leaderboard @ref:board_hm
-Before the top five, a few that just missed the top ten. The Lands of Dream. World End Economica. Nightmares from the Deep. Tin Star.
-
-@scene launchCollision @ref:collision_251490 {"caption": "Same day: Dying Light"}
-And number twelve, Gravity Ghost, which launched on the exact same day as Dying Light. Dying Light has four hundred and fifty-seven thousand reviews. Gravity Ghost has three hundred and two.
-
 @chapter #5 to #2
-@scene gameCard @ref:card_385250
-The top five. Number five. Paint it Back. You solve logic puzzles to restore pixel art.
-Ninety-eight percent positive. The model expected over four thousand reviews. It has five hundred and forty-two. Eight times short.
+@scene gameCard @ref:card_262850
+The top five. Number five. The Journey Down, Chapter Two. A point-and-click adventure, and seventy-eight on Metacritic.
 
-@scene gameCard @ref:card_344480
-Number four. Quell. A calm logic puzzle game for four dollars.
-Ninety-seven percent positive. The model expected about thirty-five hundred reviews. It has four hundred and thirty-eight.
-It came out four days before The Witcher 3. Good story. But remember, not the pattern.
+@scene gapBars @ref:gap_262850
+Ninety-five percent positive. Games like it usually got about twenty-three hundred reviews. It has five hundred and thirty-seven. Four point three times short.
 
-@scene gameCard @ref:card_333260
-Number three. Marvin's Mittens. No enemies, no danger. You just explore.
-Ninety-five percent positive. The model expected almost eighteen hundred reviews. It has two hundred and five. Eight point six times short.
+@scene gameCard @ref:card_422110
+Number four. Wand Wars. According to its store page, you ride brooms, cast spells, and turn your enemies into chickens.
 
-@scene gameCard @ref:card_496350
-Number two is a visual novel. Supipara, Chapter One. Ninety-eight percent positive. That's the highest rating in the top ten.
-The model expected about twenty-seven hundred reviews. It has two hundred and fifty-five. Ten point six times short.
+@scene gapBars @ref:gap_422110
+Ninety-six percent positive. About eleven hundred reviews expected. It has two hundred and eighteen. Five point two times short.
+And yes, it's multiplayer. But couch multiplayer: your friends have to be in the room. No online PvP.
 
-@scene bigNumber {"value": 0.34, "kind": "pct", "label": "of its English reviews arrived in the last 2 years", "sub": "released July 2016", "color": "good"}
-And here's the strange part. A third of its English reviews came in the last two years. People are still finding it, ten years later.
+@scene gameCard @ref:card_415920
+Number three. Voidspire Tactics, a turn-based tactics RPG where you build your own party.
+
+@scene gapBars @ref:gap_415920
+Ninety-six percent positive. About fourteen hundred expected. Two hundred and sixty-eight reviews. Five point three times short.
+
+@scene launchCollision @ref:collision_415920 {"caption": "7 days later: Fallout 4"}
+It came out November 2nd, 2015. One week later, Fallout 4 launched. Bad luck? Sure. But remember, not the pattern.
+
+@scene gameCard @ref:card_255340
+Number two. Escape Goat 2. A puzzle platformer where you team up with a friendly mouse to get out of a dungeon.
+
+@scene gapBars @ref:gap_255340
+Ninety-five percent positive. Almost twenty-nine hundred reviews expected. It has four hundred and forty-one. Six point five times short.
+And honestly? Number one and number two are neck and neck. In three of my seven versions of the model, this was number one.
 
 @chapter #1
 @scene scatter @ref:scatter_hero_trend
-Number one. Remember the red dot from the start? Ninety-seven percent liked it. Two hundred and eight reviews.
-My model expected about twenty-five hundred. That's twelve point three times short. The biggest gap on the list.
+But in the other four, it was this. Remember the red dot? Ninety-six percent liked it. Three hundred and two reviews.
+Games like it usually got about two thousand. That's six point six times short.
 
-@scene textBeat {"text": "It's a *solitaire* game.", "size": 110}
-And it's a solitaire game. [pause 0.5]
+@scene gameCard @ref:card_251490
+It's Gravity Ghost, by Ivy Games. You run, jump, and glide around tiny planets, using gravity to rescue survivors across a shattered galaxy.
+Players gave it ninety-six percent. Critics gave it a seventy-five.
 
-@scene gameCard @ref:card_570490
-SHENZHEN SOLITAIRE, by Zachtronics. It started as a mini-game inside another Zachtronics game, SHENZHEN I/O, then got released on its own for three dollars.
-Its store page calls it simple, challenging, and oddly addictive. Ninety-seven percent of players agree.
+@scene launchCollision @ref:collision_251490 {"caption": "Same day: Dying Light"}
+And here's the launch day I told you to hold onto. January 26th, 2015. [pause 0.5]
+The same day as Dying Light. Dying Light has four hundred and fifty-seven thousand reviews. Gravity Ghost has three hundred and two.
 
 @scene lineChart @ref:hero_history
-This is every month of its life on Steam. It never really spiked. A few English reviews a month, for years.
-Should have: about twenty-five hundred reviews. Got: two hundred and eight.
+I know, I just told you timing isn't the pattern. But for this one, that week? It can't have helped.
+This is its whole life on Steam, month by month. A small bump at launch, then a trickle that never quite stopped.
+Should have: about two thousand reviews. Got: three hundred and two.
 
 @chapter What did the model miss?
 @scene textBeat {"text": "Which game did my model *miss*?", "sub": "Next: the most OVERRATED game on Steam"}

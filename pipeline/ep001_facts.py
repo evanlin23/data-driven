@@ -33,8 +33,18 @@ def game(r, rank):
             "list_price_usd": float(r.price_usd), "metacritic": (d.get("metacritic") or {}).get("score"),
             "short_description": d.get("short_description", ""),
             "collisions": [h for h in coll.get(str(int(r.appid)), {}).get("hits", []) if abs(h["delta_days"]) <= 10][:2]}
-F["top10"] = [game(r, i + 1) for i, (_, r) in enumerate(fin.head(10).iterrows())]
-F["next5"] = [game(r, i + 11) for i, (_, r) in enumerate(fin.iloc[10:15].iterrows())]
+# Final order = consensus across 7 model settings (robustness.json): geometric-mean "times short".
+# Displayed "times short" and "expected" use that consensus so order and numbers always agree.
+R = json.load(open(f"{EP}/robustness.json"))
+byname = {r["name"]: r for _, r in fin.iterrows()}
+ordered = [c for c in R["consensus"] if c["name"] in byname]
+def cgame(c, rank):
+    g = game(byname[c["name"]], rank)
+    g["times_short"] = round(c["consensus_gap"], 1); g["times_short_range"] = [c["min"], c["max"]]
+    g["expected"] = int(round(g["reviews"] * c["consensus_gap"]))
+    return g
+F["top10"] = [cgame(c, i + 1) for i, c in enumerate(ordered[:10])]
+F["next5"] = [cgame(c, i + 11) for i, c in enumerate(ordered[10:15])]
 F["highest_rated_in_top10"] = max(F["top10"], key=lambda g: g["liked_adj"])["name"]
 
 # Model check: games released in 2015 rated 95-97% (adjusted): median actual vs median model expectation
@@ -75,6 +85,19 @@ def near(ids):
 F["timing"] = {"definition": "launched within 7 days of one of the 400 most-reviewed Steam games",
                "random": dict(zip(["n", "share"], near(sample))), "top100": dict(zip(["n", "share"], near(top100.appid)))}
 F["robustness"] = "see robustness.json (rank stability across K / rating-scale / era-scale settings)"
+# reviews per owner (SteamSpy owner-range midpoints) for the final top 10
+ratios = []
+for g in F["top10"]:
+    lo, hi = [int(x.replace(",", "")) for x in u.set_index("appid").loc[g["appid"], "owners"].split("..")]
+    if hi: ratios.append(g["reviews"] / ((lo + hi) / 2))
+F["reviews_per_owner_top10"] = {"median": round(float(np.median(ratios)), 4), "min": round(min(ratios), 4), "max": round(max(ratios), 4)}
+# release-history checks (Steam-first rule)
+H = json.load(open(f"{EP}/release_history.json"))
+F["release_history"] = {"checked": len(H), "prior_release": sum(v[0] == "PRIOR" for v in H.values()),
+                        "steam_first": sum(v[0] == "STEAM-FIRST" for v in H.values()), "delisted": sum(v[0] == "DELISTED" for v in H.values())}
+# how often each of the top two came out #1 across settings
+F["top_spot"] = {n: sum(1 for v in R["runs"].values() if v and v[0]["name"] == n) for n in [g["name"] for g in F["top10"][:2]]}
+F["settings_count"] = len(R["runs"])
 json.dump(F, open(f"{EP}/facts.json", "w"), indent=1, default=str)
 print(json.dumps({k: F[k] for k in ["games_scored", "candidates_min200", "model_check", "price", "genres", "categories", "timing", "highest_rated_in_top10"]}, indent=1))
 for g in F["top10"] + F["next5"]:

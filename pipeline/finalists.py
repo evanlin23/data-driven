@@ -43,6 +43,7 @@ if os.path.exists(hist_path):
         verdict = H.get(int(r.appid))
         if verdict is None: f.at[i, "status"] = "unverified release history"
         elif verdict[0] == "PRIOR": f.at[i, "status"] = "released before Steam: " + verdict[1]
+        elif verdict[0] == "DELISTED": f.at[i, "status"] = "delisted: " + verdict[1]
 f.to_csv("data/derived/finalists.csv", index=False)  # after ALL status rules
 ok = f[f.status == "ok"].copy()
 ok["one_per_dev"] = ~ok.developer.duplicated()
