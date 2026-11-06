@@ -30,9 +30,20 @@ import sys
 if len(sys.argv) > 1 and os.path.exists(sys.argv[1]):
     ex = {int(k): v for k, v in json.load(open(sys.argv[1])).items() if k.isdigit()}
     f.loc[f.appid.isin(ex), "status"] = f.loc[f.appid.isin(ex), "appid"].map(lambda a: "editorial: " + ex[a])
-f.to_csv("data/derived/finalists.csv", index=False)
 # Steam user reviews launched Nov 2013: games released earlier missed reviews from their launch window.
 f.loc[(f.status == "ok") & (f.year < 2014), "status"] = "released before Steam reviews existed (pre-2014)"
+# Steam-first rule: verified release histories (episodes/<ep>/release_history.json). PRIOR = released anywhere before
+# Steam (browser/Flash, mobile, Japan, older PC, inside another game) -> excluded; candidates not yet verified are
+# marked "unverified" and can't be finalists until checked.
+hist_path = os.path.join(os.path.dirname(sys.argv[1]) if len(sys.argv) > 1 else ".", "release_history.json")
+if os.path.exists(hist_path):
+    H = {int(k): v for k, v in json.load(open(hist_path)).items()}
+    for i, r in f.iterrows():
+        if r.status != "ok": continue
+        verdict = H.get(int(r.appid))
+        if verdict is None: f.at[i, "status"] = "unverified release history"
+        elif verdict[0] == "PRIOR": f.at[i, "status"] = "released before Steam: " + verdict[1]
+f.to_csv("data/derived/finalists.csv", index=False)  # after ALL status rules
 ok = f[f.status == "ok"].copy()
 ok["one_per_dev"] = ~ok.developer.duplicated()
 ok = ok[ok.one_per_dev]
