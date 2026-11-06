@@ -62,7 +62,7 @@ def collision(g, label, nbig=1):
     start = min([d0] + ds) - dt.timedelta(days=3)
     return {"dateLabel": label, "daysInWindow": 21,
             "small": {"title": short(g["name"]), "image": img(g["appid"]), "day": (d0 - start).days + 1, "reviews": g["reviews"]},
-            "big": [{"title": h["name"].replace("®", "").replace("™", "").replace(" - Episode 1", ""), "image": img(h["appid"]), "day": (d1 - start).days + 1, "reviews": int(h["reviews"])} for h, d1 in zip(hs, ds)]}
+            "big": [{"title": h["name"].replace("®", "").replace("™", "").replace(" - Episode 1", " (Ep. 1, now free)"), "image": img(h["appid"]), "day": (d1 - start).days + 1, "reviews": int(h["reviews"])} for h, d1 in zip(hs, ds)]}
 byname = {g["appid"]: g for g in top + nxt}
 for a, lab in [(415920, "November 2015"), (412670, "December 2015"), (251490, "January 2015")]:
     if byname.get(a, {}).get("collisions"): D[f"collision_{a}"] = collision(byname[a], lab, 2)  # both nearby giants (the script names both)
@@ -79,7 +79,7 @@ D["hero_history"] = {"title": f"{short(hero['name'])}: English reviews per month
 G, Ca = F["genres"], F["categories"]
 D["genres_chart"] = {"title": "What kind of games look overlooked?", "aLabel": f"{G['underrated_n']} underrated-looking games", "bLabel": "Popular Steam games (random sample)",
     "rows": [{"label": k, "a": G[k][0], "b": G[k][1]} for k in ["Casual", "Strategy", "Simulation", "RPG"]],
-    "note": f"Steam store genres · {G['underrated_n']} games rated 93%+ (two-thirds or less of expected reviews, one per studio, known earlier releases left out, small sample) vs a random sample of {G['random_n']} games from 2014 on with 300+ reviews · not matched on rating or year"}
+    "note": f"Steam store genres · {G['underrated_n']} games from 2014 on with 200+ reviews, rated 93%+ (two-thirds or less of expected reviews, one per studio, known earlier releases left out, small sample) vs a random sample of {G['random_n']} games from 2014 on with 300+ reviews · not matched on rating or year"}
 D["players_chart"] = {"title": "Who do you play it with?", "aLabel": f"{G['underrated_n']} underrated-looking games", "bLabel": "Popular Steam games (random sample)",
     "rows": [{"label": k.replace("Multi-player", "Multiplayer"), "a": Ca[k][0], "b": Ca[k][1]} for k in ["Single-player", "Multi-player", "Online PvP"]],
     "note": "Steam store categories · same samples"}

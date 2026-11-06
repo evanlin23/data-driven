@@ -19,7 +19,7 @@ I scored 51,897 Steam games to find the great ones that got overlooked. For ever
 
 How it works
 • Popularity = Steam review count (Steam doesn't publish sales; SteamSpy owner estimates suggest roughly 1 review per 130 owners for the games in this video).
-• Rating = % positive, shrunk toward the Steam average so tiny games can't top the list on 20 reviews.
+• Rating = % positive, shrunk toward the average for games with 200+ reviews (~80%) so tiny games can't top the list on 20 reviews.
 • Model = for each game, the median review count of the 150 most similar games (rating + launch window). Typical miss across all games: about 2.7x; fewer than 1% of games with 200+ reviews are that far short. Re-run 7 different ways; among the 16 games that passed every check, the same 7 made the top 10 every time.
 • Rules: released 2014+, 200+ reviews, launched on Steam first (51 release histories checked by hand), no DLC/software, one game per studio.
 

@@ -76,7 +76,7 @@ Those aren't overlooked. Their fans just played them somewhere else first. So th
 
 @chapter #10 to #6
 @scene leaderboard @ref:board_10
-Numbers ten to six are closer calls. They're about three times short, just past the model's typical miss. Call them probably overlooked.
+Numbers ten to six are closer calls. They're about three times short, right around the model's typical miss. Call them probably overlooked.
 
 @scene gapBars @ref:gap_399600
 Number ten. A game called "I and Me." Ninety-six percent positive. Games like it usually got about nine hundred reviews. It has three hundred and fifty-eight. Two point six times short.
@@ -95,7 +95,7 @@ Number seven. Stardust Galaxy Warriors, a couch co-op space shooter. Two hundred
 Number six. Nelly Cootalot: The Fowl Fleet. A pirate point-and-click adventure, and its store page says Tom Baker is in the cast.
 
 @scene gapBars @ref:gap_317320
-Eighty-one on Metacritic, the best critic score of the ones critics reviewed. Three point two times short.
+Eighty-one on Metacritic, the highest Metacritic score in the top ten. Three point two times short.
 
 @chapter Was it bad timing?
 @scene textBeat {"text": "So it's bad *timing*.|Right?", "size": 96}
@@ -103,16 +103,16 @@ Before the top five, I want to test a theory. Remember that red dot launching ne
 
 @scene bigNumber {"value": 0.716, "kind": "pct", "label": "of popular Steam games launched within a week of a mega-hit", "sub": "mega-hit = one of Steam's 400 most-reviewed games · random sample of 141 games from 2014 on with 300+ reviews · Steam store dates · not matched on year", "color": "text"}
 So I took Steam's four hundred most-reviewed games, and checked launch dates against them.
-Seven in ten popular Steam games launched within a week of one of those hits. There's almost always a giant nearby.
+Seven in ten popular Steam games launched within a week of one of those hits. Most of the time, there's a giant nearby.
 
-@scene bigNumber {"value": 0.676, "kind": "pct", "label": "of the underrated-looking games did", "sub": "34 games rated 93%+ with two-thirds or less of expected reviews · one per studio · known earlier releases left out · small sample, not matched on year", "color": "accent"}
+@scene bigNumber {"value": 0.676, "kind": "pct", "label": "of the underrated-looking games did", "sub": "34 games from 2014 on with 200+ reviews, rated 93%+, two-thirds or less of expected reviews · one per studio · known earlier releases left out · small sample, not matched on year", "color": "accent"}
 Now the underrated-looking games: thirty-four top-rated games that got two-thirds or less of the reviews they should have. Two in three. About the same.
 Bad timing makes a good story. But it isn't the pattern.
 
 @chapter What they have in common
 @scene compareBars @ref:genres_chart
 So what do they have in common? Genre, for one. Compared with popular Steam games, casual games show up almost twice as often. Forty-seven percent, against twenty-five.
-Strategy, simulation and RPGs show up much less often, roughly half as often.
+Strategy, simulation and RPGs show up half as often, or less.
 
 @scene textBeat {"text": "Strategy, sim and RPG fans|go *digging* for new games", "size": 84, "sub": "a guess"}
 My guess? Strategy, sim and RPG fans go digging for new games, so fewer good ones slip through.
@@ -125,7 +125,7 @@ Just one of the thirty-four has it. Almost one in four popular Steam games do.
 My guess: multiplayer games spread because your friends drag you in. Nobody drags you into a puzzle game.
 
 @scene bigNumber {"value": 0.029, "kind": "pct", "label": "of the underrated-looking games cost $20 or more", "sub": "1 of 34 · vs 22% of popular Steam games · current list prices · groups not matched on rating or year", "color": "accent"}
-And they're rarely expensive. Just one of the thirty-four costs twenty dollars or more. Among popular Steam games, it's more than one in five.
+And they're rarely expensive. Almost none cost twenty dollars or more: just one of the thirty-four. Among popular Steam games, it's more than one in five.
 
 @scene textBeat {"text": "cheap often means a tiny team|with *no marketing budget*", "size": 80, "sub": "a guess, not something this data can prove"}
 I can't prove why from this data. My guess: cheap often means a tiny team with no marketing budget.
