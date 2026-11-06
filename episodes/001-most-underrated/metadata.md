@@ -3,7 +3,7 @@
 ## Titles (Test & Compare: upload all 3; YouTube picks by watch time)
 1. I Built a Model to Find the Most Underrated Game on Steam
 2. I Scored 51,897 Steam Games to Find the Most Underrated One
-3. This Game Launched the Same Day as Dying Light
+3. This Game Launched the Same Day as Dying Light on Steam
 
 (Playbook check: first person ✓, big exact number ✓ (#2), superlative ✓, no year, no parentheses, all ≤ 60 chars. #3 deliberately makes no causal claim: the video finds timing isn't the pattern.)
 

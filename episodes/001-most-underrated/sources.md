@@ -63,6 +63,10 @@ Every number in the script comes from `facts.json` (built by `pipeline/ep001_fac
 - Review-history chart: English-language reviews only (138 of Gravity Ghost's 302).
 
 ## Known limitations
+- Coverage: store-page appids 220000 to 3,000,000, i.e. games whose Steam page was created by about mid-2024; newer
+  games (a few hundred with 200+ reviews) are not scored.
+- Casual share among the 15 release-checked games in the comparison group is 5/15 (33%) vs 11/19 (58%) among the
+  unchecked ones; the video says so.
 - Reviews are a proxy for players; the owners-per-review ratio varies widely.
 - Ranks 6-10 are about 3x short, close to the model's typical error ("probably overlooked").
 - Genre/price/timing comparisons are small samples and correlations.

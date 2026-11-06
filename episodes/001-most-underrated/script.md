@@ -61,7 +61,7 @@ But for games with two hundred or more reviews it usually guesses low, and fewer
 And to check I wasn't fooling myself, I ran the model seven different ways. Of the sixteen games that passed every check, the same seven made the top ten every single time, and the same four made the top five.
 
 @scene textBeat {"text": "final order = the *average*|of all 7 versions", "size": 88}
-The final order, and every times-short number from here on, is the average of all seven.
+The final order, and every game's times-short number from here on, is the average of all seven.
 
 @chapter The rules
 @scene textBeat {"text": "The rules", "sub": "released 2014 or later · 200+ reviews"}
@@ -123,7 +123,7 @@ So what do they have in common? Genre, for one. Compared with popular Steam game
 Strategy and simulation games show up half as often, or less.
 
 @scene textBeat {"text": "19 of these 34 games|*not checked* by hand yet", "size": 88, "sub": "for earlier releases elsewhere"}
-One caveat: more than half of these games, nineteen of the thirty-four, I haven't checked by hand yet.
+One caveat: more than half of these games, nineteen of the thirty-four, I haven't checked by hand yet. Among the fifteen I did check, casual games are a third. Still more than a quarter, but a smaller gap.
 
 @scene textBeat {"text": "strategy and sim fans|go *digging* for new games", "size": 84, "sub": "a guess"}
 My guess? Strategy and sim fans go digging for new games, so fewer good ones slip through.
@@ -154,8 +154,8 @@ Number four. Wand Wars. According to its store page, you ride brooms, cast spell
 @scene gapBars @ref:gap_422110
 Ninety-six percent positive. About eleven hundred reviews expected. It has two hundred and eighteen. Five point two times short.
 
-@scene textBeat {"text": "built for *couch play*|no online PvP", "size": 96}
-And yes, it's multiplayer. But it's built for couch play, with friends in the same room. No online player-versus-player.
+@scene textBeat {"text": "built for *couch play*", "size": 96}
+And yes, it's multiplayer. But it's built for couch play, with friends in the same room.
 
 @scene gameCard @ref:card_415920
 Number three. Voidspire Tactics, a turn-based tactics RPG where you build your own party.
