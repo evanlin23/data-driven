@@ -18,10 +18,10 @@ I scored 51,897 Steam games to find the great ones that got overlooked. For ever
 {{CHAPTERS}}
 
 How it works
-• Popularity = Steam review count (Steam doesn't publish sales; SteamSpy owner estimates suggest ~1 review per 100 owners for these games).
+• Popularity = Steam review count (Steam doesn't publish sales; SteamSpy owner estimates suggest roughly 1 review per 130 owners for the games in this video).
 • Rating = % positive, shrunk toward the Steam average so tiny games can't top the list on 20 reviews.
-• Model = gradient-boosted median regression on rating + release era, trained on every game with 10+ reviews (out-of-fold predictions).
-• Rules: released 2014+, no re-releases of older games, no DLC/software, one game per studio. Full exclusion list in the sources link.
+• Model = for each game, the median review count of the 150 most similar games (rating + launch window). Typical miss on a single game: about 2.7x. Re-run 7 different ways; the same 7 games made the top 10 every time.
+• Rules: released 2014+, 200+ reviews, launched on Steam first (51 release histories checked by hand), no DLC/software, one game per studio. Full exclusion list in the sources link.
 
 Games in this video: Gravity Ghost · Escape Goat 2 · Voidspire Tactics · Wand Wars · The Journey Down: Chapter Two · Nelly Cootalot: The Fowl Fleet · Stardust Galaxy Warriors: Stellar Climax · Blackwell Epiphany · Starlight Vega · I and Me
 
@@ -45,6 +45,6 @@ Next video (Overrated) + subscribe. Last 20 s of narration is the hand-off line.
 - [ ] Every claim traceable to facts.json / traits.json / data.json (see sources.md)
 - [ ] At least one genuine surprise the narrator reacts to (timing theory was wrong)
 - [ ] Structure differs from previous uploads (n/a: first upload)
-- [ ] No static frame > 6 s
+- [x] No single picture held > ~13 s; long explanations split into beats (audit 2026-11-06)
 - [ ] Thumbnail promise paid off (red dot = #1, revealed at the end)
 - [ ] A person watched the final cut at 1.5x
