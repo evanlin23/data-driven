@@ -120,7 +120,7 @@ jobs:
     needs: [voice, draw]
     if: needs.voice.outputs.episode != ''
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     env: {EP: "${{ needs.voice.outputs.episode }}"}
     steps:
       - uses: actions/checkout@v4
@@ -134,7 +134,9 @@ jobs:
         with: {pattern: "seg-${{ needs.voice.outputs.episode }}-*", path: segs, merge-multiple: true}
       - name: assemble, mix, thumbnails
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+          # apt mirrors occasionally stall (run 42187057484 hung 30 min here): bound it and retry
+          for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq ffmpeg > /dev/null && break; echo "apt attempt $i failed, retrying"; sleep 10; done
+          ffmpeg -version | head -1
           mkdir -p dist
           python pipeline/assemble.py segs "video/public/episodes/$EP/narration.wav" "dist/$EP.mp4"
           ids=$(grep -ohE 'games/[0-9]+_header' episodes/$EP/thumbnails/*.json 2>/dev/null | grep -oE '[0-9]+' | sort -u)
