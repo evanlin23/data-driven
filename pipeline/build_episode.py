@@ -65,6 +65,20 @@ for b in blocks:
 scenes[-1]["dur"] = round(scenes[-1]["dur"] + 0.5, 3)  # the end card holds through the tail (no blank frames)
 dur = scenes[-1]["from"] + scenes[-1]["dur"]
 spec = {"fps": 30, "durationSec": round(dur, 2), "audio": f"episodes/{slug}/narration.wav", "scenes": scenes}
+# Optional per-episode look (episodes/<ep>/look.json): {"style": "<theme.ts STYLES key>", "sfx": true}
+look_path = os.path.join(ep, "look.json")
+look = json.load(open(look_path)) if os.path.exists(look_path) else {}
+if look.get("style"): spec["style"] = look["style"]
+if look.get("sfx"):  # synthesized sound design mixed under the narration (ducked); assemble then normalises the mix
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from kit import sfx as _sfx
+    import numpy as _np, soundfile as _sf
+    wav = os.path.join(audio_dir, "narration.wav")
+    v, sr = _sf.read(wav, dtype="float32")
+    if v.ndim > 1: v = v.mean(1)
+    if sr != _sfx.SR: v = _np.interp(_np.arange(0, len(v), sr / _sfx.SR), _np.arange(len(v)), v).astype(_np.float32)
+    _sf.write(wav, _sfx.mix(v, _sfx.render(spec, len(v) / _sfx.SR)), _sfx.SR)
+    print(f"sound design: {len(_sfx.events(spec))} events mixed under the narration")
 spec_path = os.path.join(ROOT, "video", "src", "episodes", f"{slug}.json"); os.makedirs(os.path.dirname(spec_path), exist_ok=True)
 json.dump(spec, open(spec_path, "w"), indent=1)
 json.dump(timing, open(os.path.join(ep, "timing.json"), "w"), indent=1)

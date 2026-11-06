@@ -42,7 +42,7 @@ how to start another channel from them. `pipeline/kit/test_kit.py` and `.github/
 
 ## Visual styles
 `video/src/theme.ts` holds the channel looks (`STYLES`: palette, display/body/hand fonts, texture overlay). An episode
-picks one with `"style"` in its spec (default `midnight`); thumbnails take a `style` prop. Scenes only read `C`,
+picks one in `episodes/<ep>/look.json` (`{"style": "blueprint", "sfx": true}`; default `midnight`, no sound design); thumbnails take a `style` prop. Scenes only read `C`,
 `display`, `body` and `hand`, so a new look never touches scene code. Preview every look on an episode's key moments:
 `cd video && node style-gallery.mjs src/episodes/<ep>.json ../episodes/<ep>/thumbnails/A_dot.json <out> [style ...]`.
 Fonts must be bundled woff2 files in `video/public/fonts` (OFL; get them with `npm pack @fontsource/<family>`).
