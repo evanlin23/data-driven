@@ -56,7 +56,7 @@ for i in r["issues"]: print("   ", i)
 if not r["passed"] and "--skip-lint" not in flags:
     sys.exit("script failed lint (use --skip-lint only for drafts)")
 
-# Narrator: Gemini "Puck" (owner's pick, free AI Studio tier) when GEMINI_API_KEY is set; Kokoro otherwise.
+# Narrator: Gemini "Achird" + structured prompt (owner's pick, free AI Studio tier) when GEMINI_API_KEY is set; Kokoro otherwise.
 ENGINE = os.environ.get("VOICE_ENGINE") or ("gemini" if os.environ.get("GEMINI_API_KEY") else "kokoro")
 if ENGINE == "gemini":
     from voice_gemini import say_script  # noqa: E402

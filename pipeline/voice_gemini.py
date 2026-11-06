@@ -11,9 +11,15 @@ import base64, json, os, re, sys, time, urllib.request, wave
 
 API = "https://generativelanguage.googleapis.com/v1beta"
 KEY = os.environ.get("GEMINI_API_KEY", "")
-# No delivery direction by default: every voice we tried (Charon, Iapetus, and Puck too) sometimes reads the
-# direction aloud. The voice's own natural read is what the owner approved. Set GEMINI_TTS_STYLE to experiment.
-STYLE = os.environ.get("GEMINI_TTS_STYLE", "")
+# Structured prompt (Google's recommended layout, same as the owner's Six Degrees channel): profile + director's
+# notes, then the script under "## TRANSCRIPT". A loose one-line direction got read aloud by several voices; this
+# layout marks where the notes end. pipeline/align.py still fails the build if anything off-script is spoken.
+STYLE = os.environ.get("GEMINI_TTS_STYLE", """# AUDIO PROFILE: narrator of a YouTube channel that builds data models to settle arguments about video games.
+
+## DIRECTOR'S NOTES
+Style: curious, confident, a little dry and amused, like a friend who just found something surprising in the data; a real lift on each reveal. American accent.
+Pace: natural conversational YouTube pace, brisk but not rushed; a short beat after big numbers and before reveals.
+Do not read these notes aloud. Speak only the transcript below, exactly as written, in order.""")
 if STYLE.strip().lower() == "none": STYLE = ""  # some voices (Charon, Iapetus) read any direction aloud
 CACHE = os.environ.get("TTS_CACHE", os.path.join(os.path.dirname(__file__), "..", ".tts-cache"))
 MIN_GAP = float(os.environ.get("GEMINI_TTS_GAP", "21"))  # seconds between calls (free tier ~3 RPM)
@@ -46,7 +52,8 @@ def pick_model():
 def synth(text, voice, model):
     wait = MIN_GAP - (time.time() - _last[0])
     if wait > 0: time.sleep(wait)
-    body = {"contents": [{"parts": [{"text": f"{STYLE}\n\n{text}" if STYLE else text}]}],
+    prompt = f"{STYLE}\n\n## TRANSCRIPT\n{text}" if STYLE else text
+    body = {"contents": [{"parts": [{"text": prompt}]}],
             "generationConfig": {"responseModalities": ["AUDIO"],
                                  "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voice}}}}}
     for attempt in range(5):
@@ -95,7 +102,7 @@ def say_script(lines, out_wav, gap=0.35, voice=None, synth_fn=None):
     runs out the build stops (cached chunks are reused on the next run)."""
     if synth_fn:
         return _say(lines, out_wav, gap, voice, synth_fn, None)
-    # Best model only (owner's call: every video must sound like the approved Puck sample). No fallback models.
+    # Best model only (owner's call: every video must sound like the approved Achird sample). No fallback models.
     model = pick_model()
     try:
         print(f"narrating with {model}", file=sys.stderr)
@@ -107,7 +114,7 @@ def say_script(lines, out_wav, gap=0.35, voice=None, synth_fn=None):
 def _say(lines, out_wav, gap, voice, synth_fn, model):
     import numpy as np
     from align import transcribe_words, line_times, inserted_speech
-    voice = voice or os.environ.get("GEMINI_TTS_VOICE", "Puck")
+    voice = voice or os.environ.get("GEMINI_TTS_VOICE", "Achird")  # owner's pick (with the structured prompt)
     clean = [re.sub(r"\s*\[pause(?: [\d.]+)?\]\s*", "... ", l).strip() for l in lines]
     synth_fn = synth_fn or (lambda text: np.frombuffer(synth(text, voice, model), np.int16).astype(np.float32) / 32768)
     parts, timing, t0 = [], [], 0.0

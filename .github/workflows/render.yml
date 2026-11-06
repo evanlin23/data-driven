@@ -49,7 +49,7 @@ jobs:
             tts-
       - name: narrate (lint gate inside build_episode.py)
         if: steps.ep.outputs.episode != ''
-        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}", GEMINI_TTS_VOICE: Puck}
+        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}", GEMINI_TTS_VOICE: Achird}
         run: |
           pip install -q kokoro-onnx soundfile numpy faster-whisper
           mkdir -p models
