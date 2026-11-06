@@ -27,7 +27,9 @@ for (const [family, file, weight] of FONTS) loadFont({family, url: staticFile(`f
 export type Palette = {bg: string; panel: string; grid: string; muted: string; text: string; sub: string;
   accent: string; gold: string; good: string; blue: string};
 export type Texture = 'none' | 'grain' | 'paper' | 'scanlines' | 'halftone' | 'graph' | 'stripes';
-export type Style = {label: string; palette: Palette; display: string; body: string; hand: string; texture: Texture};
+export type Transition = 'fade' | 'slide';
+export type Style = {label: string; palette: Palette; display: string; body: string; hand: string; texture: Texture;
+  transition?: Transition};
 
 /** Channel looks. "accent" is reserved for THE answer / the highlighted dot; "gold" = the model / expected. */
 export const STYLES: Record<string, Style> = {
@@ -49,9 +51,11 @@ export const STYLES: Record<string, Style> = {
   broadcast: {label: 'Broadcast (sports-TV)', display: 'Anton', body: 'Oswald', hand: 'Anton', texture: 'stripes',
     palette: {bg: '#111214', panel: '#1d1f23', grid: '#2b2e34', muted: '#6d717b', text: '#ffffff', sub: '#b9bcc4',
       accent: '#ff3131', gold: '#ffd60a', good: '#2ee59d', blue: '#3aa0ff'}},
-  blueprint: {label: 'Blueprint (graph paper)', display: 'Fraunces', body: 'IBM Plex Sans', hand: 'Caveat', texture: 'graph',
-    palette: {bg: '#0b1f3f', panel: '#112a52', grid: '#1d3d6e', muted: '#5f7fae', text: '#eaf2ff', sub: '#a9c1e6',
-      accent: '#ff6a3d', gold: '#7fe0ff', good: '#6dffb2', blue: '#7fe0ff'}},
+  blueprint: {label: 'Blueprint (engineering drawing)', display: 'Fraunces', body: 'JetBrains Mono', hand: 'Caveat', texture: 'graph',
+    transition: 'slide',
+    // cyanotype sheet: chalk-white linework, red-pencil answer, warm chalk-yellow for the model
+    palette: {bg: '#123c70', panel: '#184886', grid: '#3a6aa6', muted: '#86a8d4', text: '#f3f7ff', sub: '#c2d4ee',
+      accent: '#ff5b3d', gold: '#ffd76e', good: '#9bf5c8', blue: '#bfe2ff'}},
 };
 
 // Live bindings: scenes import these; setStyle() swaps them before a composition renders.
@@ -60,11 +64,12 @@ export let display = STYLES.midnight.display;
 export let body = STYLES.midnight.body;
 export let hand = STYLES.midnight.hand;
 export let texture: Texture = 'none';
+export let transition: Transition = 'fade';
 
 export const setStyle = (name?: string) => {
   const s = STYLES[name ?? 'midnight'] ?? STYLES.midnight;
   Object.assign(C, s.palette);
-  display = s.display; body = s.body; hand = s.hand; texture = s.texture;
+  display = s.display; body = s.body; hand = s.hand; texture = s.texture; transition = s.transition ?? 'fade';
 };
 
 export const W = 1920;
