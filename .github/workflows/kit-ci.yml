@@ -1,0 +1,51 @@
+# Kit CI: any change to the pipeline or the video kit must keep every gate firing and every scene rendering.
+# (Pattern from the Buh Simulates kit: catch kit regressions before an episode render spends voice quota.)
+name: kit-ci
+on:
+  push:
+    paths: ["pipeline/**", "video/src/**", "video/package*.json", "video/style-gallery.mjs", ".github/workflows/kit-ci.yml"]
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency: {group: "kit-ci-${{ github.ref }}", cancel-in-progress: true}
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: ffmpeg (time-boxed; a hung apt stalled jobs for 40+ min in the other kit)
+        run: |
+          for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq ffmpeg > /dev/null && break; sleep 10; done
+          command -v ffmpeg > /dev/null || { echo "ffmpeg missing"; exit 1; }
+      - run: timeout 600 pip install -q numpy soundfile pandas
+      - name: compile
+        run: python -m py_compile pipeline/*.py pipeline/kit/*.py pipeline/qa/*.py
+      - name: kit self-tests (gates fire on known-bad input, mux hits -14 LUFS / -1 dBFS)
+        run: python pipeline/kit/test_kit.py
+      - name: narration guard simulation and script lint on every episode
+        run: |
+          for ep in episodes/*/; do
+            [ -f "$ep/script.md" ] || continue
+            echo "== $ep"; python pipeline/script_lint.py "$ep/script.md" | tail -1
+            python pipeline/qa/test_voice_guards.py "$ep" 2>/dev/null
+          done
+  video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: "22", cache: npm, cache-dependency-path: video/package-lock.json}
+      - name: install + typecheck
+        working-directory: video
+        run: timeout 600 npm ci --no-audit --no-fund && npx tsc --noEmit
+      - name: render every scene type in every style (fails on any render error)
+        working-directory: video
+        run: |
+          ep=$(ls src/episodes/*.json | grep -v demo | head -1); slug=$(basename "$ep" .json)
+          node style-gallery.mjs "$ep" "../episodes/$slug/thumbnails/A_dot.json" out/kit-ci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: kit-ci-stills, path: video/out/kit-ci, retention-days: 7}

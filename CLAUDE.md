@@ -36,6 +36,10 @@ only state numbers that exist in facts.json, and data.json is generated from fac
 - `visual-audit`: contact sheets, scene lengths, audio levels, thumbnails.
 - `voice-render-run`: dispatching the CI render under the daily TTS quota, and verifying the film.
 
+## Production kit
+`docs/KIT.md`: the reusable parts (mux, gates, sound design, voice guards, styles, CI), the rules they enforce, and
+how to start another channel from them. `pipeline/kit/test_kit.py` and `.github/workflows/kit-ci.yml` keep it honest.
+
 ## Visual styles
 `video/src/theme.ts` holds the channel looks (`STYLES`: palette, display/body/hand fonts, texture overlay). An episode
 picks one with `"style"` in its spec (default `midnight`); thumbnails take a `style` prop. Scenes only read `C`,

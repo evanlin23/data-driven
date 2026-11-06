@@ -28,7 +28,7 @@ for (const style of styles) {
   const inputProps = {spec, style};
   const composition = await selectComposition({serveUrl, id: 'Episode', inputProps, browserExecutable});
   for (const [k, p] of picks.entries()) {
-    await renderStill({composition, serveUrl, inputProps, browserExecutable, chromiumOptions: {gl: 'angle'},
+    await renderStill({composition, serveUrl, inputProps, browserExecutable, chromiumOptions: browserExecutable ? {gl: 'angle'} : {},
       frame: p.f, output: path.join(dir, `${k}_${p.t}.png`), scale: 0.5});
   }
   const tprops = {...thumb, style};

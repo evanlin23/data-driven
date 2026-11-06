@@ -38,31 +38,9 @@ sil = re.findall(r"silence_start: ([\d.]+)[\s\S]*?silence_duration: ([\d.]+)",
 for s0, d in sil:
     if float(s0) < dur - 3: fails.append(f"silence {float(d):.1f}s at {float(s0):.0f}s")
 
-# pixel gate (as in the Buh Simulates kit): black frames, and 1-2 frame brightness flashes/dips (a frame that jumps
-# away from both neighbours and comes straight back reads as a glitch; real cuts change level and stay there)
-raw = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", film, "-vf", "scale=96:54,format=gray", "-f", "rawvideo", "-"],
-                     capture_output=True).stdout
-import numpy as np  # noqa: E402
-Y = np.frombuffer(raw, np.uint8).reshape(-1, 54, 96).astype(np.float32)
-fps_v = len(Y) / dur
-lum = Y.mean(axis=(1, 2))
-# blank = a uniform frame (nothing drawn). A fade-through-background cut is <= ~4 blank frames; longer runs mean a
-# gap between scenes, a missing scene or a black frame (in any style: Remotion renders full range).
-blank = Y.std(axis=(1, 2)) < 2
-run, start = 0, 0
-for i, bl in enumerate(list(blank) + [False]):
-    if bl:
-        start = i if run == 0 else start; run += 1
-    else:
-        if run > 6: fails.append(f"blank picture for {run} frames at {start / fps_v:.2f}s (gap or missing scene)")
-        run = 0
-for k in (1, 2):  # spike of width k frames
-    a, mid, b = lum[:-k - 1], np.array([lum[i + 1:i + 1 + k].mean() for i in range(len(lum) - k - 1)]), lum[k + 1:]
-    jump = np.minimum(np.abs(mid - a), np.abs(mid - b))
-    back = np.abs(a - b)
-    for i in np.where((jump > 25) & (back < 6))[0][:5]:
-        fails.append(f"{k}-frame flash/dip at {(i + 1) / fps_v:.2f}s (luma {a[i]:.0f} -> {mid[i]:.0f} -> {b[i]:.0f})")
-print(f"pixel gate: {len(Y)} frames checked")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+from kit.gates import pixel_gate  # noqa: E402
+fails += pixel_gate(film)
 
 # contact sheets: a frame every 3 s, 8x6 per sheet
 run("ffmpeg", "-loglevel", "error", "-i", film, "-vf",
