@@ -18,23 +18,31 @@ axes = {"xLabel": "players who liked it (adjusted % positive)", "yLabel": "Steam
 D = {}
 cloud = allg[allg.n >= 10].sample(2600, random_state=7)
 D["scatter_cloud"] = {**axes, "points": pts(cloud), "revealSeconds": 2.5}
-# hero's era: games whose store pages date from the same period (hero's page ~= its release, Dec 2016)
-era = allg[(allg.appid >= 450000) & (allg.appid <= 700000)].copy()
+# hero's era: games with nearly the same launch period (era rank +/- 0.02), and the model's own expectation curve there
+er = pd.read_csv("data/derived/era_rank.csv").set_index("appid").era_rank
+hero_er = float(er[hero["appid"]])
+era_ids = er[(er >= hero_er - 0.02) & (er <= hero_er + 0.02)].index
+era = allg[allg.appid.isin(era_ids)]
 era_pts = pts(era.sample(min(2000, len(era)), random_state=7))
-era["qb"] = pd.cut(era.q, np.linspace(0.55, 0.99, 14))
-trend = [{"x": round(float(iv.mid), 3), "y": int(g.expected_n.median())} for iv, g in era.groupby("qb", observed=True) if len(g) > 15]
+C = json.load(open("data/derived/model_curves.json"))
+key = f"{round(round(hero_er / C['era_rank_step']) * C['era_rank_step'], 3):.3f}"
+trend = [{"x": q, "y": v} for q, v in zip(C["q"], C["curves"][key]) if q >= 0.6]
 D["scatter_trend"] = {**axes, "points": era_pts, "revealSeconds": 0.6, "trend": trend, "trendAt": 0.8}
 hp = {"x": round(hero["liked_adj"], 4), "y": hero["reviews"]}
 D["scatter_hero"] = {**axes, "points": era_pts + [hp], "highlight": len(era_pts), "highlightAt": 1.2, "revealSeconds": 0.5,
                      "callout": f"{round(hero['liked_adj'] * 100)}% liked it. {hero['reviews']} reviews."}
 D["scatter_hero_trend"] = {**D["scatter_hero"], "trend": trend, "trendAt": 0.3, "highlightAt": 0.4,
-                           "callout": f"expected: {int(round(hero['expected'], -2)):,}"}
+                           "expected": hero["expected"], "expectedAt": 1.4,
+                           "callout": f"{hero['times_short']:.1f}x short"}
 for g in top + nxt:
     D[f"card_{g['appid']}"] = {"rank": g["rank"], "title": short(g["name"]), "image": img(g["appid"]), "year": int(g["release"][-4:]),
         "stats": [{"label": "Players who liked it", "value": round(g["liked_adj"], 3), "kind": "pct", "color": "good"},
                   {"label": "Model expected", "value": g["expected"], "color": "gold"},
                   {"label": "Steam reviews", "value": g["reviews"]},
                   {"label": "Times short", "value": g["times_short"], "kind": "x1", "color": "accent"}]}
+for g in top + nxt:
+    D[f"gap_{g['appid']}"] = {"title": short(g["name"]), "image": img(g["appid"]), "expected": g["expected"],
+                              "actual": g["reviews"], "timesShort": g["times_short"], "liked": round(g["liked_adj"], 3)}
 def board(reveal):
     return {"title": "Most underrated on Steam (since 2014)", "focusRank": reveal,
             "rows": [{"rank": g["rank"], "title": short(g["name"]), "image": img(g["appid"]), "value": f"{g['times_short']:.1f}x short",
@@ -55,10 +63,12 @@ for a, lab in [(415920, "November 2015"), (412670, "December 2015"), (251490, "J
     if byname.get(a, {}).get("collisions"): D[f"collision_{a}"] = collision(byname[a], lab)
 
 ro = json.load(open(f"data/raw/histograms/{hero['appid']}.json"))["results"]["rollups"]
-vals = [x["recommendations_up"] + x["recommendations_down"] for x in ro]
-yrs = [dt.date.fromtimestamp(x["date"]).year for x in ro]
-D["hero_history"] = {"title": f"{short(hero['name'])}: English reviews per month", "values": vals, "yMax": 30,
-                     "xTicks": [{"i": i, "t": str(y)} for i, y in enumerate(yrs) if i == 0 or y != yrs[i - 1]][::2],
+bym = {(dt.date.fromtimestamp(x["date"]).year, dt.date.fromtimestamp(x["date"]).month): x["recommendations_up"] + x["recommendations_down"] for x in ro}
+(y0, m0), (y1, m1) = min(bym), max(bym)
+months = [(y, m) for y in range(y0, y1 + 1) for m in range(1, 13) if (y, m) >= (y0, m0) and (y, m) <= (y1, m1)]
+vals = [bym.get(k, 0) for k in months]
+D["hero_history"] = {"title": f"{short(hero['name'])}: English-language reviews per month", "values": vals, "yMax": max(vals) * 1.15,
+                     "xTicks": [{"i": i, "t": str(y)} for i, (y, mo) in enumerate(months) if mo == 1][::2],
                      "drawSeconds": 3, "color": "gold", "mark": {"i": 0, "text": "launch"}}
 json.dump(D, open(f"{EP}/data.json", "w"))
 ids = sorted({g["appid"] for g in top + nxt} | {h["appid"] for g in top + nxt for h in g["collisions"]})
