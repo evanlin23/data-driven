@@ -35,19 +35,19 @@ trend = [{"x": q, "y": v} for q, v in zip(C["q"], C["curves"][key]) if q >= 0.6]
 D["scatter_trend"] = {**axes, "points": era_pts, "revealSeconds": 0.6, "trend": trend, "trendAt": 0.8}
 hp = {"x": round(hero["liked_adj"], 4), "y": hero["reviews"]}
 D["scatter_hero"] = {**axes, "points": era_pts + [hp], "highlight": len(era_pts), "highlightAt": 1.2, "revealSeconds": 0.5,
-                     "callout": f"{round(hero['liked_adj'] * 100)}% positive. {hero['reviews']} reviews."}
+                     "callout": f"{round(hero['liked_raw'] * 100)}% positive. {hero['reviews']} reviews."}
 D["scatter_hero_trend"] = {**D["scatter_hero"], "trend": trend, "trendAt": 0.3, "highlightAt": 0.4,
                            "expected": hero["expected"], "expectedAt": 1.4,
                            "callout": f"{hero['times_short']:.1f}x short"}
 for g in top + nxt:
     D[f"card_{g['appid']}"] = {"rank": g["rank"], "title": short(g["name"]), "image": img(g["appid"]), "year": int(g["release"][-4:]),
-        "stats": [{"label": "Positive reviews", "value": round(g["liked_adj"], 3), "kind": "pct", "color": "good"},
+        "stats": [{"label": "Positive reviews", "value": round(g["liked_raw"], 3), "kind": "pct", "color": "good"},
                   {"label": "Model expected", "value": g["expected"], "color": "gold"},
                   {"label": "Steam reviews", "value": g["reviews"]},
                   {"label": "Times short", "value": g["times_short"], "kind": "x1", "color": "accent"}]}
 for g in top + nxt:
     D[f"gap_{g['appid']}"] = {"title": short(g["name"]), "image": img(g["appid"]), "expected": g["expected"],
-                              "actual": g["reviews"], "timesShort": g["times_short"], "liked": round(g["liked_adj"], 3)}
+                              "actual": g["reviews"], "timesShort": g["times_short"], "liked": round(g["liked_raw"], 3)}
 def board(reveal):
     return {"title": "Most underrated on Steam (since 2014)", "focusRank": reveal,
             "rows": [{"rank": g["rank"], "title": short(g["name"]), "image": img(g["appid"]), "value": f"{g['times_short']:.1f}x short",

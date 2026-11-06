@@ -13,7 +13,7 @@ Every number in the script comes from `facts.json` (built by `pipeline/ep001_fac
 - Expected reviews = median review count of the 150 most similar other games (same rating, same launch window).
   The launch window uses the release date when known, otherwise the store-page age (appid).
 - Typical miss on a single game: 2.68x.
-- Stability: re-run with 7 settings (K = 100/150/300; rating and era scales halved/doubled). The same 7 games are in the
+- Stability: re-run with 7 settings (K = 100/150/300; rating scale 0.10/0.25 around 0.15; era scale halved/doubled). The same 7 games are in the
   top 10 every time. Final order = geometric mean of "times short" across the 7 runs (`robustness.json`).
   #1: Gravity Ghost in 4 of 7 settings, Escape Goat 2 in 3.
 
@@ -43,14 +43,18 @@ Every number in the script comes from `facts.json` (built by `pipeline/ep001_fac
 - Popular Steam games: random sample of games released 2014 or later with 300+ reviews (n=141). Not matched on rating
   or release year (the underrated group skews 2014-16 and higher-rated), so differences may partly reflect era.
 - Timing: launched within 7 days (Steam store dates) of one of Steam's 400 most-reviewed games, never itself: 72% vs 66%.
+  Restricted to 2014-16 launches: 63% (n=27) vs 64% (n=33), i.e. about the same. Roughly 60% of all days 2014-2026
+  fall within a week of one of those 400 games, so a nearby giant is the norm.
 - Genres: Casual 41% vs 25%; Strategy 16% vs 31%; Simulation 14% vs 34%; RPG 14% vs 30%.
 - Online PvP (Steam store category) 4.5% vs 23%. Price $20+ (current SteamSpy list price): 1 of 44 (2%) vs 22%.
-- Owners per review for the top 10: median 129 (SteamSpy owner-range midpoints).
+- Owners per review for the top 10: median 129 (shown as 130) (SteamSpy owner-range midpoints).
 - Displayed "expected" = reviews x consensus "times short" (geometric mean of the 7 runs). In the default run alone
   (K=150) Escape Goat 2 is #1 and Gravity Ghost #2; the video says the order is the average of all seven.
-- The 7-run stability check ranks the hand-verified Steam-first pool; in the default run no unverified game would
-  enter the top 10 (best 2.39x).
-- Ratings shown are the adjusted score (e.g. Gravity Ghost 96.3% adjusted; 96.7% of its reviews are positive).
+- The 7-run stability check ranks the hand-verified Steam-first pool (16 games). In the default run no unverified game
+  would enter the top 10 (best 2.39x); in other settings some unverified games would (e.g. Unium, Mr. Massagy,
+  Secret Sealing Travel), so the claim is about the checked finalists, as the video says.
+- Ratings shown and spoken are the real share of positive reviews (e.g. Gravity Ghost 96.7% -> 97%); the adjusted
+  (shrunk) score is used only for the model and the scatter's x axis (Gravity Ghost 96.3%).
 - Release dates are Steam store dates (e.g. Dying Light Jan 26, 2015 on Steam; Jan 27 in some regions).
 - Review-history chart: English-language reviews only (138 of Gravity Ghost's 302).
 

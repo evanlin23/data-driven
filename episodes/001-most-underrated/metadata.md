@@ -9,7 +9,7 @@
 
 ## Thumbnails (render with `npx remotion still src/index.ts Thumbnail` + props in thumbnails/*.json)
 - **A `dot` (PRIMARY, owner pick)**: scatter cloud, one red-circled dot, arrow, "ROBBED." No game art (never spoil #1).
-- B `number` (test variant): "302" huge + "REVIEWS. 96% LOVED IT." + the red dot.
+- B `number` (test variant): "302" huge + "REVIEWS. 97% LOVED IT." + the red dot.
 - C `versus` (test variant): "?" card vs Dying Light art, "SAME DAY." The mystery game is never shown.
 
 ## Description
