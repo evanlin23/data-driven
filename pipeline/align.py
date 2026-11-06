@@ -22,7 +22,7 @@ def transcribe_words(pcm_f32_16k):
     if _model[0] is None:
         from faster_whisper import WhisperModel
         _model[0] = WhisperModel("base.en", device="cpu", compute_type="int8")
-    segs, _ = _model[0].transcribe(pcm_f32_16k, beam_size=1, word_timestamps=True)
+    segs, _ = _model[0].transcribe(pcm_f32_16k, beam_size=1, word_timestamps=True, condition_on_previous_text=False)  # avoids Whisper repetition loops
     out = []
     for s in segs:
         for w in s.words or []:
@@ -69,3 +69,9 @@ def inserted_speech(lines, words, min_run=6):
             worst = gap_heard
         pa, pb = a + n, b + n
     return " ".join(worst)
+
+
+def novel_words(lines, text):
+    """Words in `text` that appear nowhere in the script lines (improvised content), ignoring numbers."""
+    vocab = {t for l in lines for t in _tok(l)}
+    return [w for w in text.split() if w not in vocab and _keep_heard(w)]

@@ -125,7 +125,7 @@ def say_script(lines, out_wav, gap=0.35, voice=None, synth_fn=None):
 
 def _say(lines, out_wav, gap, voice, synth_fn, model):
     import numpy as np
-    from align import transcribe_words, line_times, inserted_speech
+    from align import transcribe_words, line_times, inserted_speech, novel_words
     voice = voice or os.environ.get("GEMINI_TTS_VOICE", "Achird")  # owner's pick (with the structured prompt)
     clean = [re.sub(r"\s*\[pause(?: [\d.]+)?\]\s*", "... ", l).strip() for l in lines]
     synth_fn = synth_fn or (lambda text: np.frombuffer(synth(text, voice, model), np.int16).astype(np.float32) / 32768)
@@ -155,9 +155,16 @@ def _say(lines, out_wav, gap, voice, synth_fn, model):
         heard = transcribe_words(a16)
         spans, anchored = line_times(chunk_lines, heard, dur)
         ins = inserted_speech(chunk_lines, heard)
-        if ins:  # the model said something that isn't in the script (e.g. read a direction aloud)
-            os.remove(cpath) if os.path.exists(cpath) else None
-            raise SystemExit(f"narration contains speech that isn't in the script: \"{ins}\". Chunk discarded; re-run.")
+        if ins:
+            novel = novel_words(chunk_lines, ins)
+            spoken_wpm = len(text.split()) / (dur / 60)
+            if len(novel) >= 3:  # words that are nowhere in the script: improvised / directions read aloud
+                os.remove(cpath) if os.path.exists(cpath) else None
+                raise SystemExit(f"narration contains words that aren't in the script ({novel[:12]}): \"{ins[:300]}\". Chunk discarded; re-run.")
+            if spoken_wpm < 0.85 * TARGET_WPM:  # script words repeated AND the audio really is too long
+                os.remove(cpath) if os.path.exists(cpath) else None
+                raise SystemExit(f"narration repeats part of the script (pace {spoken_wpm:.0f} wpm): \"{ins[:300]}\". Chunk discarded; re-run.")
+            print(f"  note: transcript shows a repeat but pace is normal ({spoken_wpm:.0f} wpm): treating as a transcription glitch", file=sys.stderr)
         print(f"  chunk {len(timing) // 1}: {len(idx)} lines, {dur:.1f}s, anchored {anchored}/{len(idx)}", file=sys.stderr)
         if anchored < 0.7 * len(idx):  # long chunks can get cut off; never ship a video with missing narration
             os.remove(cpath) if os.path.exists(cpath) else None
