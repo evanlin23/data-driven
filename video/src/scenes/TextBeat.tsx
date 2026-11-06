@@ -18,6 +18,7 @@ export const TextBeat: React.FC<TextBeatProps> = ({text, sub, size = 96}) => {
   const total = lines.reduce((n, l) => n + l.length, 0);
   const per = Math.min(5, (1.2 * fps) / total);
   let k = 0;
+  let inHot = false; // *spans* may cover several words
   return (
     <AbsoluteFill style={{background: C.bg, alignItems: 'center', justifyContent: 'center', padding: 140, flexDirection: 'column'}}>
       <div style={{fontFamily: display, fontSize: size, color: C.text, textAlign: 'center', lineHeight: 1.12}}>
@@ -25,7 +26,11 @@ export const TextBeat: React.FC<TextBeatProps> = ({text, sub, size = 96}) => {
           <div key={li} style={{whiteSpace: 'nowrap'}}>
             {words.map((w, i) => {
               const j = k++;
-              const hot = w.startsWith('*') && w.replace(/[^*]/g, '').length >= 2;
+              const opens = w.startsWith('*');
+              const closes = /\*[^\w]*$/.test(w) && (!opens || w.length > 1 && w.replace(/[^*]/g, '').length >= 2);
+              const hot = inHot || opens;
+              if (opens && !closes) inHot = true;
+              if (closes) inHot = false;
               const a = ease(f, j * per, j * per + 8);
               return (
                 <span key={i} style={{opacity: a, color: hot ? C.accent : C.text, display: 'inline-block', transform: `translateY(${(1 - a) * 18}px)`}}>

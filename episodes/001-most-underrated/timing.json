@@ -200,143 +200,148 @@
   "end": 261.484
  },
  {
-  "text": "Strategy, RPGs and simulation games show up only about a third as often. My guess? Those genres have fans who go digging for new games.",
+  "text": "Strategy, RPGs and simulation games show up only about a third as often.",
   "start": 261.764,
-  "end": 270.191
+  "end": 266.585
+ },
+ {
+  "text": "My guess? Those genres have fans who go digging for new games.",
+  "start": 266.865,
+  "end": 270.385
  },
  {
   "text": "Almost all of them are single-player. But so are most Steam games. The real gap is online PvP.",
-  "start": 270.471,
-  "end": 276.337
+  "start": 270.665,
+  "end": 276.532
  },
  {
   "text": "Three percent of the underrated-looking games have it. Twenty-one percent of Steam games in general do.",
-  "start": 276.617,
-  "end": 282.143
+  "start": 276.812,
+  "end": 282.337
  },
  {
   "text": "My guess: multiplayer games spread because your friends drag you in. Nobody drags you into a puzzle game.",
-  "start": 282.423,
-  "end": 287.884
+  "start": 282.617,
+  "end": 288.079
  },
  {
   "text": "And they're rarely expensive. Only two percent cost twenty dollars or more. Among top-rated games that got the reviews they should have, it's seventeen percent.",
-  "start": 288.164,
-  "end": 296.633
+  "start": 288.359,
+  "end": 296.828
  },
  {
   "text": "I can't prove why from this data. My guess: cheap often means a tiny team with no marketing budget.",
-  "start": 296.913,
-  "end": 302.695
+  "start": 297.108,
+  "end": 302.889
  },
  {
   "text": "The top five. Number five. The Journey Down, Chapter Two. A point-and-click adventure, and seventy-eight on Metacritic.",
-  "start": 302.975,
-  "end": 309.631
+  "start": 303.169,
+  "end": 309.825
  },
  {
   "text": "Ninety-five percent positive. Games like it usually got about twenty-three hundred reviews. It has five hundred and thirty-seven. Four point three times short.",
-  "start": 309.911,
-  "end": 318.657
+  "start": 310.105,
+  "end": 318.852
  },
  {
   "text": "Number four. Wand Wars. According to its store page, you ride brooms, cast spells, and turn your enemies into chickens.",
-  "start": 318.937,
-  "end": 325.209
+  "start": 319.132,
+  "end": 325.404
  },
  {
   "text": "Ninety-six percent positive. About eleven hundred reviews expected. It has two hundred and eighteen. Five point two times short.",
-  "start": 325.489,
-  "end": 332.935
+  "start": 325.684,
+  "end": 333.129
  },
  {
   "text": "And yes, it's multiplayer. But couch multiplayer: your friends have to be in the room. No online PvP.",
-  "start": 333.215,
-  "end": 339.167
+  "start": 333.409,
+  "end": 339.361
  },
  {
   "text": "Number three. Voidspire Tactics, a turn-based tactics RPG where you build your own party.",
-  "start": 339.447,
-  "end": 344.823
+  "start": 339.641,
+  "end": 345.017
  },
  {
   "text": "Ninety-six percent positive. About fourteen hundred expected. Two hundred and sixty-eight reviews. Five point three times short.",
-  "start": 345.103,
-  "end": 352.569
+  "start": 345.297,
+  "end": 352.764
  },
  {
   "text": "It came out November 2nd, 2015. One week later, Fallout 4 launched. Bad luck? Sure. But remember, not the pattern.",
-  "start": 352.849,
-  "end": 360.38
+  "start": 353.044,
+  "end": 360.575
  },
  {
   "text": "Number two. Escape Goat 2. A puzzle platformer where you team up with a friendly mouse to get out of a dungeon.",
-  "start": 360.66,
-  "end": 366.527
+  "start": 360.855,
+  "end": 366.721
  },
  {
   "text": "Ninety-five percent positive. Almost twenty-nine hundred reviews expected. It has four hundred and forty-one. Six point five times short.",
-  "start": 366.807,
-  "end": 374.764
+  "start": 367.001,
+  "end": 374.959
  },
  {
   "text": "And honestly? Number one and number two are neck and neck. In three of my seven versions of the model, this was number one.",
-  "start": 375.044,
-  "end": 381.593
+  "start": 375.239,
+  "end": 381.788
  },
  {
   "text": "But in the other four, it was this. Remember the red dot? Ninety-six percent liked it. Three hundred and two reviews.",
-  "start": 381.873,
-  "end": 388.103
+  "start": 382.068,
+  "end": 388.297
  },
  {
   "text": "Games like it usually got about two thousand. That's six point six times short.",
-  "start": 388.383,
-  "end": 392.82
+  "start": 388.577,
+  "end": 393.015
  },
  {
   "text": "It's Gravity Ghost, by Ivy Games. You run, jump and glide from planet to planet using gravity, rescuing survivors across a shattered galaxy.",
-  "start": 393.1,
-  "end": 401.42
+  "start": 393.295,
+  "end": 401.615
  },
  {
   "text": "Critics gave it a seventy-five.",
-  "start": 401.7,
-  "end": 403.748
+  "start": 401.895,
+  "end": 403.943
  },
  {
   "text": "And here's the launch day I told you to hold onto. January 26th, 2015.",
-  "start": 404.028,
-  "end": 409.691
+  "start": 404.223,
+  "end": 409.885
  },
  {
   "text": "The same day as Dying Light. Dying Light has four hundred and fifty-seven thousand reviews.",
-  "start": 409.971,
-  "end": 415.24
+  "start": 410.165,
+  "end": 415.435
  },
  {
   "text": "I know, I just told you timing isn't the pattern. But Dying Light the same day, and Life is Strange three days later? That week couldn't have helped.",
-  "start": 415.52,
-  "end": 422.795
+  "start": 415.715,
+  "end": 422.989
  },
  {
   "text": "Here's every English-language review it's ever had, month by month. A small bump at launch, then a trickle that never quite stopped.",
-  "start": 423.075,
-  "end": 429.944
+  "start": 423.269,
+  "end": 430.139
  },
  {
   "text": "It should have had about two thousand reviews. It got three hundred and two.",
-  "start": 430.224,
-  "end": 434.149
+  "start": 430.419,
+  "end": 434.344
  },
  {
   "text": "That's the list. Your favourite hidden gem probably isn't on it. Tell me which game my model missed.",
-  "start": 434.429,
-  "end": 439.379
+  "start": 434.624,
+  "end": 439.573
  },
  {
   "text": "Next time I'm flipping the model around: the most overrated game on Steam. That one's going to start some fights.",
-  "start": 439.659,
-  "end": 445.76
+  "start": 439.853,
+  "end": 445.955
  }
 ]

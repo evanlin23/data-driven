@@ -11,17 +11,17 @@ hero = top[0]
 short = lambda n: n.split(" - ")[0].replace(": Farmageddon Party Edition", "").replace(": The Siren`s Call", "")
 
 def pts(df):
-    # Display-only jitter (+/-5% reviews, +/-0.3 pt rating): small integer review counts with shrunk ratings otherwise
+    # Display-only jitter (+/-12% reviews, +/-0.8 pt rating): small integer review counts with shrunk ratings otherwise
     # line up into visible curved streaks at the bottom of the chart. The hero dot is never jittered.
     r = np.random.default_rng(11)
-    jy = 10 ** r.uniform(-0.021, 0.021, len(df)); jx = r.uniform(-0.003, 0.003, len(df))
+    jy = 10 ** r.uniform(-0.05, 0.05, len(df)); jx = r.uniform(-0.008, 0.008, len(df))
     return [{"x": round(float(q + a), 4), "y": round(float(n * b), 1)} for q, n, a, b in zip(df.q, df.n, jx, jy)]
 axes = {"xLabel": "positive reviews (adjusted %)", "yLabel": "Steam reviews", "yLog": True,
         "xDomain": [0.35, 1.0], "yDomain": [10, 3000000],
         "xTicks": [{"v": v / 100, "t": f"{v}%"} for v in range(40, 101, 10)],
         "yTicks": [{"v": v, "t": t} for v, t in [(10, "10"), (100, "100"), (1000, "1K"), (10000, "10K"), (100000, "100K"), (1000000, "1M")]]}
 D = {}
-cloud = allg[allg.n >= 10].sample(2600, random_state=7)
+cloud = allg[allg.n >= 30].sample(2600, random_state=7)  # under ~30 reviews the shrunk ratings fall on visible arcs
 D["scatter_cloud"] = {**axes, "points": pts(cloud), "revealSeconds": 2.5}
 # hero's era: games with nearly the same launch period (era rank +/- 0.02), and the model's own expectation curve there
 er = pd.read_csv("data/derived/era_rank.csv").set_index("appid").era_rank
