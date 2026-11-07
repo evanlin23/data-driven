@@ -115,6 +115,8 @@ Seven in ten popular Steam games launched within a week of one of those hits. Mo
 
 @scene bigNumber {"value": 0.676, "kind": "pct", "label": "of the underrated-looking games did", "sub": "34 games from 2014 on with 200+ reviews, rated 93%+, two-thirds or less of expected reviews · one per studio · known earlier releases left out, 19 of 34 not release-checked · small sample, not matched on rating or year", "color": "accent"}
 Now the underrated-looking games: thirty-four top-rated games that got two-thirds or less of the reviews they should have. Two in three. About the same.
+
+@scene textBeat {"text": "bad timing is a good story|but it isn't *the pattern*", "size": 88}
 Bad timing makes a good story. But it isn't the pattern.
 
 @chapter What they have in common
@@ -198,6 +200,8 @@ Here are its English-language reviews, about half of all of them, month by month
 It should have had about two thousand reviews. It got three hundred and two.
 
 @chapter What did the model miss?
-@scene textBeat {"text": "Which game did my model *miss*?", "sub": "Next: the most OVERRATED game on Steam"}
+@scene textBeat {"text": "Which game did my model *miss*?"}
 That's the list. Your favourite hidden gem probably isn't on it. Tell me which game my model missed.
+
+@scene textBeat {"text": "Next: the most *overrated*|game on Steam", "size": 96}
 Next time I'm flipping the model around: the most overrated game on Steam. That one's going to start some fights.
