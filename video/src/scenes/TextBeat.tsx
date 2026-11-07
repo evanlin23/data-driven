@@ -10,7 +10,8 @@ export type TextBeatProps = {
   size?: number;
 };
 
-/** One line on screen, revealed word by word. Use sparingly: for the claim, the twist, the question. */
+/** One line on screen, revealed word by word, set left like a magazine pull quote under an accent rule
+ *  (a centered line on an empty frame reads as a slide). Use sparingly: for the claim, the twist, the question. */
 export const TextBeat: React.FC<TextBeatProps> = ({text, sub, size = 96}) => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -20,8 +21,9 @@ export const TextBeat: React.FC<TextBeatProps> = ({text, sub, size = 96}) => {
   let k = 0;
   let inHot = false; // *spans* may cover several words
   return (
-    <AbsoluteFill style={{background: C.bg, alignItems: 'center', justifyContent: 'center', padding: 140, flexDirection: 'column'}}>
-      <div style={{fontFamily: display, fontSize: size, color: C.text, textAlign: 'center', lineHeight: 1.12}}>
+    <AbsoluteFill style={{background: C.bg, justifyContent: 'center', padding: '0 200px', flexDirection: 'column'}}>
+      <div style={{width: 120 * ease(f, 0, 10), height: 10, background: C.accent, borderRadius: 5, marginBottom: 46}} />
+      <div style={{fontFamily: display, fontSize: size, color: C.text, textAlign: 'left', lineHeight: 1.1}}>
         {lines.map((words, li) => (
           <div key={li} style={{whiteSpace: 'nowrap'}}>
             {words.map((w, i) => {
@@ -41,7 +43,7 @@ export const TextBeat: React.FC<TextBeatProps> = ({text, sub, size = 96}) => {
           </div>
         ))}
       </div>
-      {sub && <div style={{fontFamily: body, fontSize: 40, color: C.sub, marginTop: 36, textAlign: 'center', opacity: ease(f, total * per + 6, total * per + 20)}}>{sub}</div>}
+      {sub && <div style={{fontFamily: body, fontSize: 38, color: C.sub, marginTop: 40, textAlign: 'left', maxWidth: 1300, opacity: ease(f, total * per + 6, total * per + 20)}}>{sub}</div>}
     </AbsoluteFill>
   );
 };
