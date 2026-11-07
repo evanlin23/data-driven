@@ -77,7 +77,9 @@ if look.get("sfx"):  # synthesized sound design mixed under the narration (ducke
     v, sr = _sf.read(wav, dtype="float32")
     if v.ndim > 1: v = v.mean(1)
     if sr != _sfx.SR: v = _np.interp(_np.arange(0, len(v), sr / _sfx.SR), _np.arange(len(v)), v).astype(_np.float32)
-    _sf.write(wav, _sfx.mix(v, _sfx.render(spec, len(v) / _sfx.SR)), _sfx.SR)
+    m = _sfx.mix(v, _sfx.render(spec, len(v) / _sfx.SR))
+    m = m * min(1.0, 0.5 / (float(_np.abs(m).max()) or 1.0))  # keep 6 dB headroom, never clip the 16-bit/float file
+    _sf.write(wav, m, _sfx.SR, subtype="FLOAT")
     print(f"sound design: {len(_sfx.events(spec))} events mixed under the narration")
 spec_path = os.path.join(ROOT, "video", "src", "episodes", f"{slug}.json"); os.makedirs(os.path.dirname(spec_path), exist_ok=True)
 json.dump(spec, open(spec_path, "w"), indent=1)

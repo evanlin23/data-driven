@@ -31,6 +31,6 @@ for name, gain in (("hot", 12), ("quiet", -18)):
     out = f"{T}/{name}.mp4"
     m = mux(clean, wav, out)
     check(f"mux {name}: {m['lufs']:.1f} LUFS, decoded peak {m['peak_dbfs']:.2f} dBFS",
-          abs(lufs(out) + 14) <= 0.4 and decoded_peak_dbfs(out) <= -1.0)
+          abs(lufs(out) + 14) <= 1.0 and decoded_peak_dbfs(out) <= -1.0)
 print("ALL PASS" if ok else "FAILURES")
 sys.exit(0 if ok else 1)

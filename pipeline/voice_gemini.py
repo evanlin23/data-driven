@@ -227,7 +227,10 @@ def _say(lines, out_wav, gap, voice, synth_fn, model):
         raise SystemExit(f"narration chunk(s) {failed} kept failing the checks and today's requests ran out. "
                          "Every chunk that passed is cached; re-run after the reset to voice only these.")
     import soundfile as sf
-    sf.write(out_wav, np.concatenate(parts), 24000)
+    out = np.concatenate(parts)
+    pk = float(np.abs(out).max()) or 1.0
+    if pk > 0.5: out = out * (0.5 / pk)  # 6 dB headroom: Gemini audio runs near full scale (CI take clipped 20 samples)
+    sf.write(out_wav, out, 24000, subtype="FLOAT")  # float: loudness is set later by kit.audio.mux
     return timing
 
 if __name__ == "__main__":

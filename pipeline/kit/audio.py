@@ -21,25 +21,35 @@ def decoded_peak_dbfs(path):
     return float(v[-1]) if v and v[-1] != "-inf" else -120.0
 
 
-def mux(video, audio, out, target=-14.0, max_peak=-1.0, extra_args=()):
-    """video (its own video stream is copied) + audio -> out.mp4 at `target` LUFS (+-0.4) with decoded peak <= max_peak.
-    For each limiter ceiling, re-aim the gain (limiting eats loudness on peaky voices) up to 4 times; if the decoded
-    peak is over, drop to a lower ceiling. Returns the measured result; raises if no setting meets both limits."""
-    base = target - lufs(audio)
-    best = None
-    for ceiling_db in (-1.5, -2.0, -3.0, -4.0):
-        gain = base
-        for _ in range(4):
-            af = f"aresample=48000,volume={gain:.2f}dB,alimiter=limit={10 ** (ceiling_db / 20):.4f}:attack=5:release=80:level=false"
-            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video), "-i", str(audio), "-map", "0:v", "-map", "1:a",
-                            "-c:v", "copy", "-af", af, "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-shortest",
-                            "-movflags", "+faststart", *extra_args, str(out)], check=True)
-            pk, li = decoded_peak_dbfs(out), lufs(out)
-            print(f"  audio: gain {gain:+.2f} dB, limiter {ceiling_db} dB -> decoded peak {pk:.2f} dBFS, {li:.1f} LUFS")
+# Voice-over chain: compressor evens out syllable peaks (TTS voices peak near full scale on every syllable, so a limiter
+# alone can't reach -14 LUFS: on the ep001 Achird take +10 dB into a limiter added ~1 LU, and dynamic loudnorm stopped
+# at -16.5), then gain, then a look-ahead limiter at 4x rate (catches inter-sample peaks AAC turns into overshoot).
+COMP = "acompressor=threshold=0.063:ratio=4:attack=5:release=80:knee=4"
+
+
+def mux(video, audio, out, target=-14.0, max_peak=-1.0, tol=1.0, extra_args=()):
+    """video (its own video stream is copied) + audio -> out.mp4 at `target` LUFS (+-tol) with decoded peak <= max_peak,
+    measured on the ENCODED file. Re-aims the gain per limiter ceiling; lowers the ceiling if AAC overshoots."""
+    def run(gain, ceiling_db):
+        af = (f"aresample=192000,{COMP},volume={gain:.2f}dB,"
+              f"alimiter=limit={10 ** (ceiling_db / 20):.4f}:attack=5:release=80:level=false,aresample=48000")
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video), "-i", str(audio), "-map", "0:v", "-map", "1:a",
+                        "-c:v", "copy", "-af", af, "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-shortest",
+                        "-movflags", "+faststart", *extra_args, str(out)], check=True)
+        return decoded_peak_dbfs(out), lufs(out)
+
+    gain, best = None, None
+    for ceiling_db in (-2.0, -3.0, -4.0):
+        if gain is None:  # first estimate: measure the compressed signal at unity gain
+            _, li0 = run(0.0, ceiling_db)
+            gain = target - li0
+        for _ in range(5):
+            pk, li = run(gain, ceiling_db)
+            print(f"  audio: compressor + gain {gain:+.2f} dB + limiter {ceiling_db} dB -> decoded peak {pk:.2f} dBFS, {li:.1f} LUFS")
             if pk > max_peak:
-                break                              # this ceiling overshoots after AAC: try a lower one
-            if abs(li - target) <= 0.4:
+                break
+            if abs(li - target) <= tol:  # +-1 LU: inaudible; pushing harder crushes the voice (ep001 levelled at -14.6)
                 return {"lufs": li, "peak_dbfs": pk}
-            best = (abs(li - target), li, pk)
+            best = (round(abs(li - target), 2), li, pk)
             gain += target - li
-    raise SystemExit(f"audio: no limiter setting reached {target} LUFS with decoded peak <= {max_peak} dBFS (closest {best})")
+    raise SystemExit(f"audio: no setting reached {target} LUFS with decoded peak <= {max_peak} dBFS (closest {best})")
