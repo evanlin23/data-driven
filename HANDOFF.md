@@ -38,7 +38,8 @@ chunk count; it's 7 for episode 1. **Never enable billing or add a fallback voic
 - **Look:** `look.json` = Blueprint style + sound design (owner approved). The scene layouts were reworked
   2026-11-07 (BigNumber, TextBeat, GapBars, CompareBars).
 - **Last delivered preview:** run 42357995853 (Achird, Blueprint, synthesized sfx, 9:32, voice at ~159 wpm).
-- **In flight:** run **42445296598** (started 04:04 UTC). It has CC0 sample sound effects, the voice evened out to
+- **In flight:** the latest `render` run on the branch (dispatched after the audio fix, ~05:00 UTC 2026-11-08; runs
+  42445296598 and 42447605132 failed in assemble on audio peaks, fixed by the spot-repair mux). It has CC0 sample sound effects, the voice evened out to
   172 wpm (owner said it was too slow) and two extra scene splits; expect about 8:50. **Your first task:** when it
   finishes, follow `voice-render-run`:
   1. Download the `film-001-most-underrated` artifact and the `voice-001-most-underrated` artifact.
