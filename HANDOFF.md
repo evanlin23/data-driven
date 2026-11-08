@@ -38,10 +38,11 @@ chunk count; it's 7 for episode 1. **Never enable billing or add a fallback voic
 - **Look:** `look.json` = Blueprint style + sound design (owner approved). The scene layouts were reworked
   2026-11-07 (BigNumber, TextBeat, GapBars, CompareBars).
 - **Last delivered preview:** run 42357995853 (Achird, Blueprint, synthesized sfx, 9:32, voice at ~159 wpm).
-- **In flight:** the latest `render` run on the branch (dispatched after the audio fix, ~05:00 UTC 2026-11-08; runs
-  42445296598 and 42447605132 failed in assemble on audio peaks, fixed by the spot-repair mux). It has CC0 sample sound effects, the voice evened out to
-  172 wpm (owner said it was too slow) and two extra scene splits; expect about 8:50. **Your first task:** when it
-  finishes, follow `voice-render-run`:
+- **Latest good render:** run **42449398593** (2026-11-08 05:10 UTC): 8:51, −15.3 LUFS, 171 wpm, CC0 sound effects,
+  Blueprint. Preview sent to the owner. Audit: 4 scenes hold 12.6–14.5 s (single long narration lines; splitting
+  them needs a re-voice); a 1.3 s pause at 0:19 after "Hold that thought" is Achird's own pause and is fine. Runs
+  42445296598, 42447605132 and 42449028073 failed in assemble (audio peaks, then a missing numpy install); both are
+  fixed. **For every future render**, follow `voice-render-run`:
   1. Download the `film-001-most-underrated` artifact and the `voice-001-most-underrated` artifact.
   2. Run `python3 pipeline/qa/audit_video.py <film> episodes/001-most-underrated <out>` against the **CI spec** from
      the voice artifact (copy it over `video/src/episodes/001-most-underrated.json` temporarily, then
