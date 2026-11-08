@@ -88,8 +88,10 @@ Not started. Use the `new-episode` skill.
   - Use `--gl=angle` locally; it's 3× faster than swangle.
 - **Audio:**
   - Gemini audio runs near full scale and once clipped. Narration is written as float with 6 dB headroom.
-  - `pipeline/kit/audio.py` mux: compressor → gain → 4× oversampled limiter, then the *decoded* file is measured. A
-    plain limiter or loudnorm couldn't reach −15 LUFS on this voice. The tolerance is ±1 LU.
+  - `pipeline/kit/audio.py` mux: compressor → gain → limiter at 48 kHz for loudness (target −15 ±1 LUFS), then
+    encode → decode → dip the gain for 20 ms at each sample AAC pushed over −1 dBFS → re-encode. Ceiling-tuning
+    approaches failed three CI renders (AAC overshoot varies by take). Oversampling to 192 kHz made overshoot worse.
+    Chunk edges are faded (hard edges caused +4 dB spikes).
 - **Data and claims:**
   - Comparison groups must obey the episode's own rules (re-releases, one per studio, a real shortfall threshold).
   - Ratio words must be literally true ("half" means ≤ 0.5×).
