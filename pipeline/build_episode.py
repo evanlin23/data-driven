@@ -81,6 +81,23 @@ if look.get("sfx"):  # synthesized sound design mixed under the narration (ducke
     m = m * min(1.0, 0.5 / (float(_np.abs(m).max()) or 1.0))  # keep 6 dB headroom, never clip the 16-bit/float file
     _sf.write(wav, m, _sfx.SR, subtype="FLOAT")
     print(f"sound design: {len(_sfx.events(spec))} events mixed under the narration")
+if look.get("music"):  # licensed bed (see pipeline/kit/music.py); file comes from the MUSIC_URL secret in CI
+    import glob as _glob
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from kit import music as _music
+    import numpy as _np, soundfile as _sf
+    found = sorted(_glob.glob(os.path.join(ROOT, "video", "public", "music", look["music"] + ".*")))
+    if not found:
+        sys.exit(f"look.json asks for music '{look['music']}' but video/public/music/{look['music']}.* is missing "
+                 "(CI: set the MUSIC_URL repo secret)")
+    wav = os.path.join(audio_dir, "narration.wav")
+    v, sr = _sf.read(wav, dtype="float32")
+    if v.ndim > 1: v = v.mean(1)
+    if sr != _music.SR: v = _np.interp(_np.arange(0, len(v), sr / _music.SR), _np.arange(len(v)), v).astype(_np.float32)
+    m = _music.bed(v, _music.load(found[0]), level_db=look.get("music_db", -20.0))
+    m = m * min(1.0, 0.5 / (float(_np.abs(m).max()) or 1.0))
+    _sf.write(wav, m, _music.SR, subtype="FLOAT")
+    print(f"music: {os.path.basename(found[0])} at {look.get('music_db', -20.0)} dB under the voice, ducked while speaking")
 spec_path = os.path.join(ROOT, "video", "src", "episodes", f"{slug}.json"); os.makedirs(os.path.dirname(spec_path), exist_ok=True)
 json.dump(spec, open(spec_path, "w"), indent=1)
 json.dump(timing, open(os.path.join(ep, "timing.json"), "w"), indent=1)

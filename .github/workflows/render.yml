@@ -48,7 +48,7 @@ jobs:
       - name: narrate (lint gate inside build_episode.py)
         if: steps.ep.outputs.episode != ''
         # model pinned: a newly listed TTS model would change the voice and miss every cached chunk
-        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}", GEMINI_TTS_VOICE: Achird, GEMINI_TTS_MODEL: gemini-3.8-flash-tts, VOICE_ENGINE: gemini}
+        env: {GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}", GEMINI_TTS_VOICE: Achird, GEMINI_TTS_MODEL: gemini-3.8-flash-tts, VOICE_ENGINE: gemini, MUSIC_URL: "${{ secrets.MUSIC_URL }}"}
         run: |
           # ffmpeg: pace correction (atempo) in voice_gemini.py; run 42221799895 died without it
           for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq ffmpeg > /dev/null && break; echo "apt attempt $i failed, retrying"; sleep 10; done
@@ -59,6 +59,8 @@ jobs:
           for f in kokoro-v1.0.onnx voices-v1.0.bin; do
             [ -s models/$f ] || curl -sSL -o models/$f https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/$f
           done
+          # licensed music bed (not in the public repo): private direct-download link in the MUSIC_URL secret
+          if [ -n "$MUSIC_URL" ]; then mkdir -p video/public/music && curl -fsSL --retry 3 -o video/public/music/bed.mp3 "$MUSIC_URL" && ls -la video/public/music; fi
           # simulate the narration guards on this script's real chunks before spending any daily TTS quota
           python pipeline/qa/test_voice_guards.py "episodes/${{ steps.ep.outputs.episode }}" 2>/dev/null
           python pipeline/build_episode.py "episodes/${{ steps.ep.outputs.episode }}"

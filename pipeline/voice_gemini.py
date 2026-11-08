@@ -92,7 +92,7 @@ def synth(text, voice, model):
 
 MAX_WPM = float(os.environ.get("NARRATION_MAX_WPM", "165"))
 MIN_WPM = float(os.environ.get("NARRATION_MIN_WPM", "125"))
-TARGET_WPM = float(os.environ.get("NARRATION_TARGET_WPM", "155"))
+TARGET_WPM = float(os.environ.get("NARRATION_TARGET_WPM", "172"))  # owner: 155-159 felt too slow (ep001)
 
 def _atempo(audio, factor):
     """Pitch-preserving tempo change via ffmpeg (factor < 1 = slower). float32 mono 24 kHz in/out."""
@@ -208,13 +208,14 @@ def _say(lines, out_wav, gap, voice, synth_fn, model):
         if audio is None: continue
         if fresh:
             os.makedirs(CACHE, exist_ok=True); np.save(cpath, audio)  # only chunks that passed every check are cached
-        # Pace (after the completeness checks): numbers are spelled out, so ~150-160 wpm sounds natural.
+        # Pace (after the completeness checks): every chunk is brought to TARGET_WPM (both directions, at most 12%), so
+        # chunks don't drift between rushed and dragging. Pitch-preserving time-stretch; the cache keeps the raw take.
         wpm = len(text.split()) / (len(audio) / 24000 / 60)
-        if wpm > MAX_WPM:
-            factor = max(0.88, TARGET_WPM / wpm)
+        factor = min(1.12, max(0.88, TARGET_WPM / wpm))
+        if abs(factor - 1) > 0.02:
             audio = _atempo(audio, factor)
             spans = [(s0 / factor, s1 / factor) for s0, s1 in spans]
-            print(f"  pace {wpm:.0f} wpm > {MAX_WPM:.0f}: slowed x{factor:.2f} -> {wpm * factor:.0f} wpm", file=sys.stderr)
+            print(f"  pace {wpm:.0f} wpm -> x{factor:.2f} -> {wpm * factor:.0f} wpm", file=sys.stderr)
         else:
             print(f"  pace {wpm:.0f} wpm (ok)", file=sys.stderr)
         dur = len(audio) / 24000

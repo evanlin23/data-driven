@@ -8,3 +8,4 @@ video/public/episodes/**/*.wav
 video/public/episodes/**/props.json
 .tts-cache/
 video/public/samples/
+video/public/music/

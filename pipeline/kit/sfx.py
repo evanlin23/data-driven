@@ -1,7 +1,7 @@
-"""Sound design synthesized from an episode spec (no samples, so nothing to license).
+"""Sound design from an episode spec, using CC0 samples in video/public/sfx (credits: video/public/sfx/CREDITS.md).
 
 Events, all quiet (a bed under the voice, never over it):
-  scene cut         -> soft paper slide (band-passed noise, ~0.22 s)
+  scene cut         -> page flip (rotating variants)
   number count-up   -> ticks that follow the count's easing (bigNumber, gapBars bars)
   stamp / callout   -> pencil scratch (gapBars "x short", scatter callout)
   highlight         -> pen tap (scatter red dot)
@@ -16,36 +16,42 @@ SR = 48000
 rng = np.random.default_rng(3)
 
 
-def _bandnoise(dur, lo, hi):
-    n = int(dur * SR)
-    spec = np.fft.rfft(rng.standard_normal(n))
-    fr = np.fft.rfftfreq(n, 1 / SR)
-    spec[(fr < lo) | (fr > hi)] = 0
-    x = np.fft.irfft(spec, n)
-    return x / (np.abs(x).max() + 1e-9)
+import glob, os
+SFX_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "video", "public", "sfx")
+_cache = {}
 
 
-def slide(dur=0.22):
-    x = _bandnoise(dur, 900, 5200)
-    t = np.linspace(0, 1, len(x))
-    return x * (np.sin(np.pi * t) ** 2) * 0.10
+def _sample(prefix, i, level):
+    """i-th variant (rotating) of video/public/sfx/<prefix>*.wav, scaled to `level` peak."""
+    if prefix not in _cache:
+        import soundfile as sf
+        files = sorted(glob.glob(os.path.join(SFX_DIR, f"{prefix}*.wav")))
+        if not files: raise SystemExit(f"sfx: no samples for '{prefix}' in {SFX_DIR}")
+        _cache[prefix] = []
+        for f in files:
+            x, sr = sf.read(f, dtype="float32")
+            if x.ndim > 1: x = x.mean(1)
+            if sr != SR: x = np.interp(np.arange(0, len(x), sr / SR), np.arange(len(x)), x).astype(np.float32)
+            _cache[prefix].append(x / (np.abs(x).max() + 1e-9))
+    v = _cache[prefix]
+    return v[i % len(v)] * level
 
 
-def tick(freq=2300):
-    t = np.arange(int(0.012 * SR)) / SR
-    return np.sin(2 * np.pi * freq * t) * np.exp(-t * 420) * 0.13
+_n = {"slide": 0, "tick": 0, "scratch": 0}
+def slide():
+    _n["slide"] += 1; return _sample("page_flip", _n["slide"], 0.09)
+
+
+def tick(freq=None):  # freq kept for call compatibility: the higher "actual" bar uses the second tick variant
+    return _sample("tick", 1 if (freq or 0) > 2400 else 0, 0.10)
 
 
 def tap():
-    t = np.arange(int(0.05 * SR)) / SR
-    return (np.sin(2 * np.pi * 180 * t) * np.exp(-t * 90) * 0.22 + _bandnoise(0.05, 2000, 6000) * np.exp(-t * 160) * 0.06)
+    return _sample("click", 0, 0.18)
 
 
-def scratch(dur=0.28):
-    x = _bandnoise(dur, 2500, 7000)
-    t = np.linspace(0, 1, len(x))
-    env = np.minimum(1, t * 12) * (1 - t) ** 1.5 * (0.6 + 0.4 * np.sin(2 * np.pi * 26 * t * dur))  # stroke wobble
-    return x * env * 0.07
+def scratch(dur=None):
+    _n["scratch"] += 1; return _sample("pencil_stroke", _n["scratch"], 0.12)
 
 
 def _ease_inout(u):  # remotion Easing.inOut(Easing.cubic)-like, for tick spacing
