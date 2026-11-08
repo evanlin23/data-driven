@@ -222,6 +222,9 @@ def _say(lines, out_wav, gap, voice, synth_fn, model):
         print(f"  chunk {ci} [{key}]: {len(idx)} lines, {dur:.1f}s, anchored {anchored}/{len(idx)}", file=sys.stderr)
         for i, (s0, s1) in zip(idx, spans):
             timing.append({"text": re.sub(r"\[pause[^\]]*\]", "", lines[i]).strip(), "start": round(t0 + s0, 3), "end": round(t0 + min(s1, dur), 3)})
+        # 5 ms fade-in / 15 ms fade-out: chunks ended on a hard edge, and AAC turned those steps into +4 dB overshoots
+        fi, fo = min(len(audio), 120), min(len(audio), 360)
+        audio = audio.copy(); audio[:fi] *= np.linspace(0, 1, fi); audio[-fo:] *= np.linspace(1, 0, fo)
         parts += [audio, np.zeros(int(24000 * gap), np.float32)]
         t0 += dur + gap
     if failed:

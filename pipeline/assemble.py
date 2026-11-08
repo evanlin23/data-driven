@@ -1,4 +1,4 @@
-"""Assemble a sharded render: concat silent video segments, mux the narration at -14 LUFS, decoded peak <= -1 dBFS.
+"""Assemble a sharded render: concat silent video segments, mux the narration at -15 LUFS (+-1), decoded peak <= -1 dBFS.
 Usage: assemble.py <segments_dir> <narration.wav> <out.mp4>
 Segments are named seg-<NNN>.mp4 and are concatenated in numeric order."""
 import glob, os, subprocess, sys
@@ -15,7 +15,7 @@ subprocess.run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-f", "con
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from kit.audio import mux  # noqa: E402
 
-# exact gain to -14 LUFS + look-ahead limiter; decoded peak verified <= -1 dBFS on the encoded file
+# compressor + gain + limiter to -15 LUFS (+-1); decoded peak verified <= -1 dBFS on the encoded file
 m = mux(video, wav, out)
 print(f"loudness {m['lufs']:.1f} LUFS, decoded peak {m['peak_dbfs']:.2f} dBFS")
 dur =subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out], capture_output=True, text=True).stdout.strip()

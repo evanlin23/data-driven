@@ -8,7 +8,7 @@ from a blank Remotion project. Lessons from our own episode 1 and from the Buh S
 
 | piece | where | generic? |
 |---|---|---|
-| Loudness-exact mux: −14 LUFS ±0.4, decoded peak ≤ −1 dBFS (resample → gain → limiter → measure decoded file) | `pipeline/kit/audio.py` | yes |
+| Voice-over mux: −15 LUFS ±1, decoded peak ≤ −1 dBFS (compressor → gain → limiter at 48 kHz → measure the decoded file) | `pipeline/kit/audio.py` | yes |
 | Pixel gate: blank runs, 1–2 frame flashes/dips | `pipeline/kit/gates.py` | yes |
 | Kit self-tests (each gate fires on a known-bad input) | `pipeline/kit/test_kit.py` | yes |
 | Synthesized sound design from the scene timeline (no licensing) | `pipeline/kit/sfx.py` | yes (event map per scene type) |

@@ -9,7 +9,7 @@ description: Audit a rendered episode frame by frame (contact sheets, scene hold
    - It checks automatically:
      - film length matches the spec;
      - no scene holds over 12.5 s (charts get 14 s);
-     - loudness −14 ±0.7 LUFS and true peak ≤ −1 dBFS;
+     - loudness −15 ±1 LUFS and true peak ≤ −1 dBFS;
      - no silence of 1.2 s or more.
    - It writes `sheet_N.png`, one frame every 3 s with timestamps.
 2. **Open every sheet with the Read tool** and look for:

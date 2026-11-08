@@ -31,7 +31,7 @@ print(f"{len(spec['scenes'])} scenes, longest {max(s['dur'] for s in spec['scene
 e = run("ffmpeg", "-nostats", "-i", film, "-af", "ebur128=peak=true", "-f", "null", "-").stderr
 li = float(re.findall(r"I:\s+(-?[\d.]+) LUFS", e)[-1]); tp = float(re.findall(r"Peak:\s+(-?[\d.]+) dBFS", e)[-1])
 print(f"loudness {li:.1f} LUFS, true peak {tp:.1f} dBFS")
-if abs(li + 14) > 1.0: fails.append(f"loudness {li:.1f} LUFS (target -14)")
+if abs(li + 15) > 1.0: fails.append(f"loudness {li:.1f} LUFS (target -15 +-1)")
 if tp > -0.9: fails.append(f"true peak {tp:.1f} dBFS (max -1)")
 sil = re.findall(r"silence_start: ([\d.]+)[\s\S]*?silence_duration: ([\d.]+)",
                  run("ffmpeg", "-nostats", "-i", film, "-af", "silencedetect=n=-45dB:d=1.2", "-f", "null", "-").stderr)

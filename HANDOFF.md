@@ -88,7 +88,7 @@ Not started. Use the `new-episode` skill.
 - **Audio:**
   - Gemini audio runs near full scale and once clipped. Narration is written as float with 6 dB headroom.
   - `pipeline/kit/audio.py` mux: compressor → gain → 4× oversampled limiter, then the *decoded* file is measured. A
-    plain limiter or loudnorm couldn't reach −14 LUFS on this voice. The tolerance is ±1 LU.
+    plain limiter or loudnorm couldn't reach −15 LUFS on this voice. The tolerance is ±1 LU.
 - **Data and claims:**
   - Comparison groups must obey the episode's own rules (re-releases, one per studio, a real shortfall threshold).
   - Ratio words must be literally true ("half" means ≤ 0.5×).

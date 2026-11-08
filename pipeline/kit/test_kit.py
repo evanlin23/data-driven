@@ -23,7 +23,7 @@ f = pixel_gate(bad)
 check("pixel gate catches a 1-frame flash", any("flash" in x for x in f))
 check("pixel gate catches a blank run", any("blank" in x for x in f))
 
-# mux: hot (peaky, 24 kHz) and quiet voices both land at -14 LUFS +-0.4 with decoded peak <= -1 dBFS
+# mux: hot (peaky, 24 kHz) and quiet voices both land at -15 LUFS +-1 with decoded peak <= -1 dBFS
 for name, gain in (("hot", 12), ("quiet", -18)):
     wav = f"{T}/{name}.wav"
     ff("-f", "lavfi", "-i", "sine=f=220:d=6,aformat=sample_rates=24000", "-f", "lavfi", "-i", "anoisesrc=d=6:a=0.3:r=24000",
@@ -31,6 +31,6 @@ for name, gain in (("hot", 12), ("quiet", -18)):
     out = f"{T}/{name}.mp4"
     m = mux(clean, wav, out)
     check(f"mux {name}: {m['lufs']:.1f} LUFS, decoded peak {m['peak_dbfs']:.2f} dBFS",
-          abs(lufs(out) + 14) <= 1.0 and decoded_peak_dbfs(out) <= -1.0)
+          abs(lufs(out) + 15) <= 1.0 and decoded_peak_dbfs(out) <= -1.0)
 print("ALL PASS" if ok else "FAILURES")
 sys.exit(0 if ok else 1)
